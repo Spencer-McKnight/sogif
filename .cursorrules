@@ -1,0 +1,306 @@
+# SOGIF Development Guidelines
+
+You are building **sogif.au** — the digital experience for Strategic Opportunities Growth & Income Fund, an Australian unlisted investment fund managing AUD 130M+ with a property-focused strategy.
+
+## Project Philosophy
+
+### The Two Keys
+
+1. **Bifurcated Experience**
+   - PROSPECT path: Compelling, trust-building, conversion-focused
+   - INVESTOR path: Insightful metrics, tools, portfolio transparency
+   - Never conflate these journeys; each has distinct needs
+
+2. **Multi-Faceted Trust Signalling**
+   - Trust is earned through visibility, not claimed through words
+   - Show property profiles, visualise data, introduce the team
+   - Every feature should answer: "Why should I trust SOGIF with my money?"
+
+---
+
+## Code Standards
+
+### TypeScript
+- Strict mode always (`strict: true`)
+- Explicit return types on all functions
+- No `any` types; use `unknown` with type guards if needed
+- Prefer interfaces over types for object shapes
+- Use discriminated unions for state management
+
+### React & Next.js
+- Server Components by default; Client Components only when necessary
+- Use `'use client'` directive sparingly and intentionally
+- Leverage Next.js App Router patterns (layouts, loading, error boundaries)
+- Implement Suspense boundaries for async data
+- Prefer server actions over API routes where appropriate
+
+### Component Architecture
+```typescript
+// ✅ Good: Typed, documented, server-first
+interface PropertyCardProps {
+  property: Property
+  variant?: 'compact' | 'detailed'
+}
+
+export function PropertyCard({ property, variant = 'compact' }: PropertyCardProps) {
+  // Implementation
+}
+
+// ❌ Bad: Untyped, client-side by default
+'use client'
+export default function PropertyCard(props) {
+  // Implementation
+}
+```
+
+### File Naming
+- Components: `PascalCase.tsx` (e.g., `PropertyCard.tsx`)
+- Utilities: `camelCase.ts` (e.g., `formatCurrency.ts`)
+- Types: `types.ts` or `[domain].types.ts`
+- Constants: `SCREAMING_SNAKE_CASE` within files
+
+---
+
+## Design System
+
+### Visual Identity
+- **Palette**: Sophisticated, financial trust aesthetic
+  - Primary: Deep navy/charcoal for authority
+  - Accent: Warm gold/amber for prosperity signalling
+  - Success: Muted green for positive returns
+  - Neutral: Warm greys for approachability
+- **Typography**: 
+  - Headlines: Distinctive serif for gravitas
+  - Body: Clean sans-serif for readability
+  - Data: Monospace for financial figures
+- **Spacing**: 4px base unit, consistent scale
+- **Radius**: Subtle rounding (4-8px), not playful
+
+### Motion Principles (Framer Motion)
+- **Purpose**: Motion serves comprehension, not decoration
+- **Finance Context**: Restrained, confident animations
+- **Entry**: Subtle fade + slight rise (opacity 0→1, y: 8→0)
+- **Charts**: Data should "build" to tell a story
+- **Transitions**: 200-300ms duration, ease-out curves
+- **Respect reduced motion**: Always check `prefers-reduced-motion`
+
+```typescript
+// Standard entrance animation
+const fadeUp = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3, ease: 'easeOut' }
+}
+```
+
+### Responsive Strategy
+- Mobile-first CSS with Tailwind
+- Breakpoints: `sm:640px`, `md:768px`, `lg:1024px`, `xl:1280px`
+- Touch targets: Minimum 44x44px
+- Data tables: Horizontal scroll or card transformation on mobile
+
+---
+
+## Content & Compliance
+
+### Language Rules
+- **Never guarantee returns**: "aims to deliver", "targets", "seeks"
+- **Past performance disclaimers**: Required alongside any historical data
+- **Risk acknowledgment**: Prominent, not hidden in footers
+- **Regulated terminology**: Use exact legal terms where required
+
+### Compliance Patterns
+```tsx
+// Always pair performance data with disclaimers
+<PerformanceChart data={returns} />
+<Disclaimer variant="past-performance" />
+
+// Risk warnings on investment CTAs
+<InvestButton />
+<RiskWarning level="high" />
+```
+
+### Microcopy Tone
+- Confident but not arrogant
+- Transparent but not overwhelming
+- Professional but not cold
+- Australian but not colloquial
+
+---
+
+## Data & CMS (DatoCMS)
+
+### Query Patterns
+```typescript
+// Use fragments for reusable field sets
+const PROPERTY_FIELDS = `
+  id
+  title
+  slug
+  location
+  acquisitionDate
+  currentValue
+  images {
+    responsiveImage(imgixParams: { auto: format, q: 80 }) {
+      ...responsiveImageFragment
+    }
+  }
+`
+
+// Implement ISR for semi-dynamic content
+export const revalidate = 3600 // 1 hour
+```
+
+### Content Modelling
+- Properties: Core asset display
+- Team Members: Board and key personnel
+- Performance Snapshots: Historical fund data
+- Documents: PDFs, reports (compliance-tagged)
+- FAQs: Structured compliance-safe answers
+
+---
+
+## Performance Budget
+
+### Targets (Core Web Vitals)
+- LCP < 2.5s (Largest Contentful Paint)
+- FID < 100ms (First Input Delay)  
+- CLS < 0.1 (Cumulative Layout Shift)
+- TTFB < 200ms (Time to First Byte)
+
+### Implementation
+- Images: Always use `next/image` with imgix
+- Fonts: Preload critical, subset where possible
+- JavaScript: Code-split aggressively
+- CSS: Tailwind purge in production
+- Third-party: Audit and lazy-load non-critical scripts
+
+```typescript
+// Lazy load heavy components
+const PerformanceChart = dynamic(
+  () => import('@/components/charts/PerformanceChart'),
+  { 
+    loading: () => <ChartSkeleton />,
+    ssr: false // Client-only for chart libraries
+  }
+)
+```
+
+---
+
+## Security Considerations
+
+### Authentication (Investor Portal)
+- Implement 2FA for all investor accounts
+- Session management with secure, httpOnly cookies
+- Rate limiting on authentication endpoints
+- Audit logging for all sensitive actions
+
+### Data Handling
+- No PII in client-side state or logs
+- Encrypt sensitive data at rest
+- HTTPS only, HSTS enabled
+- CSP headers configured strictly
+
+### API Security
+- Validate all inputs server-side
+- Use parameterized queries (no SQL injection)
+- Implement proper CORS policies
+- Rate limit all public endpoints
+
+---
+
+## Accessibility (WCAG 2.1 AA)
+
+### Requirements
+- Semantic HTML structure
+- ARIA labels where HTML semantics insufficient
+- Keyboard navigation for all interactive elements
+- Focus indicators visible and clear
+- Color contrast 4.5:1 minimum for text
+- Screen reader testing for critical flows
+
+### Financial Data Accessibility
+```tsx
+// Charts must have text alternatives
+<PerformanceChart data={data} />
+<VisuallyHidden>
+  <PerformanceTable data={data} /> {/* Screen reader accessible */}
+</VisuallyHidden>
+```
+
+---
+
+## Testing Strategy
+
+### Unit Tests
+- Utility functions: 100% coverage
+- Data transformations: Edge cases covered
+- Currency/date formatting: Locale-aware tests
+
+### Integration Tests
+- Authentication flows
+- Investment application process
+- Data fetching and display
+
+### E2E Tests (Critical Paths)
+- Prospect → Application submission
+- Investor login → Dashboard view
+- Document download flows
+
+---
+
+## Git & Deployment
+
+### Branch Strategy
+- `main`: Production-ready code
+- `develop`: Integration branch
+- `feature/*`: New features
+- `fix/*`: Bug fixes
+- `compliance/*`: Regulatory updates (require review)
+
+### Commit Messages
+```
+type(scope): description
+
+feat(properties): add property detail page
+fix(auth): resolve 2FA token expiry issue
+docs(readme): update deployment instructions
+compliance(disclaimers): update past performance wording
+```
+
+### Deployment
+- Preview deployments for all PRs
+- Production deploys from `main` only
+- Environment variables managed in Vercel
+- Compliance changes require stakeholder sign-off
+
+---
+
+## Quick Reference
+
+### Component Creation Checklist
+- [ ] TypeScript interfaces defined
+- [ ] Server Component unless interaction required
+- [ ] Responsive from mobile up
+- [ ] Accessible (semantic, keyboard, ARIA)
+- [ ] Motion respects `prefers-reduced-motion`
+- [ ] Loading state implemented
+- [ ] Error boundary consideration
+
+### Page Creation Checklist
+- [ ] Metadata configured (title, description, OG)
+- [ ] Structured data where applicable
+- [ ] Loading and error states
+- [ ] Mobile viewport tested
+- [ ] Performance budget verified
+- [ ] Compliance copy reviewed
+
+### Before PR Checklist
+- [ ] `npm run lint` passes
+- [ ] `npm run build` succeeds
+- [ ] No TypeScript errors
+- [ ] Lighthouse score > 90 (all categories)
+- [ ] Tested on mobile device/emulator
+- [ ] Compliance-sensitive changes flagged
+
