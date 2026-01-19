@@ -3,7 +3,7 @@ It requires a website that is industry-leading for its optimised concise sales f
 
 The task is a complete build and implementation of the Strategic Opportunities investment platform and funnel with modern design principles, enhanced user experience, and improved conversion optimization.
 
-### Color Palette
+### Color Palette. Use a color variables file.
 - **Primary Navy**: #0A2540 - Professional, trustworthy financial services
 - **Secondary Navy**: #1E3A5F - Depth and hierarchy
 - **Accent Cyan**: #00D9FF - Modern, energetic, attention-drawing
