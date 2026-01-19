@@ -4,14 +4,22 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Sogif',
-  description: 'Sogif',
+  title: 'SOGIF | Strategic Opportunities Growth Index Fund',
+  description: 'Access institutional-grade property investments with SOGIF. Build wealth through strategic property investment with consistent returns and a diversified portfolio.',
+  keywords: ['property investment', 'real estate fund', 'investment fund', 'property portfolio', 'Australian investment'],
+  authors: [{ name: 'SOGIF' }],
+  openGraph: {
+    title: 'SOGIF | Strategic Opportunities Growth Index Fund',
+    description: 'Access institutional-grade property investments with SOGIF. Build wealth through strategic property investment.',
+    type: 'website',
+    locale: 'en_AU',
+  },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#000000',
+  themeColor: '#0A2540',
 }
 
 export default function RootLayout({
@@ -20,8 +28,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className="antialiased">
         {children}
         <Analytics />
         <SpeedInsights />
