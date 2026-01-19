@@ -1,0 +1,36 @@
+Your Expertise: Founding website engineer, senior ux optimisation designer, digital strategist
+
+Case: Create an innovative digital experience with high visual fidelity and performant modern technologies.
+
+# High-level Scope (Approved)
+Content Management System
+Home Page
+Performance Page
+Content Pages
+Onboarding Flow Strategy
+Blog & Announcements Page
+DNS Changeover & Live Launch
+Register Interest Form
+SEO Retention
+
+Moving beyond the bounds of assumed scope is allowed when doing identifies with the website case.
+
+# Sogif Project Technologies
+
+| Technology | Version | Use Case |
+|------------|---------|----------|
+| Next.js | 15.1.0 | Full-stack React framework, App Router, SSR/SSG, routing |
+| React | 19.0.0 | UI component library and rendering |
+| TypeScript | 5.7.2 | Type safety and developer experience |
+| Tailwind CSS | 3.4.17 | Utility-first CSS styling framework |
+| DatoCMS | 7.2.4 | Headless CMS for content management |
+| GraphQL | 16.9.0 | API query language for DatoCMS integration |
+| graphql-request | 7.1.2 | Minimal GraphQL client for data fetching |
+| Framer Motion | 11.15.0 | Animation and motion library for UI |
+| Imgix | 3.8.0 | Image optimization and transformation |
+| next-seo | 6.6.0 | SEO metadata management |
+| next-sitemap | 4.2.3 | Automatic sitemap generation |
+| Vercel Analytics | 1.4.1 | Website analytics and user insights |
+| Vercel Speed Insights | 1.1.0 | Performance monitoring and Core Web Vitals |
+| ESLint | 9.18.0 | Code linting and quality enforcement |
+| PostCSS | 8.4.49 | CSS processing and transformation |
