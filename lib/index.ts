@@ -24,7 +24,24 @@ export type {
   FileField,
   SeoField,
   DatoCMSRecord,
+  DatoCMSUpload,
+  UploadsQueryResponse,
 } from './types/datocms'
+
+// Media Library Functions
+export {
+  getUploadsByFolder,
+  getAllUploads,
+  getImageUploads,
+  searchUploads,
+  getUploadsByTag,
+  formatMediaAsset,
+  getMediaSummary,
+  getMediaLibraryOverview,
+  generateMediaContextForAgent,
+  FOLDER_IDS,
+} from './media'
+export type { MediaAsset } from './media'
 
 // Contexts
 export { ConstantsProvider, useConstants, useConstantsSafe } from './contexts/ConstantsContext'

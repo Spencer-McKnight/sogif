@@ -117,3 +117,37 @@ export interface DatoCMSRecord {
   _status: 'draft' | 'published' | 'updated'
 }
 
+/**
+ * DatoCMS Upload/Media Asset
+ * Represents files in the Media Library
+ */
+export interface DatoCMSUpload {
+  id: string
+  filename: string
+  basename: string
+  url: string
+  mimeType: string
+  format: string
+  size: number
+  width: number | null
+  height: number | null
+  alt: string | null
+  title: string | null
+  customData: Record<string, unknown>
+  tags: string[]
+  /** AI-detected tags (if enabled in DatoCMS) */
+  smartTags: string[]
+  colors: Array<{ hex: string }>
+  blurhash: string | null
+}
+
+/**
+ * Response for uploads query
+ */
+export interface UploadsQueryResponse {
+  allUploads: DatoCMSUpload[]
+  _allUploadsMeta: {
+    count: number
+  }
+}
+

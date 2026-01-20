@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap --config next-sitemap.config.mjs"
+    "postbuild": "next-sitemap --config next-sitemap.config.mjs",
+    "media": "npx tsx scripts/explore-media.ts",
+    "media:properties": "npx tsx scripts/explore-media.ts --folder properties",
+    "media:people": "npx tsx scripts/explore-media.ts --folder people",
+    "media:all": "npx tsx scripts/explore-media.ts --all",
+    "media:folders": "npx tsx scripts/explore-media.ts --folders"
   },
   "dependencies": {
     "@imgix/js-core": "^3.8.0",
@@ -34,10 +39,12 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.23",
+    "dotenv": "^16.4.5",
     "eslint": "^9.18.0",
     "eslint-config-next": "^15.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }
