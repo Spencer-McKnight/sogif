@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { getConstants, constantsRevalidate, ConstantsProvider } from '@/lib'
+import { getConstants, ConstantsProvider } from '@/lib'
 import './globals.css'
 
 /**
  * ISR Revalidation Configuration
- * Constants are cached and revalidated periodically for optimal performance
+ * Constants are cached and revalidated every hour (3600 seconds)
  */
-export const revalidate = constantsRevalidate
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'SOGIF | Strategic Opportunities Growth & Income Fund',

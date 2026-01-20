@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: sogif.au
+
+# Sitemaps
+Sitemap: sogif.au/sitemap.xml
