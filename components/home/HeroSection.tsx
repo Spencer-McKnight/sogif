@@ -67,15 +67,12 @@ export function HeroSection() {
               transition={{ duration: 0.5 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             >
-              {heroContent.headline.split('. ').map((part, i) => (
-                <span key={i}>
-                  {i === 1 ? (
-                    <span className="text-sogif-cyan">{part}</span>
-                  ) : (
-                    <>{part}. </>
-                  )}
-                </span>
-              ))}
+              <span className="relative inline-block">
+                Strategic Growth
+                <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/20 rounded-full" />
+              </span>
+              {'. '}
+              <span className="text-sogif-cyan">Reliable Income.</span>
             </motion.h1>
 
             <motion.p
@@ -168,7 +165,7 @@ export function HeroSection() {
           className="flex flex-col items-center gap-2 text-white/40"
         >
           <span className="text-xs uppercase tracking-wider">Discover More</span>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-sogif-gold/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </motion.div>
