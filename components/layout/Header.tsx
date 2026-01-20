@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 
@@ -40,24 +41,24 @@ export function Header() {
       <Container>
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="relative group">
+          <Link href="/" className="relative group">
             <span className="text-2xl font-serif text-white tracking-tight">
               {NAV_CONTENT.logo}
             </span>
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {NAV_CONTENT.links.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 className="relative text-sm font-medium text-slate-300 hover:text-white transition-colors group"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -106,14 +107,14 @@ export function Header() {
         <Container className="py-6">
           <div className="flex flex-col gap-4">
             {NAV_CONTENT.links.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg font-medium text-slate-300 hover:text-white transition-colors py-2"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <div className="pt-4 border-t border-white/10">
               <Button className="w-full">

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 
@@ -74,6 +75,8 @@ function TeamMember({ member, index }: { member: typeof TEAM_CONTENT.members[0];
           {/* LinkedIn Link */}
           <a 
             href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             className="absolute bottom-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-navy-900 hover:bg-cyan-400 hover:text-navy-900 transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

@@ -42,3 +42,4 @@ Driving ideals:
 4. Do not be afraid to take risks to showcase your truest latent talents as an intelligent senior expert with bespoke ideas.
 5. CMS items will be created manually after the page has been generated; place interim variables at the top of each render function with a note to be replaced
 6. When an image is preferable, simply use an empty URL to be replaced with CMS content later.
+7. Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
