@@ -302,6 +302,34 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+
+            {/* Existing Investor Portal CTA */}
+            <a
+              href="https://portal.sogif.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-6 transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-sogif-success/20 rounded-lg flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sogif-success font-semibold mb-1">Existing Investor?</p>
+                  <p className="text-white/60 text-sm">View your personalised returns</p>
+                </div>
+              </div>
+              <svg
+                className="w-6 h-6 text-sogif-success group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </motion.div>
 
           {/* Chart Column */}
@@ -334,7 +362,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               </div>
             </div>
 
-            <div className="h-72">
+            <div className="h-96">
               <ChartContainer config={chartConfig} className="h-full w-full">
                 <ResponsiveContainer>
                   <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>

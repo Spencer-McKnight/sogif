@@ -24,8 +24,7 @@ const footerLinks = {
     { label: 'News', href: '/news' },
   ],
   investors: [
-    { label: 'Invest Online', href: '/invest' },
-    { label: 'Investor Portal', href: 'https://portal.sogif.au', external: true },
+    { label: 'Invest', href: '/invest' },
     { label: 'FAQs', href: '/investors#faqs' },
   ],
   legal: [
@@ -91,26 +90,33 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.investors.map((link) => (
                 <li key={link.href}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/70 hover:text-white transition-colors text-sm"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-white/70 hover:text-white transition-colors text-sm"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  <Link
+                    href={link.href}
+                    className="text-white/70 hover:text-white transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
+            
+            {/* Prominent Investor Portal CTA */}
+            <a
+              href="https://portal.sogif.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-4 flex items-center gap-2 bg-sogif-success/15 border border-sogif-success/30 hover:bg-sogif-success/25 rounded-lg px-3 py-2 transition-all"
+            >
+              <div className="w-6 h-6 bg-sogif-success/20 rounded flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <span className="text-sogif-success text-xs font-medium block">Existing Investor?</span>
+                <span className="text-white/80 text-xs">Login to Portal →</span>
+              </div>
+            </a>
           </div>
 
           {/* Contact */}
