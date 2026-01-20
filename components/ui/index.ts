@@ -8,6 +8,9 @@
 // DatoCMS Components
 export { DatoImage, ImagePlaceholder } from './DatoImage'
 
+// Brand
+export { Logo } from './Logo'
+
 // Shadcn Components - Card
 export { 
   Card, 
