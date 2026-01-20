@@ -61,6 +61,7 @@ Driving ideals:
 5. CMS items will be created manually after the page has been generated; place interim variables at the top of each render function with a note to be replaced
 6. When an image is preferable, simply use an empty URL to be replaced with CMS content later.
 7. Keep code comments minimal. Add key general implementation examples to README.md if necessary.
+8. Check shadcn for inputs, interactive elements before implementing bespoke. Use shadcn for data visualisation
 
 ## Color Palette. Use a color variables file.
 - **Primary Navy**: #0A2540 - Professional, trustworthy financial services
