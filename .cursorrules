@@ -35,6 +35,10 @@ Moving beyond the bounds of assumed scope is allowed when doing identifies with 
 | ESLint | 9.18.0 | Code linting and quality enforcement |
 | PostCSS | 8.4.49 | CSS processing and transformation |
 
+Next Best Practices:
+- Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
+- Use `<Image />` from 'next/image' in combination with datoCMS best practices for optimised images, do not use `<img>`
+
 Driving ideals:
 1. Use variable definition. Do not declare potentially CMSable values within html. If the CMS structure does not exist, store the variable in an appropriately accessible location.
 2. Write concise code that achieves visual uniqueness.
