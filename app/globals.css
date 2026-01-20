@@ -2,3 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* SOGIF Brand Colors converted to HSL */
+    /* Primary Navy: #0A2540 → hsl(210, 73%, 15%) */
+    /* Secondary Navy: #1E3A5F → hsl(211, 52%, 25%) */
+    /* Accent Cyan: #00D9FF → hsl(189, 100%, 50%) */
+    /* Accent Gold: #F5B942 → hsl(41, 90%, 61%) */
+    /* Success Green: #10B981 → hsl(160, 84%, 39%) */
+
+    --background: 0 0% 100%;
+    --foreground: 210 73% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 210 73% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 73% 15%;
+    
+    --primary: 210 73% 15%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 211 52% 25%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 15% 45%;
+    
+    --accent: 189 100% 50%;
+    --accent-foreground: 210 73% 15%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 189 100% 50%;
+    
+    /* Chart colors using brand palette */
+    --chart-1: 189 100% 50%;
+    --chart-2: 41 90% 61%;
+    --chart-3: 160 84% 39%;
+    --chart-4: 210 73% 15%;
+    --chart-5: 211 52% 25%;
+    
+    --radius: 0.5rem;
+
+    /* Extended SOGIF brand colors */
+    --sogif-navy: 210 73% 15%;
+    --sogif-navy-light: 211 52% 25%;
+    --sogif-cyan: 189 100% 50%;
+    --sogif-gold: 41 90% 61%;
+    --sogif-success: 160 84% 39%;
+  }
+
+  .dark {
+    --background: 210 73% 8%;
+    --foreground: 0 0% 98%;
+    
+    --card: 210 73% 12%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 210 73% 12%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 189 100% 50%;
+    --primary-foreground: 210 73% 15%;
+    
+    --secondary: 211 52% 25%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 210 40% 18%;
+    --muted-foreground: 210 15% 65%;
+    
+    --accent: 41 90% 61%;
+    --accent-foreground: 210 73% 15%;
+    
+    --destructive: 0 62% 35%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 189 100% 50%;
+    
+    --chart-1: 189 100% 55%;
+    --chart-2: 41 90% 65%;
+    --chart-3: 160 84% 45%;
+    --chart-4: 189 80% 40%;
+    --chart-5: 41 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
