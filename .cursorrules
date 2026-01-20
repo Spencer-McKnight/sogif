@@ -1,8 +1,8 @@
 Your Expertise: Founding website engineer, senior ux optimisation designer, digital strategist
 
-Case: Create an innovative digital experience with high visual fidelity and performant modern technologies. See /context.md for further details.
+Case: Create an innovative digital experience with high visual fidelity and performant modern technologies. See /README.md and /SOGIF_CONTEXT.md for further details.
 
-Technology: The core stack is Next, DatoCMS, TS, Tailwind, GraphQL
+Technology: The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
 
 # High-level Scope (Approved)
 Content Management System
@@ -42,11 +42,12 @@ Bespoke Content Managed Pages: Build bespoke componentry supplemented by blocks 
 - Home /
 - Peformance /performance
 - Properties /properties
-- Updates /updates
+- News /news
 Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and mock CMS data. Can be statically linked.
 - About /about
 - Disclosures /disclosures
 - Invest /invest
+- Investors /investors
 
 Next Best Practices:
 - Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
@@ -59,3 +60,20 @@ Driving ideals:
 4. Do not be afraid to take risks to showcase your truest latent talents as an intelligent senior expert with bespoke ideas.
 5. CMS items will be created manually after the page has been generated; place interim variables at the top of each render function with a note to be replaced
 6. When an image is preferable, simply use an empty URL to be replaced with CMS content later.
+
+## Color Palette. Use a color variables file.
+- **Primary Navy**: #0A2540 - Professional, trustworthy financial services
+- **Secondary Navy**: #1E3A5F - Depth and hierarchy
+- **Accent Cyan**: #00D9FF - Modern, energetic, attention-drawing
+- **Accent Gold** #F5B942 - Brings home success
+- **Success Green**: #10B981 - Positive reinforcement
+- **Neutral Grays**: For typography and backgrounds
+
+⚠️ **Important**: Ensure all content complies with:
+- Australian Securities and Investments Commission (ASIC) regulations
+- Australian Financial Services Licence (AFSL) requirements
+- Privacy Act compliance
+- Anti-money laundering (AML) regulations
+- Product Disclosure Statement (PDS) requirements
+
+Update placeholder legal text (ABN, AFSL numbers) with actual credentials.
