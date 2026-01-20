@@ -34,30 +34,6 @@ interface PerformanceStats {
  * Cumulative Return = Issue Price + All distributions to date
  */
 function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
-  // #region agent log
-  fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      location: 'PerformanceSnapshot.tsx:calculateChartData',
-      message: 'Input data inspection',
-      data: {
-        inputLength: data.length,
-        firstFewRedemptionPrices: data.slice(0, 5).map(d => ({
-          month: d.month,
-          redemptionPrice: d.redemptionPrice,
-          type: typeof d.redemptionPrice,
-          isNull: d.redemptionPrice === null,
-          isZero: d.redemptionPrice === 0
-        }))
-      },
-      timestamp: Date.now(),
-      sessionId: 'debug-session',
-      hypothesisId: 'H3-input-data'
-    })
-  }).catch(() => {})
-  // #endregion
-
   if (!data.length) return []
   
   // Data comes newest first, reverse to chronological order (oldest first)
@@ -69,28 +45,6 @@ function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
     cumulativeDistribution += item.distribution
     // Convert 0 or null to undefined - CMS stores 0 for missing prices, Recharts needs undefined to skip
     const redemptionValue = (item.redemptionPrice === 0 || item.redemptionPrice === null) ? undefined : item.redemptionPrice
-    
-    // #region agent log
-    if (item.redemptionPrice === null || item.redemptionPrice === 0) {
-      fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          location: 'PerformanceSnapshot.tsx:calculateChartData:map',
-          message: 'Null/zero redemption price found',
-          data: {
-            month: item.month,
-            originalValue: item.redemptionPrice,
-            convertedValue: redemptionValue,
-            convertedType: typeof redemptionValue
-          },
-          timestamp: Date.now(),
-          sessionId: 'debug-session',
-          hypothesisId: 'H3-null-conversion'
-        })
-      }).catch(() => {})
-    }
-    // #endregion
 
     return {
       month: item.month,
@@ -263,42 +217,6 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
   const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
 
-  // #region agent log
-  // Debug: Log raw performanceData and transformed chartData
-  useMemo(() => {
-    const debugPayload = {
-      location: 'PerformanceSnapshot.tsx:component',
-      message: 'Chart data inspection',
-      data: {
-        rawDataLength: performanceData.length,
-        rawFirst3: performanceData.slice(0, 3).map(d => ({ 
-          month: d.month, 
-          redemptionPrice: d.redemptionPrice,
-          redemptionPriceType: typeof d.redemptionPrice,
-          isNull: d.redemptionPrice === null,
-          isUndefined: d.redemptionPrice === undefined
-        })),
-        chartDataLength: chartData.length,
-        chartFirst5: chartData.slice(0, 5).map(d => ({
-          month: d.month,
-          redemptionPrice: d.redemptionPrice,
-          redemptionPriceType: typeof d.redemptionPrice,
-          isUndefined: d.redemptionPrice === undefined
-        })),
-        allRedemptionPrices: chartData.map(d => d.redemptionPrice)
-      },
-      timestamp: Date.now(),
-      sessionId: 'debug-session',
-      hypothesisId: 'H3-data-transform'
-    }
-    fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(debugPayload)
-    }).catch(() => {})
-  }, [performanceData, chartData])
-  // #endregion
-
   const performanceStats = [
     { 
       label: 'Latest Redemption Price', 
@@ -340,13 +258,13 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-5 gap-8 min-w-0">
           {/* Stats Column */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2 space-y-4"
+            className="lg:col-span-2 min-w-0 space-y-4"
           >
             {performanceStats.map((stat) => (
               <div
@@ -391,7 +309,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="lg:col-span-3 bg-white/5 border border-white/10 rounded-2xl p-6"
+            className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-6">
               <div>
