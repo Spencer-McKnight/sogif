@@ -1,5 +1,7 @@
 The Strategic Opportunities (Growth & Income) Fund ARSN 668 357 837 ("Fund") is an unlisted fund that seeks to generate growth and income returns by investing in a diversified portfolio of cash and money market instruments, bonds, strategic efficient assets and entrepreneurial inefficient investment opportunities.
 
+The fund is a pooled registered Australian managed investment fund. Your money is pooled with other investor’s money to form the capital of the Fund, with the objective of generating growth and income returns by investing in a diversified portfolio of cash and money market instruments, bonds, strategic efficient assets and entrepreneurial inefficient investment opportunities.
+
 Passive investment
 Quarterly income distributions (from 6/24)
 Long-term growth upside
@@ -117,5 +119,3 @@ Phone
 You can phone the Responsible Entity between the hours of 10:00 am to 4:00 pm (Melbourne time) on any business day.
 
 T: (03) 8592 0270
-
-
