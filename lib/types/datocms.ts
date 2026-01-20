@@ -6,6 +6,41 @@
  */
 
 /**
+ * Historical performance data row
+ * Represents monthly fund performance metrics
+ */
+export interface PerformanceDataRow {
+  /** Month identifier (e.g., "Nov-25") */
+  month: string
+  /** Price for new unit purchases */
+  issuePrice: number
+  /** Price for unit redemptions */
+  redemptionPrice: number
+  /** Net Tangible Asset value per unit */
+  ntaPerUnit: number
+  /** Distribution paid per unit */
+  distribution: number
+}
+
+/**
+ * DatoCMS file URL field
+ */
+export interface FileUrlField {
+  url: string
+}
+
+/**
+ * Raw constants response from DatoCMS GraphQL
+ */
+export interface ConstantsQueryData {
+  performanceDataAllTime: FileUrlField | null
+  productDisclosureStatement: FileUrlField | null
+  offlineApplicationUrl: string
+  onlineApplicationUrl: string
+  portalUrl: string
+}
+
+/**
  * Global site constants from DatoCMS
  * Contains URLs and configuration values used across the site
  */
@@ -18,15 +53,15 @@ export interface SiteConstants {
   pdsUrl: string
   /** URL to the investor portal */
   portalUrl: string
-  /** DatoCMS record ID */
-  id: string
+  /** Historical performance data parsed from CSV */
+  performanceData: PerformanceDataRow[]
 }
 
 /**
  * Response wrapper for the constants query
  */
 export interface ConstantsQueryResponse {
-  constant: SiteConstants
+  constant: ConstantsQueryData
 }
 
 /**
