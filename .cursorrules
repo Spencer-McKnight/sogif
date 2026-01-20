@@ -60,6 +60,7 @@ Driving ideals:
 4. Do not be afraid to take risks to showcase your truest latent talents as an intelligent senior expert with bespoke ideas.
 5. CMS items will be created manually after the page has been generated; place interim variables at the top of each render function with a note to be replaced
 6. When an image is preferable, simply use an empty URL to be replaced with CMS content later.
+7. Keep code comments minimal. Add key general implementation examples to README.md if necessary.
 
 ## Color Palette. Use a color variables file.
 - **Primary Navy**: #0A2540 - Professional, trustworthy financial services
