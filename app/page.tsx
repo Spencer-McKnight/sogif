@@ -8,8 +8,11 @@ import {
   TeamSection,
   RegisterInterestCTA,
 } from '@/components/home'
+import { getConstants } from '@/lib/queries/constants'
 
-export default function Home() {
+export default async function Home() {
+  const constants = await getConstants()
+
   return (
     <>
       <Header />
@@ -21,7 +24,7 @@ export default function Home() {
         <ValueProposition />
         
         {/* Performance: Data visualization and fund metrics */}
-        <PerformanceSnapshot />
+        <PerformanceSnapshot performanceData={constants.performanceData} />
         
         {/* Properties: Portfolio showcase for tangibility */}
         <PropertyShowcase />

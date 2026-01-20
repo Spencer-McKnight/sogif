@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import {
@@ -9,37 +9,133 @@ import {
   ChartTooltipContent,
 } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import type { PerformanceDataRow } from '@/lib/types/datocms'
 
-// TODO: Replace with CMS-managed performance data
-const performanceData = [
-  { month: 'Dec 23', nta: 0.9948, distribution: 0.0000 },
-  { month: 'Mar 24', nta: 0.9939, distribution: 0.0000 },
-  { month: 'Jun 24', nta: 0.9842, distribution: 0.0204 },
-  { month: 'Sep 24', nta: 0.9862, distribution: 0.0100 },
-  { month: 'Dec 24', nta: 0.9666, distribution: 0.0200 },
-  { month: 'Mar 25', nta: 0.9781, distribution: 0.0150 },
-  { month: 'Jun 25', nta: 0.9852, distribution: 0.0150 },
-  { month: 'Sep 25', nta: 0.9949, distribution: 0.0150 },
-  { month: 'Nov 25', nta: 0.9882, distribution: 0.0000 },
-]
+interface PerformanceSnapshotProps {
+  performanceData: PerformanceDataRow[]
+}
+
+interface ChartDataPoint {
+  month: string
+  issuePrice: number
+  redemptionPrice: number
+  cumulativeReturn: number
+  distribution: number
+  cumulativeDistribution: number
+}
+
+interface PerformanceStats {
+  latestRedemption: number
+  latestIssue: number
+  totalDistributions: number
+  distributions2024: number
+  cumulativeReturnPercent: number
+  annualizedReturn: number
+}
+
+/**
+ * Transforms raw DatoCMS data to include cumulative return calculation
+ * Cumulative Return = Issue Price + All distributions to date
+ */
+function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
+  if (!data.length) return []
+  
+  // Data comes newest first, reverse to chronological order (oldest first)
+  const chronological = [...data].reverse()
+  
+  let cumulativeDistribution = 0
+  
+  return chronological.map((item) => {
+    cumulativeDistribution += item.distribution
+    return {
+      month: item.month,
+      issuePrice: item.issuePrice,
+      redemptionPrice: item.redemptionPrice,
+      cumulativeReturn: Number((item.issuePrice + cumulativeDistribution).toFixed(4)),
+      distribution: item.distribution,
+      cumulativeDistribution: Number(cumulativeDistribution.toFixed(4)),
+    }
+  })
+}
+
+/**
+ * Calculate summary statistics from the performance data
+ */
+function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
+  if (!data.length) {
+    return {
+      latestRedemption: 0,
+      latestIssue: 0,
+      totalDistributions: 0,
+      distributions2024: 0,
+      cumulativeReturnPercent: 0,
+      annualizedReturn: 0,
+    }
+  }
+  
+  const latest = data[0] // Most recent (data is newest first)
+  const chronological = [...data].reverse()
+  
+  // Total distributions (all time)
+  const totalDistributions = data.reduce((sum, item) => sum + item.distribution, 0)
+  
+  // Distributions for 2024 only
+  const distributions2024 = data
+    .filter(item => item.month.includes('-24'))
+    .reduce((sum, item) => sum + item.distribution, 0)
+  
+  // Cumulative return percentage from inception
+  const inception = chronological[0]
+  const latestCumulativeReturn = latest.issuePrice + totalDistributions
+  const returnPercentage = ((latestCumulativeReturn - inception.issuePrice) / inception.issuePrice) * 100
+  
+  // Calculate approximate years since inception for annualized return
+  const monthCount = data.length
+  const years = monthCount / 12
+  const annualizedReturn = years > 0 ? returnPercentage / years : 0
+  
+  return {
+    latestRedemption: latest.redemptionPrice,
+    latestIssue: latest.issuePrice,
+    totalDistributions,
+    distributions2024,
+    cumulativeReturnPercent: returnPercentage,
+    annualizedReturn,
+  }
+}
 
 const chartConfig = {
-  nta: {
-    label: 'NTA Per Unit',
+  issuePrice: {
+    label: 'Issue Price',
     color: 'hsl(var(--sogif-cyan))',
+  },
+  redemptionPrice: {
+    label: 'Redemption Price',
+    color: 'hsl(var(--sogif-gold))',
+  },
+  cumulativeReturn: {
+    label: 'Cumulative Return',
+    color: 'hsl(var(--sogif-success))',
   },
 }
 
-// TODO: Replace with calculated values from performance data
-const performanceStats = [
-  { label: 'Latest NTA', value: '$0.9882', change: null },
-  { label: 'Total Distributions (2024)', value: '$0.0654', change: '+6.54%' },
-  { label: 'Cumulative Return*', value: '8.3%', change: 'p.a.' },
-]
-
-export function PerformanceSnapshot() {
+export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  
+  const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
+  const stats = useMemo(() => calculateStats(performanceData), [performanceData])
+
+  const performanceStats = [
+    { label: 'Latest Redemption Price', value: `$${stats.latestRedemption.toFixed(4)}`, change: null },
+    { label: 'Total Distributions (2024)', value: `$${stats.distributions2024.toFixed(4)}`, change: `+${(stats.distributions2024 * 100).toFixed(2)}%` },
+    { label: 'Cumulative Return*', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
+  ]
+
+  // Don't render if no data
+  if (!performanceData.length) {
+    return null
+  }
 
   return (
     <section className="py-24 bg-sogif-navy relative overflow-hidden" ref={ref}>
@@ -122,50 +218,106 @@ export function PerformanceSnapshot() {
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-white font-semibold">NTA Per Unit</h3>
-                <p className="text-white/60 text-sm">Net Tangible Assets over time</p>
-              </div>
-              <div className="flex items-center gap-4 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-sogif-cyan" />
-                  <span className="text-white/60">NTA</span>
-                </div>
+                <h3 className="text-white font-semibold">Fund Pricing & Returns</h3>
+                <p className="text-white/60 text-sm">Monthly performance since inception</p>
               </div>
             </div>
 
-            <div className="h-64">
+            {/* Legend */}
+            <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-sogif-gold" />
+                <span className="text-white/60">Redemption Price</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-sogif-cyan" />
+                <span className="text-white/60">Issue Price</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-sogif-success" />
+                <span className="text-white/60">Cumulative Return</span>
+              </div>
+            </div>
+
+            <div className="h-72">
               <ChartContainer config={chartConfig} className="h-full w-full">
                 <ResponsiveContainer>
-                  <AreaChart data={performanceData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <defs>
-                      <linearGradient id="ntaGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(189, 100%, 50%)" stopOpacity={0.3} />
+                      <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
+                      </linearGradient>
+                      <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(189, 100%, 50%)" stopOpacity={0.2} />
                         <stop offset="95%" stopColor="hsl(189, 100%, 50%)" stopOpacity={0} />
+                      </linearGradient>
+                      <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <XAxis
                       dataKey="month"
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 12 }}
+                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                      interval="preserveStartEnd"
+                      tickFormatter={(value) => {
+                        const [month, year] = value.split('-')
+                        return `${month.substring(0, 3)} '${year}`
+                      }}
                     />
                     <YAxis
-                      domain={[0.95, 1.02]}
+                      domain={[0.90, 1.15]}
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 12 }}
+                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
                       tickFormatter={(value) => `$${value.toFixed(2)}`}
                     />
                     <ChartTooltip
-                      content={<ChartTooltipContent />}
+                      content={
+                        <ChartTooltipContent
+                          formatter={(value, name) => {
+                            const labels: Record<string, string> = {
+                              redemptionPrice: 'Redemption',
+                              issuePrice: 'Issue',
+                              cumulativeReturn: 'Cumulative',
+                            }
+                            return (
+                              <span className="flex items-center gap-2">
+                                <span className="text-white/60">{labels[name as string] || name}:</span>
+                                <span className="font-semibold">${Number(value).toFixed(4)}</span>
+                              </span>
+                            )
+                          }}
+                        />
+                      }
                       cursor={{ stroke: 'rgba(255,255,255,0.1)' }}
                     />
+                    {/* Redemption Price - Gold (lowest, rendered first) */}
                     <Area
                       type="monotone"
-                      dataKey="nta"
+                      dataKey="redemptionPrice"
+                      stroke="hsl(41, 90%, 61%)"
+                      strokeWidth={2}
+                      fill="url(#redemptionGradient)"
+                    />
+                    {/* Issue Price - Cyan (middle) */}
+                    <Area
+                      type="monotone"
+                      dataKey="issuePrice"
                       stroke="hsl(189, 100%, 50%)"
                       strokeWidth={2}
-                      fill="url(#ntaGradient)"
+                      fill="url(#issueGradient)"
+                    />
+                    {/* Cumulative Return - Green (highest, rendered last) */}
+                    <Area
+                      type="monotone"
+                      dataKey="cumulativeReturn"
+                      stroke="hsl(160, 84%, 39%)"
+                      strokeWidth={2}
+                      fill="url(#cumulativeGradient)"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -173,7 +325,7 @@ export function PerformanceSnapshot() {
             </div>
 
             <p className="text-white/40 text-xs mt-4">
-              *Cumulative returns calculated since fund inception (Dec 2023). Past performance is not a reliable indicator of future performance.
+              *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
             </p>
           </motion.div>
         </div>
