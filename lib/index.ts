@@ -29,3 +29,12 @@ export type {
 // Contexts
 export { ConstantsProvider, useConstants, useConstantsSafe } from './contexts/ConstantsContext'
 
+// GraphQL Fragments
+export {
+  responsiveImageFragment,
+  minimalImageFragment,
+  fileFieldFragment,
+  fileWithResponsiveImageFragment,
+  imgixPresets,
+} from './fragments/image'
+
