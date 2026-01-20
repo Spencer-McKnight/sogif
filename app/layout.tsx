@@ -1,8 +1,21 @@
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { DM_Sans, Space_Grotesk } from 'next/font/google'
 import { getConstants, constantsRevalidate, ConstantsProvider } from '@/lib'
 import './globals.css'
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
 
 /**
  * ISR Revalidation Configuration
@@ -31,8 +44,8 @@ export default async function RootLayout({
   const constants = await getConstants()
 
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable}`}>
+      <body className="font-sans">
         <ConstantsProvider constants={constants}>
           {children}
         </ConstantsProvider>

@@ -1,8 +1,24 @@
+import { Header, Footer } from '@/app/components/layout'
+import { 
+  HeroSection, 
+  PerformanceSection, 
+  BenefitsSection, 
+  TeamSection, 
+  CTASection 
+} from '@/app/components/home'
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Welcome to Sogif</h1>
-    </main>
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <PerformanceSection />
+        <BenefitsSection />
+        <TeamSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   )
 }
-
