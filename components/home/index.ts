@@ -1,0 +1,7 @@
+export { HeroSection } from './HeroSection'
+export { ValueProposition } from './ValueProposition'
+export { PerformanceSnapshot } from './PerformanceSnapshot'
+export { PropertyShowcase } from './PropertyShowcase'
+export { HowItWorks } from './HowItWorks'
+export { TeamSection } from './TeamSection'
+export { RegisterInterestCTA } from './RegisterInterestCTA'
