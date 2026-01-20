@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 // TODO: Replace with CMS-managed content
 const heroContent = {
   headline: 'Strategic Growth. Reliable Income.',
-  subheadline: 'A diversified Australian managed fund delivering consistent quarterly returns through strategic property and asset investments.',
+  subheadline: 'A diversified Australian managed fund pursuing passive quarterly returns through strategic property and asset investments.',
   stats: [
     { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
     { value: '$130M+', label: 'Funds Under Management' },

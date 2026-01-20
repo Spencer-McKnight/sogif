@@ -258,24 +258,24 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8 min-w-0">
-          {/* Stats Column */}
+        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 min-w-0">
+          {/* Stats Column - appears second on mobile, first on desktop */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2 min-w-0 space-y-4"
+            className="lg:col-span-2 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1"
           >
             {performanceStats.map((stat) => (
               <div
                 key={stat.label}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
+                className="bg-white/5 border border-white/10 rounded-xl p-4 lg:p-6"
               >
-                <p className="text-white/60 text-sm mb-2">{stat.label}</p>
-                <div className="flex items-end gap-3">
-                  <span className="text-3xl font-bold text-white">{stat.value}</span>
+                <p className="text-white/60 text-xs lg:text-sm mb-1 lg:mb-2">{stat.label}</p>
+                <div className="flex items-end gap-2 lg:gap-3">
+                  <span className="text-2xl lg:text-3xl font-bold text-white">{stat.value}</span>
                   {stat.change && (
-                    <span className={`text-sm font-medium pb-1 ${
+                    <span className={`text-xs lg:text-sm font-medium pb-0.5 lg:pb-1 ${
                       stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/60'
                     }`}>
                       {stat.change}
@@ -287,14 +287,14 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
             <Link
               href="/performance"
-              className="group flex items-center justify-between bg-sogif-cyan/10 border border-sogif-cyan/30 hover:bg-sogif-cyan/20 rounded-xl p-6 transition-all"
+              className="group flex items-center justify-between bg-sogif-cyan/10 border border-sogif-cyan/30 hover:bg-sogif-cyan/20 rounded-xl p-4 lg:p-6 transition-all"
             >
               <div>
-                <p className="text-white font-semibold mb-1">View Full Performance</p>
-                <p className="text-white/60 text-sm">Monthly data, distributions & analysis</p>
+                <p className="text-white font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">View Full Performance</p>
+                <p className="text-white/60 text-xs lg:text-sm">Monthly data, distributions & analysis</p>
               </div>
               <svg
-                className="w-6 h-6 text-sogif-cyan group-hover:translate-x-1 transition-transform"
+                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-cyan group-hover:translate-x-1 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -308,21 +308,21 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               href="https://portal.sogif.au"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-6 transition-all"
+              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-4 lg:p-6 transition-all"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-sogif-success/20 rounded-lg flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-3 lg:gap-4">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-sogif-success/20 rounded-lg flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sogif-success font-semibold mb-1">Existing Investor?</p>
-                  <p className="text-white/60 text-sm">View your personalised returns</p>
+                  <p className="text-sogif-success font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">Existing Investor?</p>
+                  <p className="text-white/60 text-xs lg:text-sm">View your personalised returns</p>
                 </div>
               </div>
               <svg
-                className="w-6 h-6 text-sogif-success group-hover:translate-x-1 transition-transform"
+                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-success group-hover:translate-x-1 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -332,12 +332,12 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             </a>
           </motion.div>
 
-          {/* Chart Column */}
+          {/* Chart Column - appears first on mobile, second on desktop */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-6"
+            className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2"
           >
             <div className="flex items-center justify-between mb-6">
               <div>
