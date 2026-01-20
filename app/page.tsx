@@ -1,8 +1,25 @@
-export default function Home() {
+import {
+  Hero,
+  TrustStrip,
+  PropertyPortfolio,
+  Performance,
+  Team,
+  HowToInvest,
+  RegisterInterest,
+  FAQ,
+} from '@/components/home'
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Welcome to Sogif</h1>
+    <main>
+      <Hero />
+      <TrustStrip />
+      <PropertyPortfolio />
+      <Performance />
+      <Team />
+      <HowToInvest />
+      <RegisterInterest />
+      <FAQ />
     </main>
   )
 }
-

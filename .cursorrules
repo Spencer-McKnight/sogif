@@ -38,8 +38,16 @@ Moving beyond the bounds of assumed scope is allowed when doing identifies with 
 | PostCSS | 8.4.49 | CSS processing and transformation |
 
 # Website Structure
+Each page has a common header and footer.
 Bespoke Content Managed Pages: Build bespoke componentry supplemented by blocks and mock CMS data. Can be statically linked.
 - Home /
+    Hero
+    Property Portfolio
+    Team
+    Performance
+    How to Invest
+    Register Interest
+    FAQs
 - Peformance /performance
 - Properties /properties
 - News /news

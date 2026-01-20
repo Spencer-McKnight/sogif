@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getConstants, ConstantsProvider } from '@/lib'
+import { Header, Footer } from '@/components/layout'
 import './globals.css'
 
 /**
@@ -32,9 +33,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen flex flex-col">
         <ConstantsProvider constants={constants}>
-          {children}
+          <Header />
+          <div className="flex-1 pt-16">
+            {children}
+          </div>
+          <Footer />
         </ConstantsProvider>
         <Analytics />
         <SpeedInsights />
