@@ -70,14 +70,15 @@ export function TeamSection() {
               className="group text-center"
             >
               {/* Image */}
-              <div className="relative w-48 h-48 mx-auto mb-6 rounded-2xl overflow-hidden bg-gray-100">
-                <Image
-                  src={director.image}
-                  alt={director.name}
-                  fill
-                  className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-sogif-navy/0 group-hover:bg-sogif-navy/10 transition-colors" />
+              <div className="relative w-48 h-48 mx-auto mb-6">
+                <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100 ring-2 ring-transparent group-hover:ring-sogif-cyan/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-sogif-cyan/10">
+                  <Image
+                    src={director.image}
+                    alt={director.name}
+                    fill
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
               </div>
 
               {/* Info */}
