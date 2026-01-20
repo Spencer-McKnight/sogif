@@ -7,7 +7,7 @@ import { Container } from '@/components/ui/Container'
 const HERO_CONTENT = {
   eyebrow: 'Strategic Opportunities Growth Index Fund',
   headline: 'Build Wealth Through',
-  headlineAccent: 'Strategic Property',
+  headlineAccent: 'Strategic Opportunities',
   subheadline: 'Access institutional-grade property investments with as little as $10,000. Join sophisticated investors earning consistent returns.',
   primaryCta: 'Start Investing',
   secondaryCta: 'View Performance',

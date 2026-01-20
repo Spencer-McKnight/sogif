@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Button } from '@/components/ui/Button'
@@ -56,7 +57,13 @@ function PropertyCard({ property }: { property: typeof PORTFOLIO_CONTENT.propert
       {/* Image Container */}
       <div className="relative h-56 bg-gradient-to-br from-navy-800 to-navy-900 overflow-hidden">
         {property.image ? (
-          <img src={property.image} alt={property.name} className="w-full h-full object-cover" />
+          <Image 
+            src={property.image} 
+            alt={property.name} 
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             {/* Placeholder Pattern */}

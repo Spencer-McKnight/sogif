@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -57,7 +58,13 @@ function TeamMember({ member, index }: { member: typeof TEAM_CONTENT.members[0];
         {/* Image Container */}
         <div className="relative w-full aspect-[4/5] mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-navy-700 to-navy-900">
           {member.image ? (
-            <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+            <Image 
+              src={member.image} 
+              alt={member.name} 
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               {/* Abstract Avatar Pattern */}
