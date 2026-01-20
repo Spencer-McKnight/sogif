@@ -9,7 +9,7 @@ const heroContent = {
   headline: 'Strategic Growth. Reliable Income.',
   subheadline: 'A diversified Australian managed fund delivering consistent quarterly returns through strategic property and asset investments.',
   stats: [
-    { value: '8.3%', label: 'Historical Annual Return*', highlight: true },
+    { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
     { value: '$130M+', label: 'Funds Under Management' },
     { value: '$10,000', label: 'Minimum Investment' },
   ],
@@ -24,17 +24,17 @@ const fadeInUp = {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-sogif-navy">
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-sogif-navy">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
           src="https://www.datocms-assets.com/192130/1768821769-background.webp?w=1920&fit=max&auto=format"
           alt=""
           fill
-          className="object-cover opacity-20"
+          className="object-cover opacity-40"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy via-sogif-navy/95 to-sogif-navy/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy via-sogif-navy/80 to-sogif-navy/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy via-transparent to-transparent" />
       </div>
 
@@ -42,8 +42,8 @@ export function HeroSection() {
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-sogif-cyan/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-sogif-gold/10 rounded-full blur-3xl" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      {/* Content - flex-1 to fill available space, centered vertically */}
+      <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Text Content */}
           <motion.div
@@ -130,10 +130,10 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 ${
+                className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 backdrop-blur-sm ${
                   stat.highlight
-                    ? 'bg-gradient-to-br from-sogif-cyan/20 to-sogif-cyan/5 border border-sogif-cyan/30'
-                    : 'bg-white/5 border border-white/10'
+                    ? 'bg-gradient-to-br from-sogif-cyan/25 to-sogif-cyan/[0.07] border border-sogif-cyan/35'
+                    : 'bg-white/[0.07] border border-white/[0.12]'
                 }`}
               >
                 {stat.highlight && (
@@ -155,12 +155,12 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - in document flow, pushed to bottom by flex */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="relative z-10 flex justify-center pb-8"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
