@@ -8,11 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap --config next-sitemap.config.mjs",
-    "media": "npx tsx scripts/explore-media.ts",
-    "media:properties": "npx tsx scripts/explore-media.ts --folder properties",
-    "media:people": "npx tsx scripts/explore-media.ts --folder people",
-    "media:all": "npx tsx scripts/explore-media.ts --all",
-    "media:folders": "npx tsx scripts/explore-media.ts --folders"
+    "media": "npx tsx scripts/explore-media.ts"
   },
   "dependencies": {
     "@imgix/js-core": "^3.8.0",

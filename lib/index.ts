@@ -25,22 +25,10 @@ export type {
   SeoField,
   DatoCMSRecord,
   DatoCMSUpload,
-  UploadsQueryResponse,
 } from './types/datocms'
 
-// Media Library Functions
-export {
-  getUploadsByFolder,
-  getAllUploads,
-  getImageUploads,
-  searchUploads,
-  getUploadsByTag,
-  formatMediaAsset,
-  getMediaSummary,
-  getMediaLibraryOverview,
-  generateMediaContextForAgent,
-  FOLDER_IDS,
-} from './media'
+// Media Library
+export { getAllUploads, getImageUploads, searchUploads, formatAsset, getMediaContext } from './media'
 export type { MediaAsset } from './media'
 
 // Contexts
