@@ -2,7 +2,6 @@ SOGIF (Strategic Opportunities Growth & Income Fund) is an Australian-only fund 
 Build and implemente the SOGIF website and sales funnel with modern visual design principles, streamline user experience, and conversion optimization.
 
 # Key figures
-8.3% annual historical cumulative return*
 130M+ Invested
 10,000 Minimum first investment
 1,000 Minimum additional investment

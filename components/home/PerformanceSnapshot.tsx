@@ -3,12 +3,9 @@
 import { useRef, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui'
+import { ChartContainer, ChartTooltip } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import type { TooltipProps } from 'recharts'
 import type { PerformanceDataRow } from '@/lib/types/datocms'
 
 interface PerformanceSnapshotProps {
@@ -18,17 +15,16 @@ interface PerformanceSnapshotProps {
 interface ChartDataPoint {
   month: string
   issuePrice: number
-  redemptionPrice: number
+  redemptionPrice: number | undefined  // undefined before first property acquisition (Recharts skips undefined)
   cumulativeReturn: number
   distribution: number
   cumulativeDistribution: number
 }
 
 interface PerformanceStats {
-  latestRedemption: number
+  latestRedemption: number | null
   latestIssue: number
   totalDistributions: number
-  distributions2024: number
   cumulativeReturnPercent: number
   annualizedReturn: number
 }
@@ -38,6 +34,30 @@ interface PerformanceStats {
  * Cumulative Return = Issue Price + All distributions to date
  */
 function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      location: 'PerformanceSnapshot.tsx:calculateChartData',
+      message: 'Input data inspection',
+      data: {
+        inputLength: data.length,
+        firstFewRedemptionPrices: data.slice(0, 5).map(d => ({
+          month: d.month,
+          redemptionPrice: d.redemptionPrice,
+          type: typeof d.redemptionPrice,
+          isNull: d.redemptionPrice === null,
+          isZero: d.redemptionPrice === 0
+        }))
+      },
+      timestamp: Date.now(),
+      sessionId: 'debug-session',
+      hypothesisId: 'H3-input-data'
+    })
+  }).catch(() => {})
+  // #endregion
+
   if (!data.length) return []
   
   // Data comes newest first, reverse to chronological order (oldest first)
@@ -47,10 +67,36 @@ function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
   
   return chronological.map((item) => {
     cumulativeDistribution += item.distribution
+    // Convert 0 or null to undefined - CMS stores 0 for missing prices, Recharts needs undefined to skip
+    const redemptionValue = (item.redemptionPrice === 0 || item.redemptionPrice === null) ? undefined : item.redemptionPrice
+    
+    // #region agent log
+    if (item.redemptionPrice === null || item.redemptionPrice === 0) {
+      fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          location: 'PerformanceSnapshot.tsx:calculateChartData:map',
+          message: 'Null/zero redemption price found',
+          data: {
+            month: item.month,
+            originalValue: item.redemptionPrice,
+            convertedValue: redemptionValue,
+            convertedType: typeof redemptionValue
+          },
+          timestamp: Date.now(),
+          sessionId: 'debug-session',
+          hypothesisId: 'H3-null-conversion'
+        })
+      }).catch(() => {})
+    }
+    // #endregion
+
     return {
       month: item.month,
       issuePrice: item.issuePrice,
-      redemptionPrice: item.redemptionPrice,
+      // Convert null to undefined - Recharts skips undefined values entirely
+      redemptionPrice: redemptionValue,
       cumulativeReturn: Number((item.issuePrice + cumulativeDistribution).toFixed(4)),
       distribution: item.distribution,
       cumulativeDistribution: Number(cumulativeDistribution.toFixed(4)),
@@ -64,10 +110,9 @@ function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
 function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   if (!data.length) {
     return {
-      latestRedemption: 0,
+      latestRedemption: null,
       latestIssue: 0,
       totalDistributions: 0,
-      distributions2024: 0,
       cumulativeReturnPercent: 0,
       annualizedReturn: 0,
     }
@@ -78,11 +123,6 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   
   // Total distributions (all time)
   const totalDistributions = data.reduce((sum, item) => sum + item.distribution, 0)
-  
-  // Distributions for 2024 only
-  const distributions2024 = data
-    .filter(item => item.month.includes('-24'))
-    .reduce((sum, item) => sum + item.distribution, 0)
   
   // Cumulative return percentage from inception
   const inception = chronological[0]
@@ -98,7 +138,6 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
     latestRedemption: latest.redemptionPrice,
     latestIssue: latest.issuePrice,
     totalDistributions,
-    distributions2024,
     cumulativeReturnPercent: returnPercentage,
     annualizedReturn,
   }
@@ -119,6 +158,47 @@ const chartConfig = {
   },
 }
 
+const TOOLTIP_METRICS = [
+  { key: 'redemptionPrice', label: 'Redemption', color: 'hsl(41, 90%, 61%)' },
+  { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 50%)' },
+  { key: 'cumulativeReturn', label: 'Cumulative', color: 'hsl(160, 84%, 39%)' },
+] as const
+
+function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
+  if (!active || !payload?.length) return null
+
+  const data = payload[0]?.payload as ChartDataPoint | undefined
+  if (!data) return null
+
+  return (
+    <div className="rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
+      <p className="mb-2 text-sm font-medium text-white">{data.month}</p>
+      <div className="space-y-1.5">
+        {TOOLTIP_METRICS.map(({ key, label, color }) => {
+          const value = data[key]
+          // Skip redemption price if undefined or 0 (before property acquisition)
+          if (value === undefined || value === 0) return null
+          
+          return (
+            <div key={key} className="flex items-center justify-between gap-6">
+              <div className="flex items-center gap-2">
+                <div 
+                  className="h-2.5 w-2.5 rounded-full" 
+                  style={{ backgroundColor: color }}
+                />
+                <span className="text-xs text-white/60">{label}</span>
+              </div>
+              <span className="text-xs font-medium tabular-nums text-white">
+                ${value.toFixed(4)}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
@@ -126,9 +206,49 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
   const stats = useMemo(() => calculateStats(performanceData), [performanceData])
 
+  // #region agent log
+  // Debug: Log raw performanceData and transformed chartData
+  useMemo(() => {
+    const debugPayload = {
+      location: 'PerformanceSnapshot.tsx:component',
+      message: 'Chart data inspection',
+      data: {
+        rawDataLength: performanceData.length,
+        rawFirst3: performanceData.slice(0, 3).map(d => ({ 
+          month: d.month, 
+          redemptionPrice: d.redemptionPrice,
+          redemptionPriceType: typeof d.redemptionPrice,
+          isNull: d.redemptionPrice === null,
+          isUndefined: d.redemptionPrice === undefined
+        })),
+        chartDataLength: chartData.length,
+        chartFirst5: chartData.slice(0, 5).map(d => ({
+          month: d.month,
+          redemptionPrice: d.redemptionPrice,
+          redemptionPriceType: typeof d.redemptionPrice,
+          isUndefined: d.redemptionPrice === undefined
+        })),
+        allRedemptionPrices: chartData.map(d => d.redemptionPrice)
+      },
+      timestamp: Date.now(),
+      sessionId: 'debug-session',
+      hypothesisId: 'H3-data-transform'
+    }
+    fetch('http://127.0.0.1:7244/ingest/b397af8d-0424-4aac-86b3-e9c41cc4ac79', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(debugPayload)
+    }).catch(() => {})
+  }, [performanceData, chartData])
+  // #endregion
+
   const performanceStats = [
-    { label: 'Latest Redemption Price', value: `$${stats.latestRedemption.toFixed(4)}`, change: null },
-    { label: 'Total Distributions (2024)', value: `$${stats.distributions2024.toFixed(4)}`, change: `+${(stats.distributions2024 * 100).toFixed(2)}%` },
+    { 
+      label: 'Latest Redemption Price', 
+      value: (stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A', 
+      change: null 
+    },
+    { label: 'Total Distributions', value: `$${stats.totalDistributions.toFixed(4)}`, change: `+${(stats.totalDistributions * 100).toFixed(2)}%` },
     { label: 'Cumulative Return*', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
   ]
 
@@ -262,7 +382,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                       axisLine={false}
                       tickLine={false}
                       tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
-                      interval="preserveStartEnd"
+                      interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
                       tickFormatter={(value) => {
                         const [month, year] = value.split('-')
                         return `${month.substring(0, 3)} '${year}`
@@ -276,24 +396,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                       tickFormatter={(value) => `$${value.toFixed(2)}`}
                     />
                     <ChartTooltip
-                      content={
-                        <ChartTooltipContent
-                          formatter={(value, name) => {
-                            const labels: Record<string, string> = {
-                              redemptionPrice: 'Redemption',
-                              issuePrice: 'Issue',
-                              cumulativeReturn: 'Cumulative',
-                            }
-                            return (
-                              <span className="flex items-center gap-2">
-                                <span className="text-white/60">{labels[name as string] || name}:</span>
-                                <span className="font-semibold">${Number(value).toFixed(4)}</span>
-                              </span>
-                            )
-                          }}
-                        />
-                      }
-                      cursor={{ stroke: 'rgba(255,255,255,0.1)' }}
+                      content={<CustomTooltip />}
+                      cursor={{ stroke: 'rgba(255,255,255,0.2)' }}
                     />
                     {/* Redemption Price - Gold (lowest, rendered first) */}
                     <Area

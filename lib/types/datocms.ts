@@ -5,7 +5,7 @@
 export interface PerformanceDataRow {
   month: string
   issuePrice: number
-  redemptionPrice: number
+  redemptionPrice: number | null  // null before first property acquisition (Dec 2023)
   ntaPerUnit: number
   distribution: number
 }
