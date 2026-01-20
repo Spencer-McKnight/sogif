@@ -1,10 +1,10 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { ChartContainer, ChartTooltip } from '@/components/ui'
-import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
 import type { PerformanceDataRow } from '@/lib/types/datocms'
 
@@ -199,12 +199,69 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
   )
 }
 
+interface ChartIndicatorProps {
+  cx?: number
+  cy?: number
+  color: string
+  onHover?: (position: { x: number; y: number } | null) => void
+}
+
+function ChartIndicator({ cx, cy, color, onHover }: ChartIndicatorProps) {
+  if (cx === undefined || cy === undefined) return null
+
+  return (
+    <g 
+      className="cursor-pointer"
+      onMouseEnter={(e) => {
+        const svg = (e.target as SVGElement).ownerSVGElement
+        if (svg && onHover) {
+          const rect = svg.getBoundingClientRect()
+          onHover({ x: rect.left + cx, y: rect.top + cy })
+        }
+      }}
+      onMouseLeave={() => onHover?.(null)}
+    >
+      {/* Outer ring */}
+      <circle
+        cx={cx}
+        cy={cy}
+        r={7}
+        fill={color}
+        stroke="white"
+        strokeWidth={2}
+      />
+      {/* Inner dot */}
+      <circle
+        cx={cx}
+        cy={cy}
+        r={2.5}
+        fill="white"
+        className="pointer-events-none"
+      />
+    </g>
+  )
+}
+
 export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   
   const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
   const stats = useMemo(() => calculateStats(performanceData), [performanceData])
+  
+  // Find first data point with redemption price (start of the redemption line)
+  const firstRedemptionPoint = useMemo(() => {
+    return chartData.find(d => d.redemptionPrice !== undefined)
+  }, [chartData])
+  
+  // Find May 2024 - first quarterly distribution
+  const firstDistributionPoint = useMemo(() => {
+    return chartData.find(d => d.month === 'May-24')
+  }, [chartData])
+  
+  // State for indicator tooltips
+  const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
+  const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
 
   // #region agent log
   // Debug: Log raw performanceData and transformed chartData
@@ -423,6 +480,22 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                       strokeWidth={2}
                       fill="url(#cumulativeGradient)"
                     />
+                    {/* Indicator dot at start of redemption price line */}
+                    {firstRedemptionPoint && (
+                      <ReferenceDot
+                        x={firstRedemptionPoint.month}
+                        y={firstRedemptionPoint.redemptionPrice}
+                        shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
+                      />
+                    )}
+                    {/* Indicator dot at first distribution on cumulative return line */}
+                    {firstDistributionPoint && (
+                      <ReferenceDot
+                        x={firstDistributionPoint.month}
+                        y={firstDistributionPoint.cumulativeReturn}
+                        shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
+                      />
+                    )}
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartContainer>
@@ -434,6 +507,37 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </motion.div>
         </div>
       </div>
+
+      {/* Redemption start tooltip - rendered outside chart for proper z-index */}
+      {redemptionTooltip && (
+        <div
+          className="fixed z-[9999] pointer-events-none"
+          style={{
+            left: redemptionTooltip.x - 10,
+            top: redemptionTooltip.y - 90,
+          }}
+        >
+          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 text-xs text-white/90 shadow-2xl leading-relaxed max-w-[220px]">
+            No property was acquired until the minimum subscription was achieved. 
+            Accordingly, there was no redemption price prior to December 2023.
+          </div>
+        </div>
+      )}
+
+      {/* First distribution tooltip */}
+      {distributionTooltip && (
+        <div
+          className="fixed z-[9999] pointer-events-none"
+          style={{
+            left: distributionTooltip.x - 10,
+            top: distributionTooltip.y - 55,
+          }}
+        >
+          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 text-xs text-white/90 shadow-2xl leading-relaxed max-w-[200px]">
+            First quarterly distribution began here
+          </div>
+        </div>
+      )}
     </section>
   )
 }
