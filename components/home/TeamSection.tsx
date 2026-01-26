@@ -12,7 +12,7 @@ const directors = [
     name: 'Steve McKnight',
     role: 'Chair',
     credentials: 'B.Bus (Accounting), DipFS, CA',
-    bio: 'A recognised authority on property investment with hundreds of completed transactions. Co-founder of PropertyInvesting.com and author of "From 0 to 130 Properties in 3.5 Years" with 200,000+ copies sold.',
+    bio: 'A recognised authority on property investment helping Australians build wealth through positive cash flow property since 1999. CEO of PropertyInvesting.com and author of "From 0 to 130 Properties in 3.5 Years" with 200,000+ copies sold.',
     image: 'https://www.datocms-assets.com/192130/1768821769-steve-mcknight.webp?w=400&fit=max&auto=format',
   },
   {
@@ -20,7 +20,7 @@ const directors = [
     name: 'Paul Harper',
     role: 'Director',
     credentials: 'B.Bus (Accounting), MEI',
-    bio: '25+ years helping individuals build wealth. Responsible manager for a $600M managed fund. Previously chaired investment committee overseeing $500M+ in investor capital.',
+    bio: '25+ years helping individuals build wealth. A key success driver of the Passive Income (USA Commercial Property) Fund. Responsible manager for a $600M managed fund. Previously chaired investment committee overseeing $500M+ in investor capital.',
     image: 'https://www.datocms-assets.com/192130/1768821769-paul-harper.webp?w=400&fit=max&auto=format',
   },
   {
@@ -28,7 +28,7 @@ const directors = [
     name: 'Ewan MacDonald',
     role: 'Director',
     credentials: 'BA, DipLaw, DipPLT',
-    bio: 'Highly experienced financial services adviser specialising in listed and unlisted managed funds, AFSL compliance, and regulatory requirements.',
+    bio: 'Highly experienced financial services advise and consultant, specialising in listed and unlisted managed funds, AFSL compliance, and regulatory requirements. Member of PCL compliance committee, ensuring SOGIF\'s legal legitimacy.',
     image: 'https://www.datocms-assets.com/192130/1768871746-ewan-macdonald.webp?w=400&fit=max&auto=format',
   },
 ]

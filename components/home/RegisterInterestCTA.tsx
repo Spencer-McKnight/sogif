@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { useConstants } from '@/lib'
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
@@ -17,7 +16,6 @@ const ctaContent = {
 export function RegisterInterestCTA() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const constants = useConstants()
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -43,7 +41,7 @@ export function RegisterInterestCTA() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left Column - Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -78,35 +76,6 @@ export function RegisterInterestCTA() {
               </div>
             </div>
 
-            {/* Existing Investor Path */}
-            <div className="p-5 bg-sogif-success/10 border-2 border-sogif-success/40 rounded-xl relative overflow-hidden">
-              {/* Subtle glow effect */}
-              <div className="absolute -top-12 -right-12 w-32 h-32 bg-sogif-success/20 rounded-full blur-2xl" />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-sogif-success/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                  </div>
-                  <p className="text-sogif-success font-semibold text-sm">Already an investor?</p>
-                </div>
-                <a
-                  href={constants.portalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between w-full bg-sogif-success hover:bg-sogif-success/90 text-white font-semibold px-4 py-3 rounded-lg transition-all hover:shadow-lg hover:shadow-sogif-success/25"
-                >
-                  <span>Access Investor Portal</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-                <p className="text-white/50 text-xs mt-2">
-                  View your holdings, distributions & statements
-                </p>
-              </div>
-            </div>
           </motion.div>
 
           {/* Right Column - Form Card */}

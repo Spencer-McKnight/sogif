@@ -21,7 +21,7 @@ const valueProps = [
   {
     icon: 'diversified',
     title: 'Diversified Portfolio',
-    description: 'Spread across cash, bonds, strategic assets, and property investments to minimize concentrated risk.',
+    description: 'Spread across property investments, stock, cash, bonds and strategic assets to minimize concentrated risk.',
     highlight: 'Multi-asset allocation',
   },
   {

@@ -10,7 +10,7 @@ const heroContent = {
   subheadline: 'A diversified Australian managed fund pursuing passive quarterly returns through strategic property and asset investments.',
   stats: [
     { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
-    { value: '$130M+', label: 'Funds Under Management' },
+    { value: '$170M+', label: 'Funds Under Management' },
     { value: '$10,000', label: 'Minimum Investment' },
   ],
   ctaPrimary: { label: 'Start Investing', href: '/invest' },
