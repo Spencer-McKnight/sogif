@@ -132,17 +132,9 @@ export function RegisterInterestCTA() {
                 <p className="text-gray-600 text-sm mb-4">Ready to invest now?</p>
                 <Link
                   href="/invest"
-                  className="group flex items-center justify-between w-full bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-6 py-4 rounded-xl transition-all"
+                  className="flex w-full items-center justify-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
                 >
-                  <span>Start Investment Application</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                  Start Investment Application
                 </Link>
               </div>
 
