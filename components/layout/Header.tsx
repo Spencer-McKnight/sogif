@@ -69,7 +69,7 @@ export function Header() {
             </a>
             <Link
               href="/invest"
-              className="bg-sogif-gold hover:bg-sogif-gold/90 text-sogif-navy font-semibold px-5 py-2.5 rounded-lg transition-all hover:shadow-lg hover:shadow-sogif-gold/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+              className="bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-5 py-2.5 rounded-lg transition-all hover:shadow-lg hover:shadow-sogif-gold/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
             >
               Invest Now
             </Link>
@@ -147,7 +147,7 @@ export function Header() {
               <Link
                 href="/invest"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block mx-4 mt-4 bg-sogif-gold hover:bg-sogif-gold/90 text-sogif-navy font-semibold px-5 py-3 rounded-lg text-center transition-all"
+                className="block mx-4 mt-4 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-5 py-3 rounded-lg text-center transition-all"
               >
                 Invest Now
               </Link>

@@ -49,10 +49,10 @@ export function HowItWorks() {
           <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
             Investment Process
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
             Simple Steps to Start Investing
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
+          <p className="text-lg text-gray-800 leading-relaxed">
             Our streamlined process makes it easy to become a SOGIF investor. 
             Here&apos;s what to expect from application to your first distribution.
           </p>
@@ -82,7 +82,7 @@ export function HowItWorks() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-gray-700 mb-3 leading-relaxed">
+                  <p className="text-gray-800 mb-3 leading-relaxed">
                     {step.description}
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-sm text-sogif-cyan-dark font-medium">
@@ -116,7 +116,7 @@ export function HowItWorks() {
           <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
             <Link
               href="/invest"
-              className="inline-flex items-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-sogif-navy font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
+              className="inline-flex items-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
             >
               Start Your Application
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

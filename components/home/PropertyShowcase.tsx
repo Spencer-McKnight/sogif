@@ -34,9 +34,9 @@ const properties = [
 ]
 
 const statusColors = {
-  Active: 'bg-sogif-success/20 text-sogif-success',
-  Monitoring: 'bg-sogif-gold/20 text-sogif-gold',
-  Exited: 'bg-white/20 text-white/60',
+  Active: 'bg-sogif-success/50 text-white',
+  Monitoring: 'bg-sogif-gold/50 text-white',
+  Exited: 'bg-white/50 text-white',
 }
 
 export function PropertyShowcase() {
@@ -57,10 +57,10 @@ export function PropertyShowcase() {
             <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
               Portfolio Assets
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
               Our Property Investments
             </h2>
-            <p className="text-lg text-gray-700 max-w-2xl leading-relaxed">
+            <p className="text-lg text-gray-800 max-w-2xl leading-relaxed">
               SOGIF invests in strategic real estate opportunities across Australia, 
               focusing on properties with strong income potential and growth upside.
             </p>
@@ -134,10 +134,10 @@ export function PropertyShowcase() {
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 bg-sogif-navy/5 rounded-full px-6 py-3">
-            <svg className="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <span className="text-gray-900 font-medium">
+            <span className="text-cyan-dark font-medium">
               All investments independently valued and audited annually
             </span>
           </div>

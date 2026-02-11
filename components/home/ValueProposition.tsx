@@ -72,10 +72,10 @@ export function ValueProposition() {
           <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
             Why Choose SOGIF
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
             Your Pathway to Financial Growth
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
+          <p className="text-lg text-gray-800 leading-relaxed">
             SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, 
             managed by experienced professionals with a proven track record.
           </p>
@@ -100,7 +100,7 @@ export function ValueProposition() {
               <h3 className="text-xl font-bold text-gray-900 mb-3">
                 {prop.title}
               </h3>
-              <p className="text-gray-700 mb-4 leading-relaxed">
+              <p className="text-gray-800 mb-4 leading-relaxed">
                 {prop.description}
               </p>
 

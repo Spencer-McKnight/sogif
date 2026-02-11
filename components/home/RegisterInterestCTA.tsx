@@ -88,7 +88,7 @@ export function RegisterInterestCTA() {
               <h3 className="text-xl font-bold text-gray-900 mb-2">
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
               </h3>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-800 mb-6">
                 {isSubmitted 
                   ? "We'll be in touch soon with more information about investing in SOGIF."
                   : "Get our PDS and investment information pack delivered to your inbox."
