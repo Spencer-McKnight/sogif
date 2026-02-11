@@ -85,7 +85,7 @@ export const REVALIDATION_TIMES = {
   CONSTANTS: 3600, // 1 hour
   /** Performance data - updates periodically */
   PERFORMANCE: 300, // 5 minutes
-  /** News/blog content - moderate updates */
+  /** Updates/blog content - moderate updates */
   NEWS: 600, // 10 minutes
   /** Property listings - may update frequently */
   PROPERTIES: 300, // 5 minutes

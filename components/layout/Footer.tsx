@@ -21,9 +21,8 @@ const footerLinks = {
     { label: 'Performance', href: '/performance' },
     { label: 'Properties', href: '/properties' },
     { label: 'About', href: '/about' },
-    { label: 'News', href: '/news' },
+    { label: 'Updates', href: '/updates' },
     { label: 'Invest', href: '/invest' },
-    { label: 'FAQs', href: '/investors#faqs' },
   ],
   legal: [
     { label: 'Disclosures', href: '/disclosures' },

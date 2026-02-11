@@ -42,16 +42,15 @@ Bespoke Content Managed Pages: Build bespoke componentry supplemented by blocks 
 - Home /
 - Peformance /performance
 - Properties /properties
-- News /news
+- Updates /updates
 Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and mock CMS data. Can be statically linked.
 - About /about
 - Disclosures /disclosures
 - Invest /invest
-- Investors /investors
 
 Next Best Practices:
 - Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
-- Use `<Image />` from 'next/image' in combination with datoCMS best practices for optimised images, do not use `<img>`
+- Use `<Image />` from 'next/image' or `<DatoImage />` component in combination with datoCMS best practices for optimised images, do not use `<img>`
 
 Driving ideals:
 1. Use variable definition. Do not declare potentially CMSable values within html. If the CMS structure does not exist, store the variable in an appropriately accessible location.
@@ -62,6 +61,14 @@ Driving ideals:
 6. When an image is preferable, simply use an empty URL to be replaced with CMS content later.
 7. Keep code comments minimal. Add key general implementation examples to README.md if necessary.
 8. Check shadcn for inputs, interactive elements before implementing bespoke. Use shadcn for data visualisation
+
+## Accessibility
+Consider accessibility best practices such as:
+- HTML Attributes for page readers
+- Colour and text contrast
+- Button sizing
+- Text sizing
+- Responsiveness
 
 ## Color Palette. Use a color variables file.
 - **Primary Navy**: #0A2540 - Professional, trustworthy financial services

@@ -11,7 +11,7 @@ const navItems = [
   { label: 'Performance', href: '/performance' },
   { label: 'Properties', href: '/properties' },
   { label: 'About', href: '/about' },
-  { label: 'News', href: '/news' },
+  { label: 'Updates', href: '/updates' },
 ]
 
 export function Header() {
