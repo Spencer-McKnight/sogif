@@ -75,7 +75,7 @@ export function HowItWorks() {
                 {/* Step Card */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative z-10">
                   {/* Number Badge */}
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-dark font-bold rounded-xl mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-light font-bold rounded-xl mb-4">
                     {step.number}
                   </div>
 
