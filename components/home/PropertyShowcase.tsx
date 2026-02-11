@@ -34,9 +34,9 @@ const properties = [
 ]
 
 const statusColors = {
-  Active: 'bg-sogif-success/50 text-white',
-  Monitoring: 'bg-sogif-gold/50 text-white',
-  Exited: 'bg-white/50 text-white',
+  Active: 'bg-sogif-success/90 text-white',
+  Monitoring: 'bg-sogif-gold/90 text-white',
+  Exited: 'bg-white/90 text-white',
 }
 
 export function PropertyShowcase() {
