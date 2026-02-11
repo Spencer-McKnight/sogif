@@ -46,10 +46,10 @@ export function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-sogif-cyan font-semibold text-sm uppercase tracking-wider mb-3 block">
+          <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
             Investment Process
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Simple Steps to Start Investing
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
@@ -61,7 +61,7 @@ export function HowItWorks() {
         {/* Steps */}
         <div className="relative">
           {/* Connection Line - Desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-sogif-cyan/20 via-sogif-cyan to-sogif-cyan/20 -translate-y-1/2" />
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-sogif-cyan-dark/20 via-sogif-cyan-dark to-sogif-cyan-dark/20 -translate-y-1/2" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
@@ -75,17 +75,17 @@ export function HowItWorks() {
                 {/* Step Card */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative z-10">
                   {/* Number Badge */}
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan font-bold rounded-xl mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-dark font-bold rounded-xl mb-4">
                     {step.number}
                   </div>
 
-                  <h3 className="text-xl font-bold text-sogif-navy mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {step.title}
                   </h3>
                   <p className="text-gray-600 mb-3 leading-relaxed">
                     {step.description}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm text-sogif-cyan font-medium">
+                  <span className="inline-flex items-center gap-1.5 text-sm text-sogif-cyan-dark font-medium">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
@@ -96,7 +96,7 @@ export function HowItWorks() {
                 {/* Arrow - Mobile/Tablet */}
                 {index < steps.length - 1 && (
                   <div className="lg:hidden flex justify-center my-4">
-                    <svg className="w-6 h-6 text-sogif-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-sogif-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
                   </div>
@@ -126,7 +126,7 @@ export function HowItWorks() {
             <span className="text-gray-500 text-sm">or</span>
             <Link
               href="#register"
-              className="text-sogif-navy hover:text-sogif-cyan font-medium transition-colors"
+              className="text-gray-900 hover:text-sogif-cyan-dark font-medium transition-colors"
             >
               Request more information first
             </Link>

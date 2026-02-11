@@ -39,7 +39,7 @@ export function HeroSection() {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-sogif-cyan/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-sogif-cyan-light/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-sogif-gold/10 rounded-full blur-3xl" />
 
       {/* Content - flex-1 to fill available space, centered vertically */}
@@ -54,10 +54,10 @@ export function HeroSection() {
             <motion.div
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-sogif-cyan/10 border border-sogif-cyan/30 rounded-full px-4 py-1.5 mb-6"
+              className="inline-flex items-center gap-2 bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 rounded-full px-4 py-1.5 mb-6"
             >
               <span className="w-2 h-2 bg-sogif-success rounded-full animate-pulse" />
-              <span className="text-sogif-cyan text-sm font-medium">
+              <span className="text-sogif-cyan-light text-sm font-medium">
                 Now accepting new investors
               </span>
             </motion.div>
@@ -72,13 +72,13 @@ export function HeroSection() {
                 <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/20 rounded-full" />
               </span>
               {'. '}
-              <span className="text-sogif-cyan">Reliable Income.</span>
+              <span className="text-sogif-cyan-light">Reliable Income.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-lg sm:text-xl text-white/70 mb-8 max-w-xl leading-relaxed"
+              className="text-lg sm:text-xl text-white/90 mb-8 max-w-xl leading-relaxed"
             >
               {heroContent.subheadline}
             </motion.p>
@@ -99,7 +99,7 @@ export function HeroSection() {
               </Link>
               <Link
                 href={heroContent.ctaSecondary.href}
-                className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 hover:border-white/60 hover:bg-white/5 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+                className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 hover:border-white/60 hover:bg-white/5 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-light focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
               >
                 {heroContent.ctaSecondary.label}
               </Link>
@@ -108,7 +108,7 @@ export function HeroSection() {
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-white/40 text-xs"
+              className="text-white/70 text-xs"
             >
               *Past performance is not a reliable indicator of future performance
             </motion.p>
@@ -129,23 +129,23 @@ export function HeroSection() {
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 backdrop-blur-sm ${
                   stat.highlight
-                    ? 'bg-gradient-to-br from-sogif-cyan/25 to-sogif-cyan/[0.07] border border-sogif-cyan/35'
+                    ? 'bg-gradient-to-br from-sogif-cyan-light/25 to-sogif-cyan-light/[0.07] border border-sogif-cyan-light/35'
                     : 'bg-white/[0.07] border border-white/[0.12]'
                 }`}
               >
                 {stat.highlight && (
-                  <div className="absolute top-0 right-0 bg-sogif-cyan text-sogif-navy text-xs font-bold px-3 py-1 rounded-bl-lg">
+                  <div className="absolute top-0 right-0 bg-sogif-cyan-light text-sogif-navy text-xs font-bold px-3 py-1 rounded-bl-lg">
                     KEY METRIC
                   </div>
                 )}
                 <p
                   className={`text-4xl sm:text-5xl font-bold mb-2 ${
-                    stat.highlight ? 'text-sogif-cyan' : 'text-white'
+                    stat.highlight ? 'text-sogif-cyan-light' : 'text-white'
                   }`}
                 >
                   {stat.value}
                 </p>
-                <p className="text-white/60 text-sm sm:text-base">{stat.label}</p>
+                <p className="text-white/90 text-sm sm:text-base">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -162,10 +162,10 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-white/40"
+          className="flex flex-col items-center gap-2 text-white/70"
         >
           <span className="text-xs uppercase tracking-wider">Discover More</span>
-          <svg className="w-5 h-5 text-sogif-gold/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-sogif-gold/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </motion.div>

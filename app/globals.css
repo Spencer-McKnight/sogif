@@ -51,8 +51,9 @@
     /* Extended SOGIF brand colors */
     --sogif-navy: 210 73% 15%;
     --sogif-navy-light: 211 52% 25%;
-    --sogif-cyan: 189 100% 50%;
-    --sogif-gold: 41 90% 57%;
+    --sogif-cyan-light: 189 100% 65%;
+    --sogif-cyan-dark: 189 100% 22%;
+    --sogif-gold: 41 90% 55%;
     --sogif-success: 160 84% 39%;
   }
 
@@ -108,12 +109,12 @@
 @layer utilities {
   /* Focus states for accessibility */
   .focus-ring {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-light focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
-  
+
   /* Text gradient utility */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-sogif-cyan to-sogif-gold;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-sogif-cyan-light to-sogif-gold;
   }
   
   /* Animation delays */

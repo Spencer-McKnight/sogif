@@ -33,7 +33,7 @@ export function Header() {
                 priority
               />
             </div>
-            <span className="text-white font-semibold text-lg md:text-xl tracking-tight group-hover:text-sogif-cyan transition-colors">
+            <span className="text-white font-semibold text-lg md:text-xl tracking-tight group-hover:text-sogif-cyan-light transition-colors">
               SOGIF
             </span>
           </Link>
@@ -44,7 +44,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-white/80 hover:text-sogif-cyan transition-colors text-sm font-medium focus:outline-none focus-visible:text-sogif-cyan focus-visible:underline underline-offset-4"
+                className="text-white/80 hover:text-sogif-cyan-light transition-colors text-sm font-medium focus:outline-none focus-visible:text-sogif-cyan-light focus-visible:underline underline-offset-4"
               >
                 {item.label}
               </Link>
@@ -122,7 +122,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-3 text-white/80 hover:text-sogif-cyan hover:bg-white/5 rounded-lg transition-colors"
+                  className="block px-4 py-3 text-white/80 hover:text-sogif-cyan-light hover:bg-white/5 rounded-lg transition-colors"
                 >
                   {item.label}
                 </Link>

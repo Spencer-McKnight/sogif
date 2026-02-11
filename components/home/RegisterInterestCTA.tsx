@@ -60,18 +60,18 @@ export function RegisterInterestCTA() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               {ctaContent.headline}
             </h2>
-            <p className="text-lg text-white/70 mb-8 leading-relaxed">
+            <p className="text-lg text-white/90 mb-8 leading-relaxed">
               {ctaContent.subheadline}
             </p>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/60 text-xs mb-1">Minimum Investment</p>
+                <p className="text-white/90 text-xs mb-1">Minimum Investment</p>
                 <p className="text-2xl font-bold text-white">{ctaContent.minInvestment}</p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/60 text-xs mb-1">Additional Investment</p>
+                <p className="text-white/90 text-xs mb-1">Additional Investment</p>
                 <p className="text-2xl font-bold text-white">{ctaContent.additionalInvestment}</p>
               </div>
             </div>
@@ -85,7 +85,7 @@ export function RegisterInterestCTA() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="bg-white rounded-2xl p-8 shadow-2xl">
-              <h3 className="text-xl font-bold text-sogif-navy mb-2">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
               </h3>
               <p className="text-gray-600 mb-6">
@@ -108,13 +108,13 @@ export function RegisterInterestCTA() {
                       placeholder="Enter your email address"
                       required
                       autoComplete="email"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan focus:ring-2 focus:ring-sogif-cyan/20 outline-none transition-all text-sogif-navy placeholder:text-gray-400"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan-dark focus:ring-2 focus:ring-sogif-cyan-dark/20 outline-none transition-all text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-sogif-navy hover:bg-sogif-navy-light text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan focus-visible:ring-offset-2"
+                    className="w-full bg-sogif-navy hover:bg-sogif-navy-light text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-dark focus-visible:ring-offset-2"
                   >
                     {isSubmitting ? 'Sending...' : 'Request Information'}
                   </button>
@@ -132,7 +132,7 @@ export function RegisterInterestCTA() {
                 <p className="text-gray-500 text-sm mb-4">Ready to invest now?</p>
                 <Link
                   href="/invest"
-                  className="group flex items-center justify-between w-full bg-sogif-gold hover:bg-sogif-gold/90 text-sogif-navy font-semibold px-6 py-4 rounded-xl transition-all"
+                  className="group flex items-center justify-between w-full bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-6 py-4 rounded-xl transition-all"
                 >
                   <span>Start Investment Application</span>
                   <svg

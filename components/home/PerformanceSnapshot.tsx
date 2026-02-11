@@ -100,7 +100,7 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
 const chartConfig = {
   issuePrice: {
     label: 'Issue Price',
-    color: 'hsl(var(--sogif-cyan))',
+    color: 'hsl(var(--sogif-cyan-light))',
   },
   redemptionPrice: {
     label: 'Redemption Price',
@@ -114,7 +114,7 @@ const chartConfig = {
 
 const TOOLTIP_METRICS = [
   { key: 'redemptionPrice', label: 'Redemption', color: 'hsl(41, 90%, 61%)' },
-  { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 50%)' },
+  { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 65%)' },
   { key: 'cumulativeReturn', label: 'Cumulative', color: 'hsl(160, 84%, 39%)' },
 ] as const
 
@@ -140,7 +140,7 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
                   className="h-2.5 w-2.5 rounded-full" 
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-xs text-white/60">{label}</span>
+                <span className="text-xs text-white/90">{label}</span>
               </div>
               <span className="text-xs font-medium tabular-nums text-white">
                 ${value.toFixed(4)}
@@ -235,7 +235,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   return (
     <section className="py-24 bg-sogif-navy relative overflow-hidden" ref={ref}>
       {/* Background Decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-sogif-cyan/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-sogif-cyan-light/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-sogif-gold/5 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -246,14 +246,14 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-sogif-cyan font-semibold text-sm uppercase tracking-wider mb-3 block">
+          <span className="text-sogif-cyan-light font-semibold text-sm uppercase tracking-wider mb-3 block">
             Fund Performance
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Consistent Growth, Reliable Returns
           </h2>
-          <p className="text-lg text-white/70 leading-relaxed">
-            Track our fund&apos;s performance with transparent monthly reporting. 
+          <p className="text-lg text-white/90 leading-relaxed">
+            Track our fund&apos;s performance with transparent monthly reporting.
             Our diversified strategy aims to deliver steady growth with quarterly income distributions.
           </p>
         </motion.div>
@@ -271,12 +271,12 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 key={stat.label}
                 className="bg-white/5 border border-white/10 rounded-xl p-4 lg:p-6"
               >
-                <p className="text-white/60 text-xs lg:text-sm mb-1 lg:mb-2">{stat.label}</p>
+                <p className="text-white/90 text-xs lg:text-sm mb-1 lg:mb-2">{stat.label}</p>
                 <div className="flex items-end gap-2 lg:gap-3">
                   <span className="text-2xl lg:text-3xl font-bold text-white">{stat.value}</span>
                   {stat.change && (
                     <span className={`text-xs lg:text-sm font-medium pb-0.5 lg:pb-1 ${
-                      stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/60'
+                      stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/90'
                     }`}>
                       {stat.change}
                     </span>
@@ -287,14 +287,14 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
             <Link
               href="/performance"
-              className="group flex items-center justify-between bg-sogif-cyan/10 border border-sogif-cyan/30 hover:bg-sogif-cyan/20 rounded-xl p-4 lg:p-6 transition-all"
+              className="group flex items-center justify-between bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 hover:bg-sogif-cyan-light/20 rounded-xl p-4 lg:p-6 transition-all"
             >
               <div>
                 <p className="text-white font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">View Full Performance</p>
-                <p className="text-white/60 text-xs lg:text-sm">Monthly data, distributions & analysis</p>
+                <p className="text-white/90 text-xs lg:text-sm">Monthly data, distributions & analysis</p>
               </div>
               <svg
-                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-cyan group-hover:translate-x-1 transition-transform"
+                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-cyan-light group-hover:translate-x-1 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -318,7 +318,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 </div>
                 <div>
                   <p className="text-sogif-success font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">Existing Investor?</p>
-                  <p className="text-white/60 text-xs lg:text-sm">View your personalised returns</p>
+                  <p className="text-white/90 text-xs lg:text-sm">View your personalised returns</p>
                 </div>
               </div>
               <svg
@@ -342,7 +342,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-white font-semibold">Fund Pricing & Returns</h3>
-                <p className="text-white/60 text-sm">Monthly performance since inception</p>
+                <p className="text-white/90 text-sm">Monthly performance since inception</p>
               </div>
             </div>
 
@@ -350,15 +350,15 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-sogif-gold" />
-                <span className="text-white/60">Redemption Price</span>
+                <span className="text-white/90">Redemption Price</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-sogif-cyan" />
-                <span className="text-white/60">Issue Price</span>
+                <div className="w-3 h-3 rounded-full bg-sogif-cyan-light" />
+                <span className="text-white/90">Issue Price</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-sogif-success" />
-                <span className="text-white/60">Cumulative Return</span>
+                <span className="text-white/90">Cumulative Return</span>
               </div>
             </div>
 
@@ -372,8 +372,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                         <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(189, 100%, 50%)" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="hsl(189, 100%, 50%)" stopOpacity={0} />
+                        <stop offset="5%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
@@ -414,7 +414,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <Area
                       type="monotone"
                       dataKey="issuePrice"
-                      stroke="hsl(189, 100%, 50%)"
+                      stroke="hsl(189, 100%, 65%)"
                       strokeWidth={2}
                       fill="url(#issueGradient)"
                     />
@@ -447,7 +447,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               </ChartContainer>
             </div>
 
-            <p className="text-white/40 text-xs mt-4">
+            <p className="text-white/70 text-xs mt-4">
               *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
             </p>
           </motion.div>
@@ -463,7 +463,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             top: redemptionTooltip.y - 90,
           }}
         >
-          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 text-xs text-white/90 shadow-2xl leading-relaxed max-w-[220px]">
+          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 text-xs text-white shadow-2xl leading-relaxed max-w-[220px]">
             No property was acquired until the minimum subscription was achieved. 
             Accordingly, there was no redemption price prior to December 2023.
           </div>
@@ -479,7 +479,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             top: distributionTooltip.y - 55,
           }}
         >
-          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 text-xs text-white/90 shadow-2xl leading-relaxed max-w-[200px]">
+          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 text-xs text-white shadow-2xl leading-relaxed max-w-[200px]">
             First quarterly distribution began here
           </div>
         </div>

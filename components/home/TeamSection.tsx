@@ -47,10 +47,10 @@ export function TeamSection() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-sogif-cyan font-semibold text-sm uppercase tracking-wider mb-3 block">
+          <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
             Leadership Team
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Experienced Professionals, Proven Results
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
@@ -71,7 +71,7 @@ export function TeamSection() {
             >
               {/* Image */}
               <div className="relative w-48 h-48 mx-auto mb-6">
-                <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100 ring-2 ring-transparent group-hover:ring-sogif-cyan/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-sogif-cyan/10">
+                <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100 ring-2 ring-transparent group-hover:ring-sogif-cyan-dark/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-sogif-cyan-dark/10">
                   <Image
                     src={director.image}
                     alt={director.name}
@@ -82,8 +82,8 @@ export function TeamSection() {
               </div>
 
               {/* Info */}
-              <h3 className="text-xl font-bold text-sogif-navy mb-1">{director.name}</h3>
-              <p className="text-sogif-cyan font-semibold text-sm mb-2">{director.role}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">{director.name}</h3>
+              <p className="text-sogif-cyan-dark font-semibold text-sm mb-2">{director.role}</p>
               <p className="text-gray-500 text-xs mb-4">{director.credentials}</p>
               <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">
                 {director.bio}
@@ -100,15 +100,15 @@ export function TeamSection() {
           className="mt-16 grid sm:grid-cols-3 gap-6 text-center"
         >
           <div className="bg-gray-50 rounded-xl p-6">
-            <p className="text-3xl font-bold text-sogif-navy mb-2">60+</p>
+            <p className="text-3xl font-bold text-gray-900 mb-2">60+</p>
             <p className="text-gray-600 text-sm">Years Combined Experience</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-6">
-            <p className="text-3xl font-bold text-sogif-navy mb-2">$1B+</p>
+            <p className="text-3xl font-bold text-gray-900 mb-2">$1B+</p>
             <p className="text-gray-600 text-sm">Capital Managed Historically</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-6">
-            <p className="text-3xl font-bold text-sogif-navy mb-2">100s</p>
+            <p className="text-3xl font-bold text-gray-900 mb-2">100s</p>
             <p className="text-gray-600 text-sm">Property Transactions</p>
           </div>
         </motion.div>
@@ -122,7 +122,7 @@ export function TeamSection() {
         >
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-sogif-cyan hover:text-sogif-navy font-semibold transition-colors"
+            className="inline-flex items-center gap-2 text-sogif-cyan-dark hover:text-gray-900 font-semibold transition-colors"
           >
             Learn more about our team
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
