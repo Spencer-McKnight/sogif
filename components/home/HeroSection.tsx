@@ -108,7 +108,7 @@ export function HeroSection() {
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-white/70 text-xs"
+              className="text-white/75 text-xs"
             >
               *Past performance is not a reliable indicator of future performance
             </motion.p>
@@ -162,9 +162,8 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-white/70"
+          className="flex flex-col items-center gap-2 text-white/75"
         >
-          <span className="text-xs uppercase tracking-wider">Discover More</span>
           <svg className="w-5 h-5 text-sogif-gold/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>

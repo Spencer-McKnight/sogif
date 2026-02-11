@@ -52,7 +52,7 @@ export function HowItWorks() {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Simple Steps to Start Investing
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-700 leading-relaxed">
             Our streamlined process makes it easy to become a SOGIF investor. 
             Here&apos;s what to expect from application to your first distribution.
           </p>
@@ -82,7 +82,7 @@ export function HowItWorks() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 mb-3 leading-relaxed">
+                  <p className="text-gray-700 mb-3 leading-relaxed">
                     {step.description}
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-sm text-sogif-cyan-dark font-medium">
@@ -123,7 +123,7 @@ export function HowItWorks() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
-            <span className="text-gray-500 text-sm">or</span>
+            <span className="text-gray-600 text-sm">or</span>
             <Link
               href="#register"
               className="text-gray-900 hover:text-sogif-cyan-dark font-medium transition-colors"

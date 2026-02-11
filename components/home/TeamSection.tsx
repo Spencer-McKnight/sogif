@@ -53,7 +53,7 @@ export function TeamSection() {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Experienced Professionals, Proven Results
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-700 leading-relaxed">
             Our board brings decades of combined experience in property investment, 
             funds management, and financial services compliance.
           </p>
@@ -84,8 +84,8 @@ export function TeamSection() {
               {/* Info */}
               <h3 className="text-xl font-bold text-gray-900 mb-1">{director.name}</h3>
               <p className="text-sogif-cyan-dark font-semibold text-sm mb-2">{director.role}</p>
-              <p className="text-gray-500 text-xs mb-4">{director.credentials}</p>
-              <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">
+              <p className="text-gray-600 text-xs mb-4">{director.credentials}</p>
+              <p className="text-gray-700 text-sm leading-relaxed max-w-xs mx-auto">
                 {director.bio}
               </p>
             </motion.div>
@@ -101,15 +101,15 @@ export function TeamSection() {
         >
           <div className="bg-gray-50 rounded-xl p-6">
             <p className="text-3xl font-bold text-gray-900 mb-2">60+</p>
-            <p className="text-gray-600 text-sm">Years Combined Experience</p>
+            <p className="text-gray-700 text-sm">Years Combined Experience</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-6">
             <p className="text-3xl font-bold text-gray-900 mb-2">$1B+</p>
-            <p className="text-gray-600 text-sm">Capital Managed Historically</p>
+            <p className="text-gray-700 text-sm">Capital Managed Historically</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-6">
             <p className="text-3xl font-bold text-gray-900 mb-2">100s</p>
-            <p className="text-gray-600 text-sm">Property Transactions</p>
+            <p className="text-gray-700 text-sm">Property Transactions</p>
           </div>
         </motion.div>
 

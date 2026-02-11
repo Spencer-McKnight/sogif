@@ -447,7 +447,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               </ChartContainer>
             </div>
 
-            <p className="text-white/70 text-xs mt-4">
+            <p className="text-white/75 text-xs mt-4">
               *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
             </p>
           </motion.div>

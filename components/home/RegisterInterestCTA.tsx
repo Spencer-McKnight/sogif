@@ -88,7 +88,7 @@ export function RegisterInterestCTA() {
               <h3 className="text-xl font-bold text-gray-900 mb-2">
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-700 mb-6">
                 {isSubmitted 
                   ? "We'll be in touch soon with more information about investing in SOGIF."
                   : "Get our PDS and investment information pack delivered to your inbox."
@@ -108,7 +108,7 @@ export function RegisterInterestCTA() {
                       placeholder="Enter your email address"
                       required
                       autoComplete="email"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan-dark focus:ring-2 focus:ring-sogif-cyan-dark/20 outline-none transition-all text-gray-900 placeholder:text-gray-400"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan-dark focus:ring-2 focus:ring-sogif-cyan-dark/20 outline-none transition-all text-gray-900 placeholder:text-gray-600"
                     />
                   </div>
                   <button
@@ -129,7 +129,7 @@ export function RegisterInterestCTA() {
               )}
 
               <div className="mt-6 pt-6 border-t border-gray-100">
-                <p className="text-gray-500 text-sm mb-4">Ready to invest now?</p>
+                <p className="text-gray-600 text-sm mb-4">Ready to invest now?</p>
                 <Link
                   href="/invest"
                   className="group flex items-center justify-between w-full bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-6 py-4 rounded-xl transition-all"
@@ -146,7 +146,7 @@ export function RegisterInterestCTA() {
                 </Link>
               </div>
 
-              <p className="text-gray-400 text-xs mt-4">
+              <p className="text-gray-600 text-xs mt-4">
                 By registering, you agree to receive investment information from SOGIF. 
                 You can unsubscribe at any time.
               </p>

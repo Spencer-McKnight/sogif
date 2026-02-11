@@ -75,7 +75,7 @@ export function ValueProposition() {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Your Pathway to Financial Growth
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-700 leading-relaxed">
             SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, 
             managed by experienced professionals with a proven track record.
           </p>
@@ -100,7 +100,7 @@ export function ValueProposition() {
               <h3 className="text-xl font-bold text-gray-900 mb-3">
                 {prop.title}
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-700 mb-4 leading-relaxed">
                 {prop.description}
               </p>
 
@@ -123,7 +123,7 @@ export function ValueProposition() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-16 flex flex-wrap justify-center gap-6 text-sm text-gray-500"
+          className="mt-16 flex flex-wrap justify-center gap-6 text-sm text-gray-600"
         >
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-sogif-gold" fill="currentColor" viewBox="0 0 20 20">

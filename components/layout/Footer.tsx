@@ -133,13 +133,13 @@ export function Footer() {
       {/* Disclaimer Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-white/70 text-xs leading-relaxed mb-4">
+          <p className="text-white/75 text-xs leading-relaxed mb-4">
             <strong className="text-white/80">Important:</strong> This website provides general information only and does not constitute financial advice. 
             Before making any investment decision, you should read the Product Disclosure Statement (PDS) and Target Market Determination (TMD) 
             available on this website, and consider whether the Fund is appropriate for you. Past performance is not a reliable indicator of future performance. 
             Investment returns are not guaranteed. Your capital is at risk.
           </p>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/70">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/75">
             <p>© {new Date().getFullYear()} Plantation Capital Limited. All rights reserved.</p>
             <div className="flex gap-4">
               {footerLinks.legal.map((link) => (
