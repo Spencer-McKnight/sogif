@@ -116,7 +116,7 @@ export function HowItWorks() {
           <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
             <Link
               href="/invest"
-              className="inline-flex items-center gap-2 bg-sogif-cyan hover:bg-sogif-cyan/90 text-sogif-navy font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
+              className="inline-flex items-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-sogif-navy font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
             >
               Start Your Application
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
