@@ -75,7 +75,6 @@ export function Header() {
               variant="primary"
               size="sm"
               glow="gold"
-              className="focus-ring-inverse"
             >
               Invest Now
             </ButtonLink>
@@ -130,7 +129,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-3 text-white/80 hover:text-sogif-cyan-light hover:bg-white/5 rounded-lg transition-colors"
+                  className="block px-4 py-3 text-white/90 hover:text-sogif-cyan-light hover:bg-white/5 rounded-lg transition-colors"
                 >
                   {item.label}
                 </Link>

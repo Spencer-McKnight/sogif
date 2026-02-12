@@ -70,7 +70,10 @@
     --motion-duration-base: 300ms;
     --motion-duration-slow: 500ms;
     --motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-    --shadow-glow-gold: 0 14px 40px -18px hsl(var(--sogif-gold) / 0.55);
+    --shadow-glow-gold-passive: 0 14px 48px -16px hsl(var(--sogif-gold) / 0.40);
+    --shadow-glow-gold-hover: 0 14px 48px -12px hsl(var(--sogif-gold) / 0.7);
+    --shadow-glow-success-passive: 0 14px 48px -16px hsl(var(--sogif-success) / 0.40);
+    --shadow-glow-success-hover: 0 14px 48px -12px hsl(var(--sogif-success) / 0.7);
     --shadow-glow-cyan: 0 14px 40px -18px hsl(var(--sogif-cyan-light) / 0.55);
     --shadow-soft-cyan: 0 16px 40px -24px hsl(var(--sogif-cyan-dark) / 0.35);
   }
@@ -166,12 +169,29 @@
     transform: scale(1.05);
   }
 
-  .cta-glow-gold {
-    box-shadow: var(--shadow-glow-gold);
+  .cta-glow-gold-passive {
+    box-shadow: var(--shadow-glow-gold-passive);
+    transition: box-shadow var(--motion-duration-base) var(--motion-ease-standard);
+  }
+
+  .cta-glow-gold-hover {
+    box-shadow: var(--shadow-glow-gold-hover);
+    transition: box-shadow var(--motion-duration-base) var(--motion-ease-standard);
+  }
+
+  .cta-glow-success-passive {
+    box-shadow: var(--shadow-glow-success-passive);
+    transition: box-shadow var(--motion-duration-base) var(--motion-ease-standard);
+  }
+
+  .cta-glow-success-hover {
+    box-shadow: var(--shadow-glow-success-hover);
+    transition: box-shadow var(--motion-duration-base) var(--motion-ease-standard);
   }
 
   .cta-glow-cyan {
     box-shadow: var(--shadow-glow-cyan);
+    transition: box-shadow var(--motion-duration-base) var(--motion-ease-standard);
   }
 
   .hover-lift-soft {

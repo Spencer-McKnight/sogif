@@ -9,7 +9,7 @@ const appLinkVariants = cva(
     variants: {
       variant: {
         text: 'font-semibold text-sogif-cyan-dark hover:text-gray-900',
-        nav: 'font-medium text-white/80 hover:text-sogif-cyan-light',
+        nav: 'font-medium text-white/90 hover:text-sogif-cyan-light',
         portal:
           'font-semibold bg-sogif-success/10 border border-sogif-success/30 text-sogif-success hover:bg-sogif-success/20 rounded-xl px-4 py-3',
       },
@@ -22,7 +22,7 @@ const appLinkVariants = cva(
 
 export interface AppLinkProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
-    VariantProps<typeof appLinkVariants> {
+  VariantProps<typeof appLinkVariants> {
   href: string
   external?: boolean
   showArrow?: boolean

@@ -9,9 +9,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-sogif-gold text-gray-900 hover:bg-sogif-gold/90 hover:shadow-glow-gold',
+          'bg-sogif-gold text-gray-900 hover:cta-glow-gold-hover active:bg-sogif-gold/90',
         success:
-          'bg-sogif-success text-white hover:bg-sogif-success/90 hover:shadow-lg hover:shadow-sogif-success/25',
+          'bg-sogif-success text-white hover:cta-glow-success-hover active:bg-sogif-success/90',
         navy: 'bg-sogif-navy text-white hover:bg-sogif-navy-light',
         outline:
           'border-2 border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/5',
@@ -24,7 +24,8 @@ const buttonVariants = cva(
       },
       glow: {
         none: '',
-        gold: 'cta-glow-gold',
+        gold: 'cta-glow-gold-passive',
+        success: 'cta-glow-success-passive',
         cyan: 'cta-glow-cyan',
       },
       fullWidth: {

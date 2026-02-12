@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow: {
-        'glow-gold': 'var(--shadow-glow-gold)',
+        'glow-gold': 'var(--shadow-glow-gold-passive)',
         'glow-cyan': 'var(--shadow-glow-cyan)',
         'soft-cyan': 'var(--shadow-soft-cyan)',
       },
