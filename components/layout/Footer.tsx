@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Container, DisclaimerText } from '@/components/ui'
+import { AppLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const footerContent = {
@@ -69,12 +69,13 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <AppLink
                     href={link.href}
-                    className="text-white/90 hover:text-white transition-colors text-sm focus-ring-inverse rounded-sm"
+                    variant="nav"
+                    className="text-sm focus-visible:underline underline-offset-4"
                   >
                     {link.label}
-                  </Link>
+                  </AppLink>
                 </li>
               ))}
             </ul>
@@ -85,37 +86,39 @@ export function Footer() {
             <h4 className="text-sogif-cyan-light font-semibold mb-4 text-sm uppercase tracking-wider">
               Contact
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="flex flex-col gap-y-3 text-md">
               <li>
-                <a
+                <AppLink
                   href={`mailto:${footerContent.contact.email}`}
-                  className="text-white/90 hover:text-white transition-colors focus-ring-inverse rounded-sm"
+                  external
+                  variant="nav"
                 >
                   {footerContent.contact.email}
-                </a>
+                </AppLink>
               </li>
               <li>
-                <a
+                <AppLink
                   href={`tel:${footerContent.contact.phone.replace(/\s/g, '')}`}
-                  className="text-white/90 hover:text-white transition-colors focus-ring-inverse rounded-sm"
+                  external
+                  variant="nav"
                 >
                   {footerContent.contact.phone}
-                </a>
+                </AppLink>
               </li>
               <li className="text-white/80">
                 {footerContent.contact.address}
               </li>
-              <li className="text-white/80 text-xs">
+              <li className="text-white/80">
                 Phone hours: 10am–4pm Melbourne time, business days
               </li>
             </ul>
-            
+
             {/* Investor Portal CTA */}
-            <a
+            <AppLink
               href="https://portal.sogif.au"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-4 flex items-center gap-2 bg-sogif-success/15 border border-sogif-success/30 hover:bg-sogif-success/25 rounded-lg px-3 py-2 transition-all focus-ring-inverse"
+              external
+              variant="portal"
+              className="mt-4 focus-ring-inverse"
             >
               <div className="w-6 h-6 bg-sogif-success/20 rounded flex items-center justify-center">
                 <svg className="w-3.5 h-3.5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +129,7 @@ export function Footer() {
                 <span className="text-sogif-success text-xs font-medium block">Existing Investor?</span>
                 <span className="text-white/80 text-xs">Login to Portal →</span>
               </div>
-            </a>
+            </AppLink>
           </div>
         </div>
       </Container>
@@ -135,22 +138,23 @@ export function Footer() {
       <div className="border-t border-white/10">
         <Container className="py-6">
           <DisclaimerText tone="footer" className="mb-4">
-            <strong className="text-white/80">Important:</strong> This website provides general information only and does not constitute financial advice. 
-            Before making any investment decision, you should read the Product Disclosure Statement (PDS) and Target Market Determination (TMD) 
-            available on this website, and consider whether the Fund is appropriate for you. Past performance is not a reliable indicator of future performance. 
+            <strong className="text-white/80">Important:</strong> This website provides general information only and does not constitute financial advice.
+            Before making any investment decision, you should read the Product Disclosure Statement (PDS) and Target Market Determination (TMD)
+            available on this website, and consider whether the Fund is appropriate for you. Past performance is not a reliable indicator of future performance.
             Investment returns are not guaranteed. Your capital is at risk.
           </DisclaimerText>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/75">
             <p>© {new Date().getFullYear()} Plantation Capital Limited. All rights reserved.</p>
             <div className="flex gap-4">
               {footerLinks.legal.map((link) => (
-                <Link
+                <AppLink
                   key={link.href}
                   href={link.href}
-                  className="hover:text-white/90 transition-colors focus-ring-inverse rounded-sm"
+                  variant="nav"
+                  className="focus-visible:underline underline-offset-4"
                 >
                   {link.label}
-                </Link>
+                </AppLink>
               ))}
             </div>
           </div>

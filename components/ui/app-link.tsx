@@ -9,7 +9,7 @@ const appLinkVariants = cva(
     variants: {
       variant: {
         text: 'font-semibold text-sogif-cyan-dark hover:text-gray-900',
-        nav: 'font-medium text-white/90 hover:text-sogif-cyan-light',
+        nav: 'relative font-medium text-white/90 hover:text-white active:text-sogif-cyan-light after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 hover:after:w-full',
         portal:
           'font-semibold bg-sogif-success/10 border border-sogif-success/30 text-sogif-success hover:bg-sogif-success/20 rounded-xl px-4 py-3',
       },
