@@ -50,7 +50,7 @@ export function TeamSection() {
           <SectionHeader
             eyebrow="Leadership Team"
             title="Experienced Professionals, Proven Results"
-            description="Our board brings decades of combined experience in property investment, funds management, and financial services compliance."
+            description="Our board brings decades of combined experience in property investment, funds management, and financial services compliance. Backed by a team of passionate and intelligent analysts."
           />
         </motion.div>
 
@@ -95,16 +95,16 @@ export function TeamSection() {
           className="mt-16 grid sm:grid-cols-3 gap-6 text-center"
         >
           <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">60+</p>
+            <p className="text-3xl font-bold text-gray-900 mb-2">Master</p>
+            <p className="text-gray-800 text-sm">Investment Strategies</p>
+          </AppCard>
+          <AppCard variant="plain" className="bg-gray-50 text-center">
+            <p className="text-3xl font-bold text-gray-900 mb-2">$2B+</p>
+            <p className="text-gray-800 text-sm">Capital Managed</p>
+          </AppCard>
+          <AppCard variant="plain" className="bg-gray-50 text-center">
+            <p className="text-3xl font-bold text-gray-900 mb-2">70+</p>
             <p className="text-gray-800 text-sm">Years Combined Experience</p>
-          </AppCard>
-          <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">$1B+</p>
-            <p className="text-gray-800 text-sm">Capital Managed Historically</p>
-          </AppCard>
-          <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">100s</p>
-            <p className="text-gray-800 text-sm">Property Transactions</p>
           </AppCard>
         </motion.div>
 

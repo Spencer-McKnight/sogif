@@ -72,7 +72,7 @@ export function ValueProposition() {
         >
           <SectionHeader
             eyebrow="Why Choose SOGIF"
-            title="Your Pathway to Financial Growth"
+            title="Your Pathway to Growth & Income"
             description="SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, managed by experienced professionals with a proven track record."
           />
         </motion.div>
@@ -87,29 +87,29 @@ export function ValueProposition() {
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
             >
               <AppCard variant="interactive" className="group relative hover-lift-soft">
-              {/* Icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
-                {icons[prop.icon as keyof typeof icons]}
-              </div>
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
+                  {icons[prop.icon as keyof typeof icons]}
+                </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                {prop.title}
-              </h3>
-              <p className="text-gray-800 mb-4 leading-relaxed">
-                {prop.description}
-              </p>
+                {/* Content */}
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {prop.title}
+                </h3>
+                <p className="text-gray-800 mb-4 leading-relaxed">
+                  {prop.description}
+                </p>
 
-              {/* Highlight Tag */}
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sogif-cyan-dark">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                {prop.highlight}
-              </span>
+                {/* Highlight Tag */}
+                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sogif-cyan-dark">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {prop.highlight}
+                </span>
 
-              {/* Hover Gradient */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sogif-cyan-dark/0 via-transparent to-sogif-gold/0 group-hover:from-sogif-cyan-dark/5 group-hover:to-sogif-gold/5 transition-all pointer-events-none" />
+                {/* Hover Gradient */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sogif-cyan-dark/0 via-transparent to-sogif-gold/0 group-hover:from-sogif-cyan-dark/5 group-hover:to-sogif-gold/5 transition-all pointer-events-none" />
               </AppCard>
             </motion.div>
           ))}

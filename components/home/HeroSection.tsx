@@ -13,8 +13,8 @@ const heroContent = {
     { value: '$170M+', label: 'Funds Under Management' },
     { value: '$10,000', label: 'Minimum Investment' },
   ],
-  ctaPrimary: { label: 'Invest', href: '/invest' },
-  ctaSecondary: { label: 'Register Interest', href: '#register' },
+  ctaPrimary: { label: 'Start Application', href: '/invest' },
+  ctaSecondary: { label: 'Performance', href: '#performance' },
 }
 
 const fadeInUp = {
@@ -96,9 +96,6 @@ export function HeroSection() {
                 className="group focus-ring-inverse"
               >
                 {heroContent.ctaPrimary.label}
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
               </ButtonLink>
               <ButtonLink
                 href={heroContent.ctaSecondary.href}
@@ -106,6 +103,9 @@ export function HeroSection() {
                 size="lg"
               >
                 {heroContent.ctaSecondary.label}
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </ButtonLink>
             </motion.div>
 
@@ -132,11 +132,10 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 backdrop-blur-sm ${
-                  stat.highlight
-                    ? 'bg-gradient-to-br from-sogif-cyan-light/25 to-sogif-cyan-light/[0.07] border border-sogif-cyan-light/35'
-                    : 'bg-white/[0.07] border border-white/[0.12]'
-                }`}
+                className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 backdrop-blur-sm ${stat.highlight
+                  ? 'bg-gradient-to-br from-sogif-cyan-light/25 to-sogif-cyan-light/[0.07] border border-sogif-cyan-light/35'
+                  : 'bg-white/[0.07] border border-white/[0.12]'
+                  }`}
               >
                 {stat.highlight && (
                   <div className="absolute top-0 right-0 bg-sogif-cyan-light text-sogif-navy text-xs font-bold px-3 py-1 rounded-bl-lg">
@@ -144,9 +143,8 @@ export function HeroSection() {
                   </div>
                 )}
                 <p
-                  className={`text-4xl sm:text-5xl font-bold mb-2 ${
-                    stat.highlight ? 'text-sogif-cyan-light' : 'text-white'
-                  }`}
+                  className={`text-4xl sm:text-5xl font-bold mb-2 ${stat.highlight ? 'text-sogif-cyan-light' : 'text-white'
+                    }`}
                 >
                   {stat.value}
                 </p>
