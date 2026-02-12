@@ -23,10 +23,10 @@ export function RegisterInterestCTA() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // TODO: Implement actual form submission
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     setIsSubmitting(false)
     setIsSubmitted(true)
     setEmail('')
@@ -87,8 +87,8 @@ export function RegisterInterestCTA() {
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
               </h3>
               <p className="text-gray-800 mb-6">
-                {isSubmitted 
-                  ? "We'll be in touch soon with more information about investing in SOGIF."
+                {isSubmitted
+                  ? "Monitor your email for more information about investing in SOGIF."
                   : "Get our PDS and investment information pack delivered to your inbox."
                 }
               </p>
@@ -109,16 +109,18 @@ export function RegisterInterestCTA() {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan-dark focus:ring-2 focus:ring-sogif-cyan-dark/20 outline-none transition-all text-gray-900 placeholder:text-gray-600"
                     />
                   </div>
+                  <DisclaimerText tone="dark" className="mt-2">
+                    By registering, you agree to receive an investment guide from SOGIF via email. Unsubscribe at any time.
+                  </DisclaimerText>
                   <Button
                     type="submit"
                     disabled={isSubmitting}
                     variant="navy"
                     size="md"
-                    fullWidth
-                    className="focus-visible:ring-sogif-cyan-dark focus-visible:ring-offset-2"
                   >
                     {isSubmitting ? 'Sending...' : 'Request Information'}
                   </Button>
+                  
                 </form>
               ) : (
                 <div className="flex items-center gap-3 p-4 bg-sogif-success/10 rounded-xl">
@@ -134,18 +136,14 @@ export function RegisterInterestCTA() {
                 <ButtonLink
                   href="/invest"
                   variant="primary"
-                  size="lg"
+                  size="md"
                   glow="gold"
-                  fullWidth
                 >
                   Start Investment Application
                 </ButtonLink>
               </div>
 
-              <DisclaimerText className="mt-4">
-                By registering, you agree to receive investment information from SOGIF. 
-                You can unsubscribe at any time.
-              </DisclaimerText>
+
             </div>
           </motion.div>
         </div>

@@ -13,7 +13,7 @@ const heroContent = {
     { value: '$170M+', label: 'Funds Under Management' },
     { value: '$10,000', label: 'Minimum Investment' },
   ],
-  ctaPrimary: { label: 'Start Investing', href: '/invest' },
+  ctaPrimary: { label: 'Invest', href: '/invest' },
   ctaSecondary: { label: 'Register Interest', href: '#register' },
 }
 

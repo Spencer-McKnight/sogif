@@ -119,7 +119,7 @@ export function TeamSection() {
             href="/about"
             showArrow
           >
-            Learn more about our team
+            Learn more about the fund
           </AppLink>
         </motion.div>
       </Container>

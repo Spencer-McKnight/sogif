@@ -16,7 +16,7 @@ const steps = [
     number: '02',
     title: 'Complete Application',
     description: 'Fill out our straightforward online application form with your personal and investment details.',
-    detail: 'Takes approximately 10 minutes',
+    detail: 'Takes only a few minutes',
   },
   {
     number: '03',
@@ -28,7 +28,7 @@ const steps = [
     number: '04',
     title: 'Start Earning',
     description: 'Once processed, you\'ll receive quarterly distribution payments and access to the investor portal.',
-    detail: 'Portal access within 48 hours',
+    detail: 'Portal access',
   },
 ]
 
@@ -108,26 +108,17 @@ export function HowItWorks() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-16 text-center"
         >
-          <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
             <ButtonLink
               href="/invest"
               variant="primary"
               size="lg"
               className="group"
             >
-              Start Your Application
+              Start Application
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </ButtonLink>
-            <span className="text-gray-600 text-sm">or</span>
-            <AppLink
-              href="#register"
-              className="text-gray-900 font-medium"
-            >
-              Request more information first
-            </AppLink>
-          </div>
         </motion.div>
       </Container>
     </section>
