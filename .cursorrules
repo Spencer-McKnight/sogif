@@ -4,7 +4,7 @@ Case: Create an innovative, comprehendable digital experience and performant mod
 
 Technology: The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
 
-# High-level Scope (Approved)
+## High-level Scope (Approved)
 Content Management System
 Home Page
 Performance Page
@@ -17,7 +17,7 @@ SEO Retention
 
 Moving beyond the bounds of assumed scope is allowed when doing identifies with the website case.
 
-# Sogif Project Technologies
+## Sogif Project Technologies
 
 | Technology | Version | Use Case |
 |------------|---------|----------|
@@ -48,11 +48,14 @@ Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and 
 - Disclosures /disclosures
 - Invest /invest
 
-Next Best Practices:
+## Important Rules
+Never check git history, to conserve tokens
+
+## Next Best Practices:
 - Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
 - Use `<Image />` from 'next/image' or `<DatoImage />` component in combination with datoCMS best practices for optimised images, do not use `<img>`
 
-Driving ideals:
+## Driving ideals:
 1. Use variable definition. Do not declare potentially CMSable values within html. If the CMS structure does not exist, store the variable in an appropriately accessible location.
 2. Write concise code aligns with your advanced technical and design expertise.
 3. Utilise checklists and todos for complex tasks.
@@ -69,14 +72,6 @@ Consider accessibility best practices such as:
 - Button sizing
 - Text sizing
 - Responsiveness
-
-## Color Palette. Use a color variables file.
-- **Primary Navy**: #0A2540 - Professional, trustworthy financial services
-- **Secondary Navy**: #1E3A5F - Depth and hierarchy
-- **Accent Cyan**: #00D9FF - Modern, energetic, attention-drawing
-- **Accent Gold** #F5B942 - Brings home success
-- **Success Green**: #10B981 - Positive reinforcement
-- **Neutral Grays**: For typography and backgrounds
 
 ⚠️ **Important**: Ensure all content complies with:
 - Australian Securities and Investments Commission (ASIC) regulations
