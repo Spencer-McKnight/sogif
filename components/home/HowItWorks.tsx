@@ -1,8 +1,8 @@
 'use client'
 
 import { useRef } from 'react'
-import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
+import { AppCard, AppLink, ButtonLink, Container, SectionHeader } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const steps = [
@@ -37,25 +37,20 @@ export function HowItWorks() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-24 bg-gray-50" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-gray-50" ref={ref}>
+      <Container>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-16"
         >
-          <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
-            Investment Process
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
-            Simple Steps to Start Investing
-          </h2>
-          <p className="text-lg text-gray-800 leading-relaxed">
-            Our streamlined process makes it easy to become a SOGIF investor. 
-            Here&apos;s what to expect from application to your first distribution.
-          </p>
+          <SectionHeader
+            eyebrow="Investment Process"
+            title="Simple Steps to Start Investing"
+            description="Our streamlined process makes it easy to become a SOGIF investor. Here's what to expect from application to your first distribution."
+          />
         </motion.div>
 
         {/* Steps */}
@@ -73,7 +68,7 @@ export function HowItWorks() {
                 className="relative"
               >
                 {/* Step Card */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative z-10">
+                <AppCard variant="plain" className="relative z-10 shadow-sm border-gray-100">
                   {/* Number Badge */}
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-light font-bold rounded-xl mb-4">
                     {step.number}
@@ -91,7 +86,7 @@ export function HowItWorks() {
                     </svg>
                     {step.detail}
                   </span>
-                </div>
+                </AppCard>
 
                 {/* Arrow - Mobile/Tablet */}
                 {index < steps.length - 1 && (
@@ -114,25 +109,27 @@ export function HowItWorks() {
           className="mt-16 text-center"
         >
           <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
-            <Link
+            <ButtonLink
               href="/invest"
-              className="inline-flex items-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
+              variant="primary"
+              size="lg"
+              className="group"
             >
               Start Your Application
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </ButtonLink>
             <span className="text-gray-600 text-sm">or</span>
-            <Link
+            <AppLink
               href="#register"
-              className="text-gray-900 hover:text-sogif-cyan-dark font-medium transition-colors"
+              className="text-gray-900 font-medium"
             >
               Request more information first
-            </Link>
+            </AppLink>
           </div>
         </motion.div>
-      </div>
+      </Container>
     </section>
   )
 }

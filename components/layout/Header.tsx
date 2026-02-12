@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useConstants } from '@/lib'
+import { AppLink, ButtonLink, Container } from '@/components/ui'
 
 // TODO: Replace with CMS-managed navigation items
 const navItems = [
@@ -20,7 +21,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-sogif-navy/95 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -41,23 +42,25 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <Link
+              <AppLink
                 key={item.href}
                 href={item.href}
-                className="text-white/80 hover:text-sogif-cyan-light transition-colors text-md font-medium focus:outline-none focus-visible:text-sogif-cyan-light focus-visible:underline underline-offset-4"
+                variant="nav"
+                className="text-md focus-visible:underline underline-offset-4"
               >
                 {item.label}
-              </Link>
+              </AppLink>
             ))}
           </nav>
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <a
+            <ButtonLink
               href={constants.portalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 bg-sogif-success hover:bg-sogif-success/90 text-white font-semibold px-4 py-2.5 rounded-lg transition-all hover:shadow-lg hover:shadow-sogif-success/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+              external
+              variant="success"
+              size="sm"
+              className="group focus-ring-inverse"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -66,20 +69,25 @@ export function Header() {
               <svg className="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-            </a>
-            <Link
+            </ButtonLink>
+            <ButtonLink
               href="/invest"
-              className="bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-5 py-2.5 rounded-lg transition-all hover:shadow-lg hover:shadow-sogif-gold/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+              variant="primary"
+              size="sm"
+              glow="gold"
+              className="focus-ring-inverse"
             >
               Invest Now
-            </Link>
+            </ButtonLink>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-white focus-ring-inverse rounded-md"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <svg
               className="w-6 h-6"
@@ -105,7 +113,7 @@ export function Header() {
             </svg>
           </button>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -116,7 +124,7 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-sogif-navy border-t border-white/10"
           >
-            <nav className="px-4 py-4 space-y-1">
+            <nav id="mobile-navigation" className="px-4 py-4 space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.href}

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
+import { Badge, Button, ButtonLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
@@ -33,14 +33,14 @@ export function RegisterInterestCTA() {
   }
 
   return (
-    <section id="register" className="py-24 bg-sogif-navy relative overflow-hidden" ref={ref}>
+    <section id="register" className="section-padding bg-sogif-navy relative overflow-hidden" ref={ref}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(0,217,255,0.1),transparent_50%)]" />
         <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(245,185,66,0.1),transparent_50%)]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container className="relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left Column - Content */}
           <motion.div
@@ -48,14 +48,12 @@ export function RegisterInterestCTA() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 bg-sogif-gold/20 border border-sogif-gold/40 rounded-full px-4 py-1.5 mb-6">
+            <Badge variant="announcementGold" className="gap-2 mb-6">
               <svg className="w-4 h-4 text-sogif-gold" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
-              <span className="text-sogif-gold text-sm font-medium">
-                Fund closing to new investors {ctaContent.closingDate}
-              </span>
-            </div>
+              <span>Fund closing to new investors {ctaContent.closingDate}</span>
+            </Badge>
 
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               {ctaContent.headline}
@@ -111,13 +109,16 @@ export function RegisterInterestCTA() {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-sogif-cyan-dark focus:ring-2 focus:ring-sogif-cyan-dark/20 outline-none transition-all text-gray-900 placeholder:text-gray-600"
                     />
                   </div>
-                  <button
+                  <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-sogif-navy hover:bg-sogif-navy-light text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-dark focus-visible:ring-offset-2"
+                    variant="navy"
+                    size="md"
+                    fullWidth
+                    className="focus-visible:ring-sogif-cyan-dark focus-visible:ring-offset-2"
                   >
                     {isSubmitting ? 'Sending...' : 'Request Information'}
-                  </button>
+                  </Button>
                 </form>
               ) : (
                 <div className="flex items-center gap-3 p-4 bg-sogif-success/10 rounded-xl">
@@ -130,22 +131,25 @@ export function RegisterInterestCTA() {
 
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <p className="text-gray-600 text-sm mb-4">Ready to invest now?</p>
-                <Link
+                <ButtonLink
                   href="/invest"
-                  className="flex w-full items-center justify-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg"
+                  variant="primary"
+                  size="lg"
+                  glow="gold"
+                  fullWidth
                 >
                   Start Investment Application
-                </Link>
+                </ButtonLink>
               </div>
 
-              <p className="text-gray-600 text-xs mt-4">
+              <DisclaimerText className="mt-4">
                 By registering, you agree to receive investment information from SOGIF. 
                 You can unsubscribe at any time.
-              </p>
+              </DisclaimerText>
             </div>
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

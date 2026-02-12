@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { AppCard, Container, SectionHeader } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const valueProps = [
@@ -60,25 +61,20 @@ export function ValueProposition() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-24 bg-white" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-white" ref={ref}>
+      <Container>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-16"
         >
-          <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
-            Why Choose SOGIF
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
-            Your Pathway to Financial Growth
-          </h2>
-          <p className="text-lg text-gray-800 leading-relaxed">
-            SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, 
-            managed by experienced professionals with a proven track record.
-          </p>
+          <SectionHeader
+            eyebrow="Why Choose SOGIF"
+            title="Your Pathway to Financial Growth"
+            description="SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, managed by experienced professionals with a proven track record."
+          />
         </motion.div>
 
         {/* Value Props Grid */}
@@ -89,8 +85,8 @@ export function ValueProposition() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-              className="group relative bg-gray-50 hover:bg-white rounded-2xl p-8 border border-gray-100 hover:border-sogif-cyan-dark/30 transition-all hover:shadow-xl hover:shadow-sogif-cyan-dark/5"
             >
+              <AppCard variant="interactive" className="group relative hover-lift-soft">
               {/* Icon */}
               <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
                 {icons[prop.icon as keyof typeof icons]}
@@ -114,6 +110,7 @@ export function ValueProposition() {
 
               {/* Hover Gradient */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sogif-cyan-dark/0 via-transparent to-sogif-gold/0 group-hover:from-sogif-cyan-dark/5 group-hover:to-sogif-gold/5 transition-all pointer-events-none" />
+              </AppCard>
             </motion.div>
           ))}
         </div>
@@ -144,7 +141,7 @@ export function ValueProposition() {
             <span>AFSL No 339481</span>
           </div>
         </motion.div>
-      </div>
+      </Container>
     </section>
   )
 }

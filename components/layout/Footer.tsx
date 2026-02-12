@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const footerContent = {
@@ -35,7 +36,7 @@ export function Footer() {
   return (
     <footer className="bg-sogif-navy text-white">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <Container className="py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
@@ -70,7 +71,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/90 hover:text-white transition-colors text-sm"
+                    className="text-white/90 hover:text-white transition-colors text-sm focus-ring-inverse rounded-sm"
                   >
                     {link.label}
                   </Link>
@@ -88,7 +89,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${footerContent.contact.email}`}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover:text-white transition-colors focus-ring-inverse rounded-sm"
                 >
                   {footerContent.contact.email}
                 </a>
@@ -96,7 +97,7 @@ export function Footer() {
               <li>
                 <a
                   href={`tel:${footerContent.contact.phone.replace(/\s/g, '')}`}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover:text-white transition-colors focus-ring-inverse rounded-sm"
                 >
                   {footerContent.contact.phone}
                 </a>
@@ -114,7 +115,7 @@ export function Footer() {
               href="https://portal.sogif.au"
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-4 flex items-center gap-2 bg-sogif-success/15 border border-sogif-success/30 hover:bg-sogif-success/25 rounded-lg px-3 py-2 transition-all"
+              className="group mt-4 flex items-center gap-2 bg-sogif-success/15 border border-sogif-success/30 hover:bg-sogif-success/25 rounded-lg px-3 py-2 transition-all focus-ring-inverse"
             >
               <div className="w-6 h-6 bg-sogif-success/20 rounded flex items-center justify-center">
                 <svg className="w-3.5 h-3.5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,17 +129,17 @@ export function Footer() {
             </a>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Disclaimer Bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-white/75 text-xs leading-relaxed mb-4">
+        <Container className="py-6">
+          <DisclaimerText tone="footer" className="mb-4">
             <strong className="text-white/80">Important:</strong> This website provides general information only and does not constitute financial advice. 
             Before making any investment decision, you should read the Product Disclosure Statement (PDS) and Target Market Determination (TMD) 
             available on this website, and consider whether the Fund is appropriate for you. Past performance is not a reliable indicator of future performance. 
             Investment returns are not guaranteed. Your capital is at risk.
-          </p>
+          </DisclaimerText>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/75">
             <p>© {new Date().getFullYear()} Plantation Capital Limited. All rights reserved.</p>
             <div className="flex gap-4">
@@ -146,14 +147,14 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="hover:text-white/90 transition-colors"
+                  className="hover:text-white/90 transition-colors focus-ring-inverse rounded-sm"
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
           </div>
-        </div>
+        </Container>
       </div>
     </footer>
   )

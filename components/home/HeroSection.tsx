@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Badge, ButtonLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const heroContent = {
@@ -43,7 +43,7 @@ export function HeroSection() {
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-sogif-gold/10 rounded-full blur-3xl" />
 
       {/* Content - flex-1 to fill available space, centered vertically */}
-      <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+      <Container className="relative z-10 flex-1 flex items-center w-full pt-24 pb-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Text Content */}
           <motion.div
@@ -54,12 +54,12 @@ export function HeroSection() {
             <motion.div
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 rounded-full px-4 py-1.5 mb-6"
+              className="mb-6"
             >
-              <span className="w-2 h-2 bg-sogif-success rounded-full animate-pulse" />
-              <span className="text-sogif-cyan-light text-sm font-medium">
-                Now accepting new investors
-              </span>
+              <Badge variant="announcementCyan" className="gap-2">
+                <span className="w-2 h-2 bg-sogif-success rounded-full animate-pulse" />
+                <span>Now accepting new investors</span>
+              </Badge>
             </motion.div>
 
             <motion.h1
@@ -88,30 +88,35 @@ export function HeroSection() {
               transition={{ duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
-              <Link
+              <ButtonLink
                 href={heroContent.ctaPrimary.href}
-                className="group inline-flex items-center justify-center gap-2 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-sogif-gold/25 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+                variant="primary"
+                size="lg"
+                glow="gold"
+                className="group focus-ring-inverse"
               >
                 {heroContent.ctaPrimary.label}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </Link>
-              <Link
+              </ButtonLink>
+              <ButtonLink
                 href={heroContent.ctaSecondary.href}
-                className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 hover:border-white/60 hover:bg-white/5 text-white font-semibold px-8 py-4 rounded-xl transition-all text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-light focus-visible:ring-offset-2 focus-visible:ring-offset-sogif-navy"
+                variant="outline"
+                size="lg"
               >
                 {heroContent.ctaSecondary.label}
-              </Link>
+              </ButtonLink>
             </motion.div>
 
-            <motion.p
+            <motion.div
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-white/75 text-xs"
             >
-              *Past performance is not a reliable indicator of future performance
-            </motion.p>
+              <DisclaimerText tone="hero">
+                *Past performance is not a reliable indicator of future performance
+              </DisclaimerText>
+            </motion.div>
           </motion.div>
 
           {/* Right Column - Stats Cards */}
@@ -150,7 +155,7 @@ export function HeroSection() {
             ))}
           </motion.div>
         </div>
-      </div>
+      </Container>
 
       {/* Scroll Indicator - in document flow, pushed to bottom by flex */}
       <motion.div

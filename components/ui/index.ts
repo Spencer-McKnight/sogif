@@ -11,6 +11,15 @@ export { DatoImage, ImagePlaceholder } from './DatoImage'
 // Brand
 export { Logo } from './Logo'
 
+// Design System Primitives
+export { Button, ButtonLink, buttonVariants } from './button'
+export { AppLink, appLinkVariants } from './app-link'
+export { Container } from './container'
+export { DisclaimerText } from './disclaimer-text'
+export { Badge, badgeVariants } from './badge'
+export { AppCard, appCardVariants } from './app-card'
+export { SectionHeader } from './section-header'
+
 // Shadcn Components - Card
 export { 
   Card, 

@@ -1,9 +1,9 @@
 'use client'
 
 import { useRef } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
+import { AppCard, AppLink, Badge, Container, SectionHeader } from '@/components/ui'
 
 // TODO: Replace with CMS-managed property data
 const properties = [
@@ -44,8 +44,8 @@ export function PropertyShowcase() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-24 bg-gray-50" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-gray-50" ref={ref}>
+      <Container>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,27 +53,21 @@ export function PropertyShowcase() {
           transition={{ duration: 0.5 }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
         >
-          <div>
-            <span className="text-sogif-cyan-dark font-semibold text-sm uppercase tracking-wider mb-3 block">
-              Portfolio Assets
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-sogif-navy mb-4">
-              Our Property Investments
-            </h2>
-            <p className="text-lg text-gray-800 max-w-2xl leading-relaxed">
-              SOGIF invests in strategic real estate opportunities across Australia, 
-              focusing on properties with strong income potential and growth upside.
-            </p>
+          <div className="max-w-2xl">
+            <SectionHeader
+              centered={false}
+              eyebrow="Portfolio Assets"
+              title="Our Property Investments"
+              description="SOGIF invests in strategic real estate opportunities across Australia, focusing on properties with strong income potential and growth upside."
+            />
           </div>
-          <Link
+          <AppLink
             href="/properties"
-            className="inline-flex items-center gap-2 text-sogif-cyan-dark hover:text-gray-900 font-semibold transition-colors shrink-0"
+            showArrow
+            className="shrink-0"
           >
             View All Properties
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          </AppLink>
         </motion.div>
 
         {/* Properties Grid */}
@@ -84,23 +78,27 @@ export function PropertyShowcase() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group"
             >
+              <AppCard variant="property">
               {/* Image */}
               <div className="relative h-56 overflow-hidden">
                 <Image
                   src={property.image}
                   alt={property.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover media-zoom-hover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 
                 {/* Status Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${statusColors[property.status as keyof typeof statusColors]}`}>
+                  <Badge
+                    size="sm"
+                    className={statusColors[property.status as keyof typeof statusColors]}
+                  >
                     {property.status}
-                  </span>
+                  </Badge>
                 </div>
 
                 {/* Type Badge */}
@@ -122,6 +120,7 @@ export function PropertyShowcase() {
                   <span className="text-sm">{property.location}</span>
                 </div>
               </div>
+              </AppCard>
             </motion.article>
           ))}
         </div>
@@ -134,15 +133,15 @@ export function PropertyShowcase() {
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 bg-sogif-navy/5 rounded-full px-6 py-3">
-            <svg className="w-5 h-5 text-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-sogif-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <span className="text-cyan-dark font-medium">
+            <span className="text-sogif-cyan-dark font-medium">
               All investments independently valued and audited annually
             </span>
           </div>
         </motion.div>
-      </div>
+      </Container>
     </section>
   )
 }

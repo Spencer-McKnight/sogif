@@ -48,6 +48,10 @@ Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and 
 - Disclosures /disclosures
 - Invest /invest
 
+## Design notes
+Read the design system before implementing components ./design-system.md
+Update the document if relevant changes are made
+
 ## Important Rules
 Never check git history, to conserve tokens
 

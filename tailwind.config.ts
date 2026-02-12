@@ -9,6 +9,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'glow-gold': 'var(--shadow-glow-gold)',
+        'glow-cyan': 'var(--shadow-glow-cyan)',
+        'soft-cyan': 'var(--shadow-soft-cyan)',
+      },
+      transitionDuration: {
+        fast: 'var(--motion-duration-fast)',
+        base: 'var(--motion-duration-base)',
+        slow: 'var(--motion-duration-slow)',
+      },
+      transitionTimingFunction: {
+        standard: 'var(--motion-ease-standard)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -45,7 +58,6 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         chart: {
@@ -63,6 +75,20 @@ const config: Config = {
           'cyan-dark': 'hsl(var(--sogif-cyan-dark))',
           gold: 'hsl(var(--sogif-gold))',
           success: 'hsl(var(--sogif-success))',
+        },
+        surface: {
+          soft: 'hsl(var(--surface-soft))',
+          subtle: 'hsl(var(--surface-subtle))',
+          strong: 'hsl(var(--surface-strong))',
+        },
+        text: {
+          heading: 'hsl(var(--text-heading))',
+          body: 'hsl(var(--text-body))',
+          muted: 'hsl(var(--text-muted))',
+        },
+        border: {
+          DEFAULT: 'hsl(var(--border))',
+          soft: 'hsl(var(--border-soft))',
         },
       },
     },

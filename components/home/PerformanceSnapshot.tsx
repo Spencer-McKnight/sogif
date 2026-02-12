@@ -1,9 +1,8 @@
 'use client'
 
 import { useRef, useMemo, useState } from 'react'
-import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { ChartContainer, ChartTooltip } from '@/components/ui'
+import { AppCard, AppLink, ChartContainer, ChartTooltip, Container, DisclaimerText, SectionHeader } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
 import type { PerformanceDataRow } from '@/lib/types/datocms'
@@ -233,29 +232,25 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   }
 
   return (
-    <section className="py-24 bg-sogif-navy relative overflow-hidden" ref={ref}>
+    <section className="section-padding bg-sogif-navy relative overflow-hidden" ref={ref}>
       {/* Background Decorations */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-sogif-cyan-light/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-sogif-gold/5 rounded-full blur-3xl" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container className="relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-16"
         >
-          <span className="text-sogif-cyan-light font-semibold text-sm uppercase tracking-wider mb-3 block">
-            Fund Performance
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Consistent Growth, Reliable Returns
-          </h2>
-          <p className="text-lg text-white/90 leading-relaxed">
-            Track our fund&apos;s performance with transparent monthly reporting.
-            Our diversified strategy aims to deliver steady growth with quarterly income distributions.
-          </p>
+          <SectionHeader
+            dark
+            eyebrow="Fund Performance"
+            title="Consistent Growth, Reliable Returns"
+            description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
+          />
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 min-w-0">
@@ -267,9 +262,9 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             className="lg:col-span-2 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1"
           >
             {performanceStats.map((stat) => (
-              <div
+              <AppCard
                 key={stat.label}
-                className="bg-white/5 border border-white/10 rounded-xl p-4 lg:p-6"
+                variant="stat"
               >
                 <p className="text-white/90 text-xs lg:text-sm mb-1 lg:mb-2">{stat.label}</p>
                 <div className="flex items-end gap-2 lg:gap-3">
@@ -282,12 +277,12 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     </span>
                   )}
                 </div>
-              </div>
+              </AppCard>
             ))}
 
-            <Link
+            <AppLink
               href="/performance"
-              className="group flex items-center justify-between bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 hover:bg-sogif-cyan-light/20 rounded-xl p-4 lg:p-6 transition-all"
+              className="group flex items-center justify-between bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 hover:bg-sogif-cyan-light/20 rounded-xl p-4 lg:p-6 text-white"
             >
               <div>
                 <p className="text-white font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">View Full Performance</p>
@@ -301,14 +296,14 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </AppLink>
 
             {/* Existing Investor Portal CTA */}
             <a
               href="https://portal.sogif.au"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-4 lg:p-6 transition-all"
+              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-4 lg:p-6 transition-all focus-ring"
             >
               <div className="flex items-center gap-3 lg:gap-4">
                 <div className="w-8 h-8 lg:w-10 lg:h-10 bg-sogif-success/20 rounded-lg flex items-center justify-center shrink-0">
@@ -447,12 +442,12 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               </ChartContainer>
             </div>
 
-            <p className="text-white/75 text-xs mt-4">
+            <DisclaimerText tone="hero" className="mt-4">
               *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
-            </p>
+            </DisclaimerText>
           </motion.div>
         </div>
-      </div>
+      </Container>
 
       {/* Redemption start tooltip - rendered outside chart for proper z-index */}
       {redemptionTooltip && (
