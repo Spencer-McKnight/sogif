@@ -20,17 +20,17 @@ export default async function Home() {
         {/* Hero: Primary value proposition and key metrics */}
         <HeroSection />
 
-        {/* Value Props: Why choose SOGIF - benefits and trust signals */}
-        <ValueProposition />
-
-        {/* Team: Leadership credibility and experience */}
-        <TeamSection />
-
         {/* Performance: Data visualization and fund metrics */}
         <PerformanceSnapshot performanceData={constants.performanceData} />
 
         {/* Properties: Portfolio showcase for tangibility */}
         <PropertyShowcase />
+
+        {/* Team: Leadership credibility and experience */}
+        <TeamSection />
+
+        {/* Value Props: Why choose SOGIF - benefits and trust signals */}
+        <ValueProposition />
 
         {/* How It Works: Clear investment process for conversion */}
         <HowItWorks />

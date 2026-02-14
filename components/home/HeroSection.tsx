@@ -30,11 +30,11 @@ export function HeroSection() {
     const backgroundY = useTransform(
         scrollY,
         [0, 600],
-        shouldReduceMotion ? [0, 0] : [0, 68]
+        shouldReduceMotion ? [0, 0] : [0, 90]
     )
 
     return (
-        <section className="relative md:min-h-[calc(100vh-6.5rem)] xl:min-h-[calc(100vh-12rem)] flex flex-col overflow-hidden bg-sogif-navy">
+        <section className="relative md:min-h-[calc(100vh-8rem)] xl:min-h-[calc(100vh-14rem)] flex flex-col overflow-hidden bg-sogif-navy">
             {/* Background Image */}
             <motion.div className="absolute inset-0" style={{ y: backgroundY }}>
                 <Image
@@ -44,8 +44,8 @@ export function HeroSection() {
                     className="object-cover object-[center_10%] opacity-40"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy/80 via-sogif-navy/40 to-sogif-navy/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/70 via-sogif-navy/40 to-sogif-navy/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy/70 via-sogif-navy/30 to-sogif-navy/15" />
+                <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/60 via-sogif-navy/30 to-sogif-navy/15" />
             </motion.div>
 
             {/* Content - flex-1 to fill available space, centered vertically */}

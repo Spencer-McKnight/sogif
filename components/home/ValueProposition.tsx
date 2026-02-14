@@ -61,7 +61,7 @@ export function ValueProposition() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="section-padding bg-white" ref={ref}>
+    <section className="section-padding bg-sogif-silver-light" ref={ref}>
       <Container>
         {/* Section Header */}
         <motion.div
@@ -86,7 +86,7 @@ export function ValueProposition() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
             >
-              <AppCard variant="interactive" className="group relative hover-lift-soft">
+              <AppCard variant="plain" className="group card-gradient-hover hover-lift-soft">
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
                   {icons[prop.icon as keyof typeof icons]}
@@ -108,8 +108,6 @@ export function ValueProposition() {
                   {prop.highlight}
                 </span>
 
-                {/* Hover Gradient */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sogif-cyan-dark/0 via-transparent to-sogif-gold/0 group-hover:from-sogif-cyan-dark/5 group-hover:to-sogif-gold/5 transition-all pointer-events-none" />
               </AppCard>
             </motion.div>
           ))}

@@ -37,7 +37,7 @@ export function HowItWorks() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="section-padding bg-gray-50" ref={ref}>
+    <section className="section-padding bg-sogif-silver" ref={ref}>
       <Container>
         {/* Section Header */}
         <motion.div
@@ -68,7 +68,7 @@ export function HowItWorks() {
                 className="relative"
               >
                 {/* Step Card */}
-                <AppCard variant="plain" className="relative z-10 shadow-sm border-gray-100">
+                <AppCard variant="plain" className="relative z-10 group card-gradient-hover hover-lift-soft">
                   {/* Number Badge */}
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-light font-bold rounded-xl mb-4">
                     {step.number}

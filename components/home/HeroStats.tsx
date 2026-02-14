@@ -30,7 +30,7 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
         <motion.p
           variants={fadeIn}
           transition={{ duration: 0.5 }}
-          className="type-title md:type-metric font-bold tracking-tight text-white"
+          className="type-display font-bold tracking-tight text-white"
         >
           {stat.value}
         </motion.p>
