@@ -20,45 +20,6 @@ The Fund’s Responsible Entity (the entity that holds an Australian Financial S
 
 PCL is governed by its Board of Directors, which presently consists of three directors (see below). The Board provides executive oversight and concentrates on vision, strategy, compliance and portfolio / financial performance. The Board usually meets monthly online or in person in Melbourne.
 
-# Directors
-
-Stephen (Steve) McKnight
-Chair
-
-Bachelor of Business (Accounting)
-Diploma Financial Services
-Chartered Accountant.
-
-Steve, a qualified chartered accountant and experienced investor, is a recognised authority on property investment as a means of creating personal wealth.
-
-Since buying his first investment property in May 1999, Steve has completed hundreds of property transactions. His real estate portfolio includes commercial properties in Australia, in addition to a substantial investment in the Passive Income (USA Commercial Property) Fund (“US Fund”).
-
-Steve has been the Chair of PCL since 2012, and is the co-founder and current Chief Executive Officer of PropertyInvesting.com, a website that is committed to educating investors on how to successfully use real estate to create wealth. His first book, From 0 to 130 Properties in 3.5 Years, has sold over 200,000 copies. Steve has been featured as an expert investor in the print media, on television and on radio. He has contributed keynote addresses on real estate investing in Australia, New Zealand, Asia, Canada and the USA.
-
-Paul Harper
-Bachelor of Business (Accounting)
-Master of Entrepreneurship and Innovation
-
-For more than 25 years Paul has been assisting individuals to build wealth intelligently. He is currently a responsible manager and member of the compliance committee for a $600m managed fund that owns direct Australian real estate. Earlier, while Chief Executive Officer of Jeena Limited – a firm of Chartered Accountants that he co-founded in 1997, Paul chaired the investment committee of an entity that was responsible for more than $500m of investor capital.
-
-Paul has considerable experience in setting investment strategies, making portfolio allocations to maximise investor returns, risk and compliance management, accounting, reporting, operations
-and administration.
-
-Paul has been a non-executive director of PCL since 2012, where he has made a profound contribution to the success of the Passive Income (USA Commercial Property) Fund. He’s excited about the possibilities of the Fund and looks forward to becoming involved in a operational capacity once the minimum subscription is achieved. Paul has worked in the finance, accounting and funds management industry for more than 32 years, including 15 years as a partner at Jeena Limited, a Melbourne-based firm of Chartered Accountants that provided taxation, accounting and investment services to high-net wealth clients and families.
-
-His professional knowledge of efficient equity investments has been shaped by more than two decades acting as an investment advisor, including overseeing $200m of funds under management at Jeena Partners.
-
-Paul has been a Director of PCL since 2012.
-
-Ewan MacDonald
-Bachelor of Arts, Diploma of Law, Diploma of Practical Legal Training
-
-Ewan is a highly experienced financial services and managed funds adviser and consultant.
-
-His experience includes the establishment and operation of listed and unlisted managed funds, preparation of offer and other fund documents, Australian financial services licensing and compliance implementation and management.
-
-He has previously acted as a director of various AFSL holders, including a responsible entity of registered managed investment schemes offered to retail investors. He has also been the chair and/or external member of a significant number of compliance committees for registered schemes. Ewan was previously the external chair of PCL’s compliance committee and now acts as the internal member of that committee.
-
 ## Contact
 
 Email address
