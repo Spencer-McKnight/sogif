@@ -128,6 +128,39 @@
 }
 
 @layer utilities {
+  /* Typography system: six role-based utilities */
+  .type-display {
+    @apply text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight;
+  }
+
+  .type-heading {
+    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight;
+  }
+
+  .type-title {
+    @apply text-xl sm:text-2xl leading-snug tracking-tight;
+  }
+
+  .type-metric {
+    @apply text-2xl sm:text-3xl lg:text-4xl leading-tight tracking-tight tabular-nums;
+  }
+
+  .type-body {
+    @apply text-base sm:text-lg leading-relaxed;
+  }
+
+  .type-support {
+    @apply text-sm sm:text-base leading-relaxed;
+  }
+
+  .type-caption {
+    @apply text-xs sm:text-sm leading-relaxed;
+  }
+
+  .type-overline {
+    @apply text-xs sm:text-sm font-semibold uppercase tracking-[0.08em] leading-none;
+  }
+
   /* Focus states for accessibility */
   .focus-ring {
     @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-light focus-visible:ring-offset-2 focus-visible:ring-offset-background;
@@ -146,15 +179,15 @@
   }
 
   .section-eyebrow {
-    @apply font-semibold text-sm uppercase tracking-wider mb-3 block;
+    @apply type-overline mb-3 block;
   }
 
   .section-title {
-    @apply text-3xl sm:text-4xl font-bold mb-4;
+    @apply type-heading font-bold mb-4;
   }
 
   .section-description {
-    @apply text-lg leading-relaxed;
+    @apply type-body;
   }
 
   .card-hover-soft {

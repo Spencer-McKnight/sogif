@@ -34,7 +34,7 @@ export function Header() {
                 priority
               />
             </div>
-            <span className="text-white font-semibold text-lg md:text-xl tracking-tight group-hover:text-sogif-cyan-light transition-colors">
+            <span className="text-white font-semibold type-title group-hover:text-sogif-cyan-light transition-colors">
               SOGIF
             </span>
           </Link>
@@ -46,7 +46,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 variant="nav-expanded"
-                className="text-md focus-visible:underline underline-offset-4"
+                className="type-support focus-visible:underline underline-offset-4"
               >
                 {item.label}
               </AppLink>
@@ -66,7 +66,7 @@ export function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span>Investor Portal</span>
-              <svg className="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </ButtonLink>
@@ -76,7 +76,7 @@ export function Header() {
               size="md"
               glow="gold"
             >
-              Invest Now
+              Apply Now
             </ButtonLink>
           </div>
 
@@ -156,7 +156,7 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block mx-4 mt-4 bg-sogif-gold hover:bg-sogif-gold/90 text-gray-900 font-semibold px-5 py-3 rounded-lg text-center transition-all"
               >
-                Invest Now
+                Invest
               </Link>
             </nav>
           </motion.div>

@@ -17,7 +17,7 @@ export function InvestorPortalCTA() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
-          <p className="text-sogif-success font-semibold text-sm">Already an investor?</p>
+          <p className="text-sogif-success font-semibold type-support">Already an investor?</p>
         </div>
         <ButtonLink
           href={constants.portalUrl}

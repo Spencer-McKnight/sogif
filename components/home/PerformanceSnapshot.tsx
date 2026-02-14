@@ -125,7 +125,7 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
 
   return (
     <div className="rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
-      <p className="mb-2 text-sm font-medium text-white">{data.month}</p>
+      <p className="mb-2 type-support font-medium text-white">{data.month}</p>
       <div className="space-y-1.5">
         {TOOLTIP_METRICS.map(({ key, label, color }) => {
           const value = data[key]
@@ -139,9 +139,9 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
                   className="h-2.5 w-2.5 rounded-full" 
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-xs text-white/90">{label}</span>
+                <span className="type-caption text-white/90">{label}</span>
               </div>
-              <span className="text-xs font-medium tabular-nums text-white">
+              <span className="type-caption font-medium tabular-nums text-white">
                 ${value.toFixed(4)}
               </span>
             </div>
@@ -266,11 +266,11 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 key={stat.label}
                 variant="stat"
               >
-                <p className="text-white/90 text-xs lg:text-sm mb-1 lg:mb-2">{stat.label}</p>
+                <p className="text-white/90 type-support mb-1 lg:mb-2">{stat.label}</p>
                 <div className="flex items-end gap-2 lg:gap-3">
-                  <span className="text-2xl lg:text-3xl font-bold text-white">{stat.value}</span>
+                  <span className="type-metric font-bold text-white">{stat.value}</span>
                   {stat.change && (
-                    <span className={`text-xs lg:text-sm font-medium pb-0.5 lg:pb-1 ${
+                    <span className={`type-support font-medium pb-0.5 lg:pb-1 ${
                       stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/90'
                     }`}>
                       {stat.change}
@@ -285,8 +285,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               className="group flex items-center justify-between bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 hover:bg-sogif-cyan-light/20 rounded-xl p-4 lg:p-6 text-white"
             >
               <div>
-                <p className="text-white font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">View Full Performance</p>
-                <p className="text-white/90 text-xs lg:text-sm">Monthly data, distributions & analysis</p>
+                <p className="text-white font-semibold type-support mb-0.5 lg:mb-1">View Full Performance</p>
+                <p className="text-white/90 type-support">Monthly data, distributions & analysis</p>
               </div>
               <svg
                 className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-cyan-light group-hover:translate-x-1 transition-transform"
@@ -312,8 +312,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sogif-success font-semibold text-sm lg:text-base mb-0.5 lg:mb-1">Existing Investor?</p>
-                  <p className="text-white/90 text-xs lg:text-sm">View your personalised returns</p>
+                  <p className="text-sogif-success font-semibold type-support mb-0.5 lg:mb-1">Existing Investor?</p>
+                  <p className="text-white/90 type-support">View your personalised returns</p>
                 </div>
               </div>
               <svg
@@ -336,13 +336,13 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-white font-semibold">Fund Pricing & Returns</h3>
-                <p className="text-white/90 text-sm">Monthly performance since inception</p>
+                <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
+                <p className="text-white/90 type-support">Monthly performance since inception</p>
               </div>
             </div>
 
             {/* Legend */}
-            <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
+            <div className="flex flex-wrap items-center gap-4 mb-4 type-support">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-sogif-gold" />
                 <span className="text-white/90">Redemption Price</span>
@@ -458,7 +458,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             top: redemptionTooltip.y - 90,
           }}
         >
-          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 text-xs text-white shadow-2xl leading-relaxed max-w-[220px]">
+          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[220px]">
             No property was acquired until the minimum subscription was achieved. 
             Accordingly, there was no redemption price prior to December 2023.
           </div>
@@ -474,7 +474,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             top: distributionTooltip.y - 55,
           }}
         >
-          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 text-xs text-white shadow-2xl leading-relaxed max-w-[200px]">
+          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
             First quarterly distribution began here
           </div>
         </div>

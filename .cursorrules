@@ -9,7 +9,7 @@ The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
 
 ## Design notes
 
-Read the design system before implementing components ./design-system.md
+Read the design system before implementing components ./docs/design-system.md
 Update the document if relevant changes are made
 
 ## High-level Scope (Approved)

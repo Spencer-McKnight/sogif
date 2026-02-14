@@ -16,8 +16,8 @@ const badgeVariants = cva(
         trust: 'bg-sogif-navy/5 text-sogif-cyan-dark',
       },
       size: {
-        sm: 'px-3 py-1 text-xs',
-        md: 'px-4 py-1.5 text-sm',
+        sm: 'px-3 py-1 type-support',
+        md: 'px-4 py-1.5 type-support',
       },
     },
     defaultVariants: {

@@ -18,9 +18,9 @@ const buttonVariants = cva(
         ghost: 'bg-transparent text-sogif-cyan-dark hover:text-gray-900',
       },
       size: {
-        sm: 'min-h-10 px-4 py-2 text-sm rounded-lg',
-        md: 'min-h-11 px-6 py-3 text-base rounded-xl',
-        lg: 'min-h-12 px-8 py-4 text-lg rounded-xl',
+        sm: 'min-h-10 px-4 py-2 type-support rounded-lg',
+        md: 'min-h-11 px-6 py-3 type-support rounded-xl',
+        lg: 'min-h-12 px-8 py-4 type-body rounded-xl',
       },
       glow: {
         none: '',

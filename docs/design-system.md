@@ -18,6 +18,33 @@ Primary tokens are defined in:
 - `app/globals.css` (CSS variables and utility classes)
 - `tailwind.config.ts` (Tailwind semantic mappings)
 
+### Typography Guidance
+
+Typography sizing is now centralized through eight role-based utility classes in `app/globals.css`.
+Use these classes instead of repeating inline responsive `text-*` chains in each component.
+
+- `type-display`: hero headlines and primary numeric moments (`text-4xl sm:text-5xl lg:text-6xl`)
+- `type-heading`: section-level headings and strong stat headings (`text-3xl sm:text-4xl lg:text-5xl`)
+- `type-title`: card titles, logo wordmarks, and compact emphasis (`text-xl sm:text-2xl`)
+- `type-metric`: KPI values and data-heavy highlights (`text-2xl sm:text-3xl lg:text-4xl`, tabular)
+- `type-body`: primary paragraph copy and larger CTA support text (`text-base sm:text-lg`)
+- `type-support`: secondary body text, controls, and dense UI copy (`text-sm sm:text-base`)
+- `type-caption`: legal notes, tooltips, and microcopy (`text-xs sm:text-sm`)
+- `type-overline`: eyebrow/meta labels in uppercase with tracking (`text-xs sm:text-sm`)
+
+Button and badge sizes remain variant-driven in `components/ui/button.tsx` and `components/ui/badge.tsx`, but now consume these role classes so sizing logic still lives in one typography system.
+
+All roles include deliberate line-height defaults to improve readability and keep rhythm consistent.
+
+#### Tailwind Best Practice For Text Sizing
+
+1. Prefer semantic typography classes (role-based) over repeated utility chains.
+2. Keep size, rhythm, and breakpoint logic in one place (`globals.css`) so scale changes are safe.
+3. Keep color/weight local to the component unless they are true design tokens.
+4. Prefer existing roles and local modifiers (`font-semibold`, `tabular-nums`, `normal-case`) before creating another typography role.
+5. Keep responsive behavior consistent by using the role classes directly rather than ad-hoc `text-*` chains.
+6. Pair size with line-height in the same role class so readability does not drift component-to-component.
+
 ### Color Guidance
 
 - `sogif.navy`: structural surfaces, trust-heavy sections, primary dark backgrounds.

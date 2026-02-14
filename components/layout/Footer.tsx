@@ -49,12 +49,12 @@ export function Footer() {
                   className="object-contain"
                 />
               </div>
-              <span className="font-semibold text-xl">SOGIF</span>
+              <span className="font-semibold type-title">SOGIF</span>
             </Link>
-            <p className="text-white/90 text-sm leading-relaxed max-w-sm mb-6">
+            <p className="text-white/90 type-support max-w-sm mb-6">
               {footerContent.description}
             </p>
-            <div className="space-y-2 text-sm text-white/80">
+            <div className="space-y-2 type-support text-white/80">
               <p>{footerContent.legal.responsibleEntity}</p>
               <p>{footerContent.legal.arsn}</p>
               <p>{footerContent.legal.afsl}</p>
@@ -63,7 +63,7 @@ export function Footer() {
 
           {/* Pages */}
           <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-4 text-sm uppercase tracking-wider">
+            <h4 className="text-sogif-cyan-light font-semibold mb-4 type-overline">
               Pages
             </h4>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
@@ -72,7 +72,7 @@ export function Footer() {
                   <AppLink
                     href={link.href}
                     variant="nav"
-                    className="text-sm focus-visible:underline underline-offset-4"
+                    className="type-support focus-visible:underline underline-offset-4"
                   >
                     {link.label}
                   </AppLink>
@@ -83,10 +83,10 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-4 text-sm uppercase tracking-wider">
+            <h4 className="text-sogif-cyan-light font-semibold mb-4 type-overline">
               Contact
             </h4>
-            <ul className="flex flex-col gap-y-3 text-md">
+            <ul className="flex flex-col gap-y-3 type-support">
               <li>
                 <AppLink
                   href={`mailto:${footerContent.contact.email}`}
@@ -126,8 +126,8 @@ export function Footer() {
                 </svg>
               </div>
               <div className="flex-1">
-                <span className="text-sogif-success text-xs font-medium block">Existing Investor?</span>
-                <span className="text-white/80 text-xs">Login to Portal →</span>
+                <span className="text-sogif-success type-support font-medium block">Existing Investor?</span>
+                <span className="text-white/80 type-support">Login to Portal →</span>
               </div>
             </AppLink>
           </div>
@@ -143,7 +143,7 @@ export function Footer() {
             available on this website, and consider whether the Fund is appropriate for you. Past performance is not a reliable indicator of future performance.
             Investment returns are not guaranteed. Your capital is at risk.
           </DisclaimerText>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-white/75">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 type-support text-white/75">
             <p>© {new Date().getFullYear()} Plantation Capital Limited. All rights reserved.</p>
             <div className="flex gap-4">
               {footerLinks.legal.map((link) => (

@@ -2,12 +2,12 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import type { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
-const disclaimerVariants = cva('leading-relaxed', {
+const disclaimerVariants = cva('type-caption', {
   variants: {
     tone: {
-      hero: 'text-white/75 text-xs',
-      dark: 'text-gray-600 text-xs',
-      footer: 'text-white/75 text-xs',
+      hero: 'text-white/75',
+      dark: 'text-gray-600',
+      footer: 'text-white/75',
     },
     emphasis: {
       none: '',

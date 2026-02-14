@@ -55,22 +55,22 @@ export function RegisterInterestCTA() {
               <span>Fund closing to new investors {ctaContent.closingDate}</span>
             </Badge>
 
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="type-heading font-bold text-white mb-4">
               {ctaContent.headline}
             </h2>
-            <p className="text-lg text-white/90 mb-8 leading-relaxed">
+            <p className="type-body text-white/90 mb-8">
               {ctaContent.subheadline}
             </p>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 text-xs mb-1">Minimum Investment</p>
-                <p className="text-2xl font-bold text-white">{ctaContent.minInvestment}</p>
+                <p className="text-white/90 type-support mb-1">Minimum Investment</p>
+                <p className="type-title font-bold text-white tabular-nums">{ctaContent.minInvestment}</p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 text-xs mb-1">Additional Investment</p>
-                <p className="text-2xl font-bold text-white">{ctaContent.additionalInvestment}</p>
+                <p className="text-white/90 type-support mb-1">Additional Investment</p>
+                <p className="type-title font-bold text-white tabular-nums">{ctaContent.additionalInvestment}</p>
               </div>
             </div>
 
@@ -83,10 +83,10 @@ export function RegisterInterestCTA() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="bg-white rounded-2xl p-8 shadow-2xl">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="type-title font-bold text-gray-900 mb-2">
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
               </h3>
-              <p className="text-gray-800 mb-6">
+              <p className="type-support text-gray-800 mb-6">
                 {isSubmitted
                   ? "Monitor your email for more information about investing in SOGIF."
                   : "Get our PDS and investment information pack delivered to your inbox."
@@ -132,7 +132,7 @@ export function RegisterInterestCTA() {
               )}
 
               <div className="mt-6 pt-6 border-t border-gray-100">
-                <p className="text-gray-600 text-sm mb-4">Ready to invest now?</p>
+                <p className="text-gray-600 type-support mb-4">Ready to invest now?</p>
                 <ButtonLink
                   href="/invest"
                   variant="primary"

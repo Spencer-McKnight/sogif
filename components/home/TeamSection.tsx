@@ -77,10 +77,10 @@ export function TeamSection() {
               </div>
 
               {/* Info */}
-              <h3 className="text-xl font-bold text-gray-900 mb-1">{director.name}</h3>
-              <p className="text-sogif-cyan-dark font-semibold text-sm mb-2">{director.role}</p>
-              <p className="text-gray-600 text-xs mb-4">{director.credentials}</p>
-              <p className="text-gray-800 text-sm leading-relaxed max-w-xs mx-auto">
+              <h3 className="type-title font-bold text-gray-900 mb-1">{director.name}</h3>
+              <p className="text-sogif-cyan-dark font-semibold type-support mb-2">{director.role}</p>
+              <p className="text-gray-600 type-support mb-4">{director.credentials}</p>
+              <p className="text-gray-800 type-support max-w-xs mx-auto">
                 {director.bio}
               </p>
             </motion.div>
@@ -95,16 +95,16 @@ export function TeamSection() {
           className="mt-16 grid sm:grid-cols-3 gap-6 text-center"
         >
           <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">Master</p>
-            <p className="text-gray-800 text-sm">Investment Strategies</p>
+            <p className="type-metric font-bold text-gray-900 mb-2">Master</p>
+            <p className="text-gray-800 type-support">Investment Strategies</p>
           </AppCard>
           <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">$2B+</p>
-            <p className="text-gray-800 text-sm">Capital Managed</p>
+            <p className="type-metric font-bold text-gray-900 mb-2">$2B+</p>
+            <p className="text-gray-800 type-support">Capital Managed</p>
           </AppCard>
           <AppCard variant="plain" className="bg-gray-50 text-center">
-            <p className="text-3xl font-bold text-gray-900 mb-2">70+</p>
-            <p className="text-gray-800 text-sm">Years Combined Experience</p>
+            <p className="type-metric font-bold text-gray-900 mb-2">70+</p>
+            <p className="text-gray-800 type-support">Years Combined Experience</p>
           </AppCard>
         </motion.div>
 

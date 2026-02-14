@@ -195,7 +195,7 @@ export function ImagePlaceholder({
   
   return (
     <div
-      className={`bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-slate-500 text-sm ${className}`}
+      className={`bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-slate-500 type-support ${className}`}
       style={style}
       role="img"
       aria-label={label}

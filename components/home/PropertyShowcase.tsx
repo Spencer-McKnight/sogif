@@ -103,13 +103,13 @@ export function PropertyShowcase() {
 
                 {/* Type Badge */}
                 <div className="absolute bottom-4 left-4">
-                  <span className="text-white text-sm font-medium">{property.type}</span>
+                  <span className="text-white type-support font-medium">{property.type}</span>
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-sogif-cyan-dark transition-colors">
+                <h3 className="type-title font-bold text-gray-900 mb-2 group-hover:text-sogif-cyan-dark transition-colors">
                   {property.title}
                 </h3>
                 <div className="flex items-center gap-2 text-gray-600">
@@ -117,7 +117,7 @@ export function PropertyShowcase() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-sm">{property.location}</span>
+                  <span className="type-support">{property.location}</span>
                 </div>
               </div>
               </AppCard>

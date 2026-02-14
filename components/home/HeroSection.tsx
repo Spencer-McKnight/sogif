@@ -8,13 +8,13 @@ import { Badge, ButtonLink, Container, DisclaimerText } from '@/components/ui'
 const heroContent = {
   headlineTop: 'Patient Capital',
   headlineBottom: 'Actively Managed',
-  subheadline: 'Own a slice of carefully selected Australian commercial property and efficient assets. Receive quarterly cash distributions without the hassle of property management or sale decisions.',
+  subheadline: 'Gain access to Steve McKnight’s selected Australian commercial property as we analyse and acquire. Amplify growth and strategically diversify with actively managed shares. Recieve quarterly distributions for passive income.',
   stats: [
     { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
     { value: '$170M+', label: 'Funds Under Management' },
     { value: '$10,000', label: 'Minimum Investment' },
   ],
-  ctaPrimary: { label: 'Start Application', href: '/invest' },
+  ctaPrimary: { label: 'Join the Fund', href: '/invest' },
   ctaSecondary: { label: 'Performance', href: '#performance' },
 }
 
@@ -66,7 +66,7 @@ export function HeroSection() {
             <motion.h1
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
+              className="type-display font-bold text-white mb-6"
             >
               <span className="relative inline-block">
                 {heroContent.headlineTop}
@@ -79,7 +79,7 @@ export function HeroSection() {
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="text-lg sm:text-xl text-white/90 mb-8 max-w-xl leading-relaxed"
+              className="type-body text-white/90 mb-8 max-w-xl"
             >
               {heroContent.subheadline}
             </motion.p>
@@ -139,17 +139,17 @@ export function HeroSection() {
                   }`}
               >
                 {stat.highlight && (
-                  <div className="absolute top-0 right-0 bg-sogif-cyan-light text-sogif-navy text-xs font-bold px-3 py-1 rounded-bl-lg">
+                  <div className="absolute top-0 right-0 bg-sogif-cyan-light text-sogif-navy type-overline font-bold px-3 py-1 rounded-bl-lg">
                     KEY METRIC
                   </div>
                 )}
                 <p
-                  className={`text-4xl sm:text-5xl font-bold mb-2 ${stat.highlight ? 'text-sogif-cyan-light' : 'text-white'
+                  className={`type-metric font-bold mb-2 ${stat.highlight ? 'text-sogif-cyan-light' : 'text-white'
                     }`}
                 >
                   {stat.value}
                 </p>
-                <p className="text-white/90 text-sm sm:text-base">{stat.label}</p>
+                <p className="text-white/90 type-support">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
