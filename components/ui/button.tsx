@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority'
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
@@ -46,7 +46,9 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-export interface ButtonLinkProps extends VariantProps<typeof buttonVariants> {
+export interface ButtonLinkProps
+  extends VariantProps<typeof buttonVariants>,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children'> {
   href: string
   className?: string
   external?: boolean
@@ -80,19 +82,20 @@ export function ButtonLink({
   glow,
   fullWidth,
   children,
+  ...props
 }: ButtonLinkProps) {
   const classes = cn(buttonVariants({ variant, size, glow, fullWidth }), className)
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...props}>
         {children}
       </a>
     )
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} {...props}>
       {children}
     </Link>
   )

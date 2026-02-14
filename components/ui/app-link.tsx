@@ -10,7 +10,7 @@ const appLinkVariants = cva(
       variant: {
         text: 'font-semibold text-sogif-cyan-dark hover:text-gray-900',
         nav: 'relative font-medium text-white/90 hover:text-white active:text-sogif-cyan-light after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 hover:after:w-full',
-        'nav-expanded': 'relative font-medium text-white/90 hover:text-white active:text-sogif-cyan-light px-3 py-4 after:content-[""] after:absolute after:bottom-4 after:left-3 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 hover:after:w-[calc(100%-1.5rem)]',
+        'nav-expanded': 'relative font-medium text-white hover:text-white active:text-white px-3 py-4 after:content-[""] after:absolute after:bottom-4 after:left-3 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 hover:after:w-[calc(100%-1.5rem)]',
         portal:
           'font-semibold bg-sogif-success/10 border border-sogif-success/30 text-sogif-success hover:bg-sogif-success/20 rounded-xl px-4 py-3',
       },

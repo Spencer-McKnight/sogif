@@ -1,4 +1,5 @@
 export { HeroSection } from './HeroSection'
+export { HeroStats } from './HeroStats'
 export { ValueProposition } from './ValueProposition'
 export { PerformanceSnapshot } from './PerformanceSnapshot'
 export { PropertyShowcase } from './PropertyShowcase'
