@@ -70,8 +70,8 @@ Use high contrast text first:
 
 ### Card Hover
 
-- Use `AppCard` with `variant="interactive"` for reusable value-card hover behavior.
-- This encapsulates the established hover language from homepage value cards.
+- Use `AppCard` with `variant="plain"` and add `card-gradient-hover` for the homepage value-card hover behavior.
+- This keeps the hover language reusable while preserving a consistent white card base.
 
 ### Image Zoom
 
@@ -93,7 +93,7 @@ Location: `components/ui`
 - `Container`: standard page width and responsive horizontal padding
 - `Badge`: status, announcement, and trust chips
 - `DisclaimerText`: reusable legal/informational disclaimer text
-- `AppCard`: card shells for interactive/property/stat/plain use cases
+- `AppCard`: card shells for plain/property-light/stat use cases
 - `SectionHeader`: eyebrow/title/description section intro block
 
 All primitives are exported from `components/ui/index.ts`.
@@ -113,7 +113,7 @@ Common replacements used in homepage refactor:
 - repeated gold CTA class strings -> `ButtonLink variant="primary" glow="gold"`
 - inline legal text classes -> `DisclaimerText`
 - repeated section intro markup -> `SectionHeader`
-- repeated value-card shell classes -> `AppCard variant="interactive"`
+- repeated value-card shell classes -> `AppCard variant="plain" + card-gradient-hover`
 
 ## Recommended Use on New Pages
 

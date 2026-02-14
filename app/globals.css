@@ -74,9 +74,9 @@
     --motion-duration-slow: 500ms;
     --motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-glow-gold-passive: 0 14px 48px -16px hsl(var(--sogif-gold) / 0.40);
-    --shadow-glow-gold-hover: 0 14px 48px -12px hsl(var(--sogif-gold) / 0.7);
+    --shadow-glow-gold-hover: 0 12px 40px -14px hsl(var(--sogif-gold) / 0.55);
     --shadow-glow-success-passive: 0 14px 48px -16px hsl(var(--sogif-success) / 0.40);
-    --shadow-glow-success-hover: 0 14px 48px -12px hsl(var(--sogif-success) / 0.7);
+    --shadow-glow-success-hover: 0 12px 40px -14px hsl(var(--sogif-success) / 0.55);
     --shadow-glow-cyan: 0 14px 40px -18px hsl(var(--sogif-cyan-light) / 0.55);
     --shadow-soft-cyan: 0 16px 40px -24px hsl(var(--sogif-cyan-dark) / 0.35);
   }
@@ -193,21 +193,23 @@
     @apply type-body;
   }
 
-  .card-hover-soft {
-    @apply bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-sogif-cyan-dark/30 transition-all duration-300 hover:shadow-xl hover:shadow-sogif-cyan-dark/5;
-  }
-
   .card-gradient-hover {
     @apply relative overflow-hidden;
   }
 
   .card-gradient-hover::before {
     content: '';
-    @apply absolute inset-0 rounded-2xl bg-gradient-to-br from-sogif-cyan-dark/0 via-transparent to-sogif-gold/0 transition-all duration-300 pointer-events-none;
+    @apply absolute inset-0 rounded-2xl pointer-events-none;
+    opacity: 0;
+    transition: opacity var(--motion-duration-base) var(--motion-ease-standard);
+    background:
+      radial-gradient(circle at 16% 14%, hsl(var(--sogif-cyan-light) / 0.17) 0%, transparent 46%),
+      radial-gradient(circle at 84% 86%, hsl(var(--sogif-gold) / 0.17) 0%, transparent 48%),
+      radial-gradient(circle at 50% 50%, hsl(0 0% 100% / 0.12) 0%, transparent 42%);
   }
 
   .card-gradient-hover:hover::before {
-    @apply from-sogif-cyan-dark/5 to-sogif-gold/5;
+    opacity: 0.9;
   }
 
   .media-zoom-hover {
@@ -251,6 +253,61 @@
     transform: translateY(-1px);
   }
 
+  /* Button interactive lift/press and brightness */
+  .btn-interactive {
+    position: relative;
+    isolation: isolate;
+    transition:
+      transform var(--motion-duration-fast) var(--motion-ease-standard),
+      filter var(--motion-duration-fast) var(--motion-ease-standard),
+      box-shadow var(--motion-duration-base) var(--motion-ease-standard),
+      background-color var(--motion-duration-fast) var(--motion-ease-standard),
+      border-color var(--motion-duration-fast) var(--motion-ease-standard),
+      color var(--motion-duration-fast) var(--motion-ease-standard),
+      opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+
+  .btn-interactive::before {
+    content: '';
+    position: absolute;
+    inset: 2px 0 -2px 0;
+    border-radius: inherit;
+    background: rgba(0, 0, 0, 0.07);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .btn-interactive:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-interactive:active {
+    transform: translateY(0.5px);
+    filter: brightness(0.98);
+  }
+
+  .btn-interactive:disabled {
+    transform: none;
+    filter: none;
+  }
+
+  .btn-interactive:disabled::before {
+    display: none;
+  }
+
+  .hover\:brightness-102:hover {
+    filter: brightness(1.02);
+  }
+
+  .hover\:brightness-104:hover {
+    filter: brightness(1.04);
+  }
+
+  .hover\:brightness-102:active,
+  .hover\:brightness-104:active {
+    filter: brightness(0.97);
+  }
+
   /* Text gradient utility */
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-sogif-cyan-light to-sogif-gold;
@@ -270,8 +327,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .media-zoom-hover,
-  .hover-lift-soft {
+  .hover-lift-soft,
+  .btn-interactive {
     transition: none !important;
     transform: none !important;
+    filter: none !important;
   }
 }
