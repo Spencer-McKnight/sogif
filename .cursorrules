@@ -1,10 +1,19 @@
-Your Expertise: Founding website engineer, senior ux optimisation designer, digital strategist
+## Case
 
-Case: Create an innovative, comprehendable digital experience and performant modern technologies. See /README.md and /SOGIF_CONTEXT.md for further details.
+Create an exceptional, modern digital website sales funnel and investor experience.
+See /README.md and /SOGIF_CONTEXT.md for further details.
 
-Technology: The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
+## Technology
+
+The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
+
+## Design notes
+
+Read the design system before implementing components ./design-system.md
+Update the document if relevant changes are made
 
 ## High-level Scope (Approved)
+
 Content Management System
 Home Page
 Performance Page
@@ -19,47 +28,50 @@ Moving beyond the bounds of assumed scope is allowed when doing identifies with 
 
 ## Sogif Project Technologies
 
-| Technology | Version | Use Case |
-|------------|---------|----------|
-| Next.js | 15.1.0 | Full-stack React framework, App Router, SSR/SSG, routing |
-| React | 19.0.0 | UI component library and rendering |
-| TypeScript | 5.7.2 | Type safety and developer experience |
-| Tailwind CSS | 3.4.17 | Utility-first CSS styling framework |
-| DatoCMS | 7.2.4 | Headless CMS for content management |
-| GraphQL | 16.9.0 | API query language for DatoCMS integration |
-| graphql-request | 7.1.2 | Minimal GraphQL client for data fetching |
-| Framer Motion | 11.15.0 | Animation and motion library for UI |
-| Imgix | 3.8.0 | Image optimization and transformation |
-| next-seo | 6.6.0 | SEO metadata management |
-| next-sitemap | 4.2.3 | Automatic sitemap generation |
-| Vercel Analytics | 1.4.1 | Website analytics and user insights |
-| Vercel Speed Insights | 1.1.0 | Performance monitoring and Core Web Vitals |
-| ESLint | 9.18.0 | Code linting and quality enforcement |
-| PostCSS | 8.4.49 | CSS processing and transformation |
+| Technology            | Version | Use Case                                                 |
+| --------------------- | ------- | -------------------------------------------------------- |
+| Next.js               | 15.1.0  | Full-stack React framework, App Router, SSR/SSG, routing |
+| React                 | 19.0.0  | UI component library and rendering                       |
+| TypeScript            | 5.7.2   | Type safety and developer experience                     |
+| Tailwind CSS          | 3.4.17  | Utility-first CSS styling framework                      |
+| DatoCMS               | 7.2.4   | Headless CMS for content management                      |
+| GraphQL               | 16.9.0  | API query language for DatoCMS integration               |
+| graphql-request       | 7.1.2   | Minimal GraphQL client for data fetching                 |
+| Framer Motion         | 11.15.0 | Animation and motion library for UI                      |
+| Imgix                 | 3.8.0   | Image optimization and transformation                    |
+| next-seo              | 6.6.0   | SEO metadata management                                  |
+| next-sitemap          | 4.2.3   | Automatic sitemap generation                             |
+| Vercel Analytics      | 1.4.1   | Website analytics and user insights                      |
+| Vercel Speed Insights | 1.1.0   | Performance monitoring and Core Web Vitals               |
+| ESLint                | 9.18.0  | Code linting and quality enforcement                     |
+| PostCSS               | 8.4.49  | CSS processing and transformation                        |
 
 # Website Structure
+
 Bespoke Content Managed Pages: Build bespoke componentry supplemented by blocks and mock CMS data. Can be statically linked.
+
 - Home /
 - Peformance /performance
 - Properties /properties
 - Updates /updates
+
 Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and mock CMS data. Can be statically linked.
+
 - About /about
 - Disclosures /disclosures
 - Invest /invest
 
-## Design notes
-Read the design system before implementing components ./design-system.md
-Update the document if relevant changes are made
-
 ## Important Rules
+
 Never check git history, to conserve tokens
 
 ## Next Best Practices:
-- Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="_blank" rel="noopener noreferrer"), mailto:, and tel: links.
+
+- Always use Next.js `<Link>` component from 'next/link' for internal navigation (routes and hash links). Use standard `<a>` tags only for external links (with target="\_blank" rel="noopener noreferrer"), mailto:, and tel: links.
 - Use `<Image />` from 'next/image' or `<DatoImage />` component in combination with datoCMS best practices for optimised images, do not use `<img>`
 
 ## Driving ideals:
+
 1. Use variable definition. Do not declare potentially CMSable values within html. If the CMS structure does not exist, store the variable in an appropriately accessible location.
 2. Write concise code aligns with your advanced technical and design expertise.
 3. Utilise checklists and todos for complex tasks.
@@ -70,7 +82,9 @@ Never check git history, to conserve tokens
 8. Check shadcn for inputs, interactive elements before implementing bespoke. Use shadcn for data visualisation
 
 ## Accessibility
+
 Consider accessibility best practices such as:
+
 - HTML Attributes for page readers
 - Colour and text contrast
 - Button sizing
@@ -78,6 +92,7 @@ Consider accessibility best practices such as:
 - Responsiveness
 
 ⚠️ **Important**: Ensure all content complies with:
+
 - Australian Securities and Investments Commission (ASIC) regulations
 - Australian Financial Services Licence (AFSL) requirements
 - Privacy Act compliance

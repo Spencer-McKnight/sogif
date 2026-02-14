@@ -40,12 +40,12 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-4">
             {navItems.map((item) => (
               <AppLink
                 key={item.href}
                 href={item.href}
-                variant="nav"
+                variant="nav-expanded"
                 className="text-md focus-visible:underline underline-offset-4"
               >
                 {item.label}
@@ -54,12 +54,12 @@ export function Header() {
           </nav>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-4">
             <ButtonLink
               href={constants.portalUrl}
               external
               variant="success"
-              size="sm"
+              size="md"
               className="group focus-ring-inverse"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,7 +73,7 @@ export function Header() {
             <ButtonLink
               href="/invest"
               variant="primary"
-              size="sm"
+              size="md"
               glow="gold"
             >
               Invest Now

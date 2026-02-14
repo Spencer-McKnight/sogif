@@ -6,7 +6,8 @@ import { Badge, ButtonLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const heroContent = {
-  headline: 'Strategic Growth. Reliable Income.',
+  headlineTop: 'Patient Capital',
+  headlineBottom: 'Actively Managed',
   subheadline: 'Own a slice of carefully selected Australian commercial property and efficient assets. Receive quarterly cash distributions without the hassle of property management or sale decisions.',
   stats: [
     { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
@@ -68,11 +69,11 @@ export function HeroSection() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             >
               <span className="relative inline-block">
-                Strategic Growth
+                {heroContent.headlineTop}
                 <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/20 rounded-full" />
               </span>
-              {'. '}
-              <span className="text-sogif-cyan-light">Reliable Income.</span>
+              <br />
+              <span className="text-sogif-cyan-light">{heroContent.headlineBottom}</span>
             </motion.h1>
 
             <motion.p
