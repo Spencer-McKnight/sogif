@@ -18,26 +18,26 @@ const fadeInUp = {
 
 export function HeroStatBar() {
   return (
-    <section aria-label="Key fund metrics" className="relative bg-sogif-navy pt-2 pb-24">
+    <section aria-label="Key fund metrics" className="relative bg-sogif-navy pt-2 pb-16 md:pb-20 lg:pb-24">
       <Container>
         {/* Thin separator line */}
-        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="mb-8 md:mb-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <motion.div
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ staggerChildren: 0.15 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+          transition={{ staggerChildren: 0.1 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
         >
           {stats.map((stat, i) => (
             <motion.div
               key={i}
               variants={fadeInUp}
               transition={{ duration: 0.45 }}
-              className="rounded-xl border border-white/20 bg-white/[0.03] px-6 py-5 text-center"
+              className="rounded-xl border border-white/15 bg-white/[0.03] px-4 md:px-6 py-4 md:py-5 text-center"
             >
-              <p className="type-metric font-bold text-white">{stat.value}</p>
+              <p className="type-title md:type-metric font-bold text-white">{stat.value}</p>
               <p className="type-caption text-white/60 mt-1">
                 {stat.label}
                 {stat.sublabel && (
@@ -50,7 +50,7 @@ export function HeroStatBar() {
       </Container>
 
       {/* Bottom gradient bleed — softens the navy-to-white transition */}
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-white/[0.04] pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-12 md:h-16 bg-gradient-to-b from-transparent to-white/[0.04] pointer-events-none" />
     </section>
   )
 }

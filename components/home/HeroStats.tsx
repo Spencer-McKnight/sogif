@@ -25,12 +25,12 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
       className="relative group"
     >
       {/* Content */}
-      <div className="relative px-6 py-5 text-center">
+      <div className="relative px-3 md:px-4 lg:px-5 py-1.5 md:py-4 lg:py-5 text-center">
         {/* Value */}
         <motion.p
           variants={fadeIn}
           transition={{ duration: 0.5 }}
-          className={`type-heading text-xl font-bold tracking-tight text-white`}
+          className="type-title md:type-metric font-bold tracking-tight text-white"
         >
           {stat.value}
         </motion.p>
@@ -40,14 +40,14 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-          className={`mx-auto mt-2 mb-2 h-px w-12 origin-center bg-gradient-to-r from-transparent via-white/25 to-transparent'}`}
+          className="mx-auto mt-1 mb-1 md:mt-2 md:mb-2 h-px w-8 md:w-10 lg:w-12 origin-center bg-gradient-to-r from-transparent via-white/30 to-transparent"
         />
 
         {/* Label */}
         <motion.p
           variants={fadeIn}
           transition={{ duration: 0.4 }}
-          className="type-support text-white/75"
+          className="type-caption text-white/70"
         >
           {stat.label}
         </motion.p>
@@ -62,10 +62,10 @@ export function HeroStats({ stats }: HeroStatsProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.3 }}
-      className="grid gap-6"
+      className="w-full lg:w-auto lg:ml-auto max-w-md md:max-w-2xl lg:max-w-none mx-auto lg:mx-0"
     >
-      {/* Stats container */}
-      <div className="grid gap-5">
+      {/* Stats container - vertical stack on mobile, horizontal row on tablet, vertical on desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 gap-0 md:gap-3 lg:gap-2 rounded-2xl p-2 md:p-5 lg:p-3">
         {stats.map((stat, index) => (
           <StatItem key={stat.label} stat={stat} index={index} />
         ))}

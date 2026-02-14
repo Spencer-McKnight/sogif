@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { ButtonLink, Container } from '@/components/ui'
+import { Badge, ButtonLink, Container } from '@/components/ui'
 import { HeroStats } from './HeroStats'
 
 // TODO: Replace with CMS-managed content
@@ -11,7 +11,7 @@ const heroContent = {
     headlineBottom: 'Actively Managed',
     subheadline: 'Gain access to Steve McKnight’s selected Australian commercial property as we analyse and acquire. Amplify growth and strategically diversify with actively managed shares. Recieve quarterly distributions for passive income.',
     stats: [
-        { value: '6.7%', label: 'Historical Annual Return*', highlight: true },
+        { value: '6.7%', label: 'Historical Annual Return', highlight: true },
         { value: '$170M+', label: 'Funds Under Management' },
         { value: '$10,000', label: 'Minimum Investment' },
     ],
@@ -34,7 +34,7 @@ export function HeroSection() {
     )
 
     return (
-        <section className="relative min-h-screen flex flex-col overflow-hidden bg-sogif-navy">
+        <section className="relative md:min-h-[calc(100vh-6.5rem)] xl:min-h-[calc(100vh-12rem)] flex flex-col overflow-hidden bg-sogif-navy">
             {/* Background Image */}
             <motion.div className="absolute inset-0" style={{ y: backgroundY }}>
                 <Image
@@ -44,30 +44,24 @@ export function HeroSection() {
                     className="object-cover object-[center_10%] opacity-40"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy/90 via-sogif-navy/70 to-sogif-navy/40" />
-                <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/90 via-sogif-navy/60 to-sogif-navy/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-sogif-navy/80 via-sogif-navy/40 to-sogif-navy/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/70 via-sogif-navy/40 to-sogif-navy/20" />
             </motion.div>
 
             {/* Content - flex-1 to fill available space, centered vertically */}
-            <Container className="relative z-10 flex-1 flex items-center w-full pt-24 pb-8">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 md:pt-24 lg:pb-20 lg:pt-32">
+                <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
                     {/* Left Column - Text Content */}
                     <motion.div
                         initial="initial"
                         animate="animate"
                         transition={{ staggerChildren: 0.1 }}
+                        className="text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0"
                     >
-                        <motion.div
-                            variants={fadeInUp}
-                            transition={{ duration: 0.5 }}
-                            className="mb-6"
-                        >
-                        </motion.div>
-
                         <motion.h1
                             variants={fadeInUp}
                             transition={{ duration: 0.5 }}
-                            className="type-display font-bold text-white mb-6"
+                            className="type-display font-bold text-white mb-5 md:mb-6"
                         >
                             <span className="relative inline-block">
                                 {heroContent.headlineTop}
@@ -80,7 +74,7 @@ export function HeroSection() {
                         <motion.p
                             variants={fadeInUp}
                             transition={{ duration: 0.5 }}
-                            className="type-body text-white/90 mb-8 max-w-xl"
+                            className="type-body text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0"
                         >
                             {heroContent.subheadline}
                         </motion.p>
@@ -88,7 +82,7 @@ export function HeroSection() {
                         <motion.div
                             variants={fadeInUp}
                             transition={{ duration: 0.5 }}
-                            className="flex flex-col sm:flex-row gap-4 mb-12"
+                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 lg:mb-0"
                         >
                             <ButtonLink
                                 href={heroContent.ctaPrimary.href}
