@@ -49,7 +49,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Content - flex-1 to fill available space, centered vertically */}
-            <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 md:pt-24 lg:pb-20 lg:pt-32">
+            <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 lg:pb-20">
                 <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
                     {/* Left Column - Text Content */}
                     <motion.div
