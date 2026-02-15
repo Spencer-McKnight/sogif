@@ -24,7 +24,7 @@ export function Header() {
       <Container>
         <div className="flex items-center justify-between h-20 md:h-[6.5rem]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <Link href="/" className="flex items-center gap-3 group shrink-0 pr-4">
             <div className="relative w-10 h-10 md:w-14 md:h-14">
               <Image
                 src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=96&fit=max&auto=format"

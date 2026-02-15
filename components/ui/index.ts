@@ -3,6 +3,8 @@
  * 
  * Export all shared UI components for clean imports:
  * import { DatoImage, Card, Table } from '@/components/ui'
+ * 
+ * Also consider whether ShadCN has available componentry to utilise (particularly for inputs, loading and information framing)
  */
 
 // DatoCMS Components
