@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { AppLink, Container, SectionHeader } from '@/components/ui'
-import { PropertyCard, PropertyDetailModal } from '@/components/properties'
+import { PropertyDetailModal, PropertyGrid } from '@/components/properties'
 import type { Property } from '@/components/properties'
 
 // TODO: Replace with CMS-managed property data
@@ -126,21 +126,10 @@ export function PropertyShowcase() {
         </motion.div>
 
         {/* Properties Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.map((property, index) => (
-            <motion.div
-              key={property.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-            >
-              <PropertyCard
-                property={property}
-                onClick={() => setSelectedProperty(property)}
-              />
-            </motion.div>
-          ))}
-        </div>
+        <PropertyGrid
+          properties={properties}
+          onPropertyClick={setSelectedProperty}
+        />
 
         {/* Trust Statement */}
         <motion.div

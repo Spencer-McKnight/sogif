@@ -86,7 +86,7 @@ export function ValueProposition() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
             >
-              <AppCard variant="plain" className="group card-gradient-hover hover-lift-soft">
+              <AppCard variant="plain" className="group card-gradient-hover">
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
                   {icons[prop.icon as keyof typeof icons]}

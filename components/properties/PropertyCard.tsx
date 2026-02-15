@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Badge } from '@/components/ui'
 import type { Property } from './types'
 
 function formatDate(dateStr: string) {
@@ -11,11 +10,12 @@ function formatDate(dateStr: string) {
   })
 }
 
-function getStatusInfo(property: Property) {
-  if (property.soldDate) {
-    return { label: 'Exited', variant: 'statusWarning' as const }
+function formatValuationDate(dateStr: string) {
+  const parts = dateStr.split(' ')
+  if (parts.length === 3) {
+    return `${parts[1].substring(0, 3)} ${parts[2]}`
   }
-  return { label: 'Active', variant: 'statusSuccess' as const }
+  return dateStr
 }
 
 interface PropertyCardProps {
@@ -24,17 +24,16 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, onClick }: PropertyCardProps) {
-  const status = getStatusInfo(property)
   const hasImage = property.images.length > 0
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group w-full text-left rounded-2xl bg-white shadow-sm hover:shadow-lg border border-border-soft overflow-hidden transition-all duration-300 hover:-translate-y-0.5 focus-ring"
+      className="group w-full h-full flex flex-col text-left rounded-2xl bg-white shadow-sm hover:shadow-md border border-border-soft overflow-hidden transition-all duration-300 hover:-translate-y-0.5 focus-ring"
     >
       {/* Image / Placeholder */}
-      <div className="relative h-48 sm:h-52 overflow-hidden bg-sogif-navy">
+      <div className="relative h-48 sm:h-56 overflow-hidden bg-sogif-navy">
         {hasImage ? (
           <Image
             src={property.images[0]}
@@ -52,69 +51,73 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
             </div>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/80 via-sogif-navy/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/70 via-transparent to-sogif-navy/20" />
 
-        {/* Status Badge */}
+        {/* Property Type — top left */}
         <div className="absolute top-3 left-3">
-          <Badge variant={status.variant} size="sm">
-            {status.label}
-          </Badge>
-        </div>
-
-        {/* Property Type */}
-        <div className="absolute top-3 right-3">
-          <span className="type-caption font-medium text-white/80 bg-white/10 backdrop-blur-sm rounded-full px-2.5 py-1">
+          <span className="type-caption font-medium text-white/90 bg-white/15 backdrop-blur-sm rounded-full px-3 py-1">
             {property.propertyType}
           </span>
         </div>
 
-        {/* Price overlay */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-          <span className="text-lg sm:text-xl font-bold text-white tabular-nums tracking-tight">
-            {property.purchasePrice}
+        {/* Explore affordance — top right */}
+        <div className="absolute top-3 right-3">
+          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm text-white/50 group-hover:bg-white/25 group-hover:text-white transition-all duration-300">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
           </span>
-          {property.salePrice && (
-            <span className="type-caption font-medium text-sogif-gold">
+        </div>
+
+        {/* Sale price badge (sold properties only) */}
+        {property.salePrice && (
+          <div className="absolute bottom-3 left-3">
+            <span className="type-caption font-semibold text-sogif-gold bg-sogif-navy/60 backdrop-blur-sm rounded-full px-2.5 py-1">
               Sold {property.salePrice}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="flex flex-col flex-1 p-5">
+        {/* Price + valuation */}
+        <div className="flex items-baseline gap-2 mb-2">
+          <span className="relative text-xl sm:text-2xl font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
+            {property.purchasePrice}
+          </span>
+          <span className="type-caption text-sogif-cyan-dark/70">
+            valued {formatValuationDate(property.valuationDate)}
+          </span>
+        </div>
+
         {/* Address */}
-        <h3 className="text-base sm:text-lg font-bold text-sogif-navy leading-snug mb-1 group-hover:text-sogif-cyan-dark transition-colors duration-200">
+        <h3 className="text-base sm:text-lg font-bold text-sogif-navy leading-snug mb-0.5 min-h-[3.125em] line-clamp-2">
           {property.address}
         </h3>
 
         {/* Headline */}
-        <p className="type-caption text-text-muted line-clamp-1 mb-4">
+        <p className="type-caption text-text-muted line-clamp-2">
           {property.headline}
         </p>
 
-        {/* Metrics strip */}
+        {/* Spacer pushes metrics to bottom */}
+        <div className="flex-1 min-h-4" />
+
+        {/* Metrics strip — always at bottom */}
         <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-soft">
           <div>
             <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
             <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
           </div>
           <div>
-            <span className="type-caption text-text-muted block mb-0.5">WALE</span>
-            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.waleLeaseExpiry} yr</span>
+            <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
+            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
           </div>
           <div>
             <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
             <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
           </div>
-        </div>
-
-        {/* View details affordance */}
-        <div className="mt-4 flex items-center gap-1.5 type-caption font-medium text-sogif-cyan-dark opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <span>View details</span>
-          <svg className="w-3.5 h-3.5 translate-x-0 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-          </svg>
         </div>
       </div>
     </button>

@@ -94,15 +94,15 @@ export function TeamSection() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-16 grid sm:grid-cols-3 gap-6 text-center"
         >
-          <AppCard variant="plain" className="group card-gradient-hover hover-lift-soft text-center">
+          <AppCard variant="plain" className="group card-gradient-hover text-center">
             <p className="type-metric font-bold text-gray-900 mb-2">Master</p>
             <p className="text-gray-800 type-support">Investment Strategies</p>
           </AppCard>
-          <AppCard variant="plain" className="group card-gradient-hover hover-lift-soft text-center">
+          <AppCard variant="plain" className="group card-gradient-hover text-center">
             <p className="type-metric font-bold text-gray-900 mb-2">$2B+</p>
             <p className="text-gray-800 type-support">Capital Managed</p>
           </AppCard>
-          <AppCard variant="plain" className="group card-gradient-hover hover-lift-soft text-center">
+          <AppCard variant="plain" className="group card-gradient-hover text-center">
             <p className="type-metric font-bold text-gray-900 mb-2">70+</p>
             <p className="text-gray-800 type-support">Years Combined Experience</p>
           </AppCard>

@@ -68,7 +68,7 @@ export function HowItWorks() {
                 className="relative"
               >
                 {/* Step Card */}
-                <AppCard variant="plain" className="relative z-10 group card-gradient-hover hover-lift-soft">
+                <AppCard variant="plain" className="relative z-10 group card-gradient-hover">
                   {/* Number Badge */}
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-light font-bold rounded-xl mb-4">
                     {step.number}
