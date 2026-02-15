@@ -4,7 +4,7 @@ import { AppLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const footerContent = {
-  description: 'The Strategic Opportunities (Growth & Income) Fund is an Australian registered managed fund seeking to generate growth and income returns through diversified investment strategies.',
+  description: 'The Strategic Opportunities (Growth & Income) Fund',
   contact: {
     email: 'admin@sogif.au',
     phone: '(03) 8592 0270',
@@ -36,11 +36,11 @@ export function Footer() {
   return (
     <footer className="bg-sogif-navy text-white">
       {/* Main Footer */}
-      <Container className="py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <Container className="py-8 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 mb-6">
+            <Link href="/" className="inline-flex items-center gap-3 mb-3 md:mb-6">
               <div className="relative w-10 h-10">
                 <Image
                   src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=80&fit=max&auto=format"
@@ -51,22 +51,22 @@ export function Footer() {
               </div>
               <span className="font-semibold type-title">SOGIF</span>
             </Link>
-            <p className="text-white/90 type-support max-w-sm mb-6">
+            <p className="text-white/90 type-support max-w-sm mb-3 md:mb-6">
               {footerContent.description}
             </p>
-            <div className="space-y-2 type-support text-white/80">
+            <div className="flex flex-wrap gap-x-2 gap-y-0.5 md:flex-col md:space-y-2 md:gap-0 type-support text-white/80">
               <p>{footerContent.legal.responsibleEntity}</p>
-              <p>{footerContent.legal.arsn}</p>
-              <p>{footerContent.legal.afsl}</p>
+              <p className="before:content-['·'] before:mr-2 md:before:content-none">{footerContent.legal.arsn}</p>
+              <p className="before:content-['·'] before:mr-2 md:before:content-none">{footerContent.legal.afsl}</p>
             </div>
           </div>
 
           {/* Pages */}
           <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-4 type-overline">
+            <h4 className="text-sogif-cyan-light font-semibold mb-2 md:mb-4 type-overline">
               Pages
             </h4>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
+            <ul className="flex flex-wrap gap-x-5 gap-y-1.5 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.href}>
                   <AppLink
@@ -83,10 +83,10 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-4 type-overline">
+            <h4 className="text-sogif-cyan-light font-semibold mb-2 md:mb-4 type-overline">
               Contact
             </h4>
-            <ul className="flex flex-col gap-y-3 type-support">
+            <ul className="flex flex-col gap-y-1.5 md:gap-y-3 type-support">
               <li>
                 <AppLink
                   href={`mailto:${footerContent.contact.email}`}
@@ -136,7 +136,7 @@ export function Footer() {
 
       {/* Disclaimer Bar */}
       <div className="border-t border-white/10">
-        <Container className="py-6">
+        <Container className="py-4 md:py-6">
           <DisclaimerText tone="footer" className="mb-4">
             <strong className="text-white/80">Important:</strong> This website provides general information only and does not constitute financial advice.
             Before making any investment decision, you should read the Product Disclosure Statement (PDS) and Target Market Determination (TMD)

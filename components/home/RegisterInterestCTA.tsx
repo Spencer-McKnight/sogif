@@ -7,7 +7,7 @@ import { AppCard, Badge, Button, ButtonLink, Container, DisclaimerText } from '@
 // TODO: Replace with CMS-managed content
 const ctaContent = {
   headline: 'Interested in our strategy?',
-  subheadline: 'Strategic Opportunities (Growth & Income) Fund. It\'s in the name. We aim to protect and grow your capital, with passive distributions along the way.',
+  subheadline: 'Strategic Opportunities (Growth & Income) Fund. It\'s in the name. We aim to protect and grow your capital, with passive distributions along the way. We\'re closing to new investors soon to stabilise our capital, so join now.',
   minInvestment: '$10,000',
   additionalInvestment: '$1,000',
   closingDate: 'June 2026',

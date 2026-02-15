@@ -55,7 +55,7 @@ export function HowItWorks() {
         </motion.div>
 
         {/* Steps */}
-        <div className="relative">
+        <div className="relative lg:mb-12">
           {/* Connection Line - Desktop (horizontal) */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-sogif-cyan-dark/20 via-sogif-cyan-dark to-sogif-cyan-dark/20 -translate-y-1/2" />
 
