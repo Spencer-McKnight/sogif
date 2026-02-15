@@ -1,21 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { AppLink, Container, DisclaimerText } from '@/components/ui'
-
-// TODO: Replace with CMS-managed content
-const footerContent = {
-  description: 'The Strategic Opportunities (Growth & Income) Fund',
-  contact: {
-    email: 'admin@sogif.au',
-    phone: '(03) 8592 0270',
-    address: 'Suite 12, 333 Canterbury Rd, Canterbury, VIC 3126',
-  },
-  legal: {
-    arsn: 'ARSN 668 357 837',
-    afsl: 'AFSL No 339481',
-    responsibleEntity: 'Plantation Capital Limited',
-  },
-}
+import { useConstants } from '@/lib/contexts/ConstantsContext'
 
 const footerLinks = {
   pages: [
@@ -33,6 +21,8 @@ const footerLinks = {
 }
 
 export function Footer() {
+  const constants = useConstants()
+
   return (
     <footer className="bg-sogif-navy text-white">
       {/* Main Footer */}
@@ -52,12 +42,12 @@ export function Footer() {
               <span className="font-semibold type-title">SOGIF</span>
             </Link>
             <p className="text-white/90 type-support max-w-sm mb-3 md:mb-6">
-              {footerContent.description}
+              The Strategic Opportunities (Growth &amp; Income) Fund
             </p>
             <div className="flex flex-wrap gap-x-2 gap-y-0.5 md:flex-col md:space-y-2 md:gap-0 type-support text-white/80">
-              <p>{footerContent.legal.responsibleEntity}</p>
-              <p className="before:content-['·'] before:mr-2 md:before:content-none">{footerContent.legal.arsn}</p>
-              <p className="before:content-['·'] before:mr-2 md:before:content-none">{footerContent.legal.afsl}</p>
+              <p>{constants.responsibleEntity}</p>
+              <p className="before:content-['·'] before:mr-2 md:before:content-none">ARSN {constants.arsn}</p>
+              <p className="before:content-['·'] before:mr-2 md:before:content-none">AFSL No {constants.afsl}</p>
             </div>
           </div>
 
@@ -89,24 +79,24 @@ export function Footer() {
             <ul className="flex flex-col gap-y-1.5 md:gap-y-3 type-support">
               <li>
                 <AppLink
-                  href={`mailto:${footerContent.contact.email}`}
+                  href={`mailto:${constants.contactEmail}`}
                   external
                   variant="nav"
                 >
-                  {footerContent.contact.email}
+                  {constants.contactEmail}
                 </AppLink>
               </li>
               <li>
                 <AppLink
-                  href={`tel:${footerContent.contact.phone.replace(/\s/g, '')}`}
+                  href={`tel:${constants.contactPhone.replace(/\s/g, '')}`}
                   external
                   variant="nav"
                 >
-                  {footerContent.contact.phone}
+                  {constants.contactPhone}
                 </AppLink>
               </li>
               <li className="text-white/80">
-                {footerContent.contact.address}
+                {constants.address}
               </li>
               <li className="text-white/80">
                 Phone hours: 10am–4pm Melbourne time, business days
@@ -115,7 +105,7 @@ export function Footer() {
 
             {/* Investor Portal CTA */}
             <AppLink
-              href="https://portal.sogif.au"
+              href={constants.portalUrl}
               external
               variant="portal"
               className="mt-4 focus-ring-inverse"
@@ -144,7 +134,7 @@ export function Footer() {
             Investment returns are not guaranteed. Your capital is at risk.
           </DisclaimerText>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 type-support text-white/75">
-            <p>© {new Date().getFullYear()} Plantation Capital Limited. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {constants.responsibleEntity}. All rights reserved.</p>
             <div className="flex gap-4">
               {footerLinks.legal.map((link) => (
                 <AppLink

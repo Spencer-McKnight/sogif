@@ -18,6 +18,13 @@ const CONSTANTS_QUERY = `
       offlineApplicationUrl
       onlineApplicationUrl
       portalUrl
+      contactEmail
+      arsn
+      afsl
+      responsibleEntity
+      contactPhone
+      address
+      postalAddress
     }
   }
 `
@@ -31,6 +38,13 @@ const DEFAULT_CONSTANTS: SiteConstants = {
   onlineApplicationUrl: '',
   pdsUrl: '',
   portalUrl: '',
+  contactEmail: '',
+  arsn: '',
+  afsl: '',
+  responsibleEntity: '',
+  contactPhone: '',
+  address: '',
+  postalAddress: '',
   performanceData: [],
 }
 
@@ -120,6 +134,13 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
       onlineApplicationUrl: constant.onlineApplicationUrl || '',
       pdsUrl: constant.productDisclosureStatement?.url || '',
       portalUrl: constant.portalUrl || '',
+      contactEmail: constant.contactEmail || '',
+      arsn: constant.arsn || '',
+      afsl: constant.afsl || '',
+      responsibleEntity: constant.responsibleEntity || '',
+      contactPhone: constant.contactPhone || '',
+      address: constant.address || '',
+      postalAddress: constant.postalAddress || '',
       performanceData,
     }
   } catch (error) {

@@ -20,6 +20,13 @@ export interface ConstantsQueryData {
   offlineApplicationUrl: string
   onlineApplicationUrl: string
   portalUrl: string
+  contactEmail: string
+  arsn: string
+  afsl: string
+  responsibleEntity: string
+  contactPhone: string
+  address: string
+  postalAddress: string
 }
 
 export interface SiteConstants {
@@ -27,6 +34,13 @@ export interface SiteConstants {
   onlineApplicationUrl: string
   pdsUrl: string
   portalUrl: string
+  contactEmail: string
+  arsn: string
+  afsl: string
+  responsibleEntity: string
+  contactPhone: string
+  address: string
+  postalAddress: string
   performanceData: PerformanceDataRow[]
 }
 
