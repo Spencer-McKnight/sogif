@@ -247,6 +247,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
         >
           <SectionHeader
             dark
+            align="left-to-center"
             eyebrow="Fund Performance"
             title="Consistent Growth, Reliable Returns"
             description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."

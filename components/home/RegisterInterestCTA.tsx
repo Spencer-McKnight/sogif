@@ -6,8 +6,8 @@ import { AppCard, Badge, Button, ButtonLink, Container, DisclaimerText } from '@
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
-  headline: 'Ready to Grow Your Wealth?',
-  subheadline: 'Join over 500 investors who trust SOGIF for strategic growth and reliable income.',
+  headline: 'Interested in our strategy?',
+  subheadline: 'Strategic Opportunities (Growth & Income) Fund. It\'s in the name. We aim to protect and grow your capital, with passive distributions along the way.',
   minInvestment: '$10,000',
   additionalInvestment: '$1,000',
   closingDate: 'June 2026',
@@ -139,7 +139,7 @@ export function RegisterInterestCTA() {
                   size="md"
                   glow="gold"
                 >
-                  Start Investment Application
+                  Join the Fund
                 </ButtonLink>
               </div>
 

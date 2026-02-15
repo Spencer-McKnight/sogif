@@ -1,11 +1,20 @@
 import type { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
+type SectionAlign = 'center' | 'left' | 'left-to-center' | 'center-to-left'
+
+const alignClasses: Record<SectionAlign, string> = {
+  center: 'text-center max-w-3xl mx-auto',
+  left: '',
+  'left-to-center': 'lg:text-center lg:max-w-3xl lg:mx-auto',
+  'center-to-left': 'text-center max-w-3xl mx-auto lg:text-left lg:max-w-none lg:mx-0',
+}
+
 interface SectionHeaderProps extends HTMLAttributes<HTMLDivElement> {
   eyebrow: string
   title: string
-  description: string
-  centered?: boolean
+  description?: string
+  align?: SectionAlign
   dark?: boolean
 }
 
@@ -13,17 +22,14 @@ export function SectionHeader({
   eyebrow,
   title,
   description,
-  centered = true,
+  align = 'center',
   dark = false,
   className,
   ...props
 }: SectionHeaderProps) {
   return (
     <div
-      className={cn(
-        centered ? 'text-center max-w-3xl mx-auto' : '',
-        className
-      )}
+      className={cn(alignClasses[align], className)}
       {...props}
     >
       <span

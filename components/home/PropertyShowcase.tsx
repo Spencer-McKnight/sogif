@@ -109,7 +109,7 @@ export function PropertyShowcase() {
         >
           <div className="max-w-2xl">
             <SectionHeader
-              centered={false}
+              align="left"
               eyebrow="Property Showcase"
               title="Our Property Investments"
               description="SOGIF invests in strategic real estate opportunities across Australia, focusing on properties with strong income potential and growth upside."

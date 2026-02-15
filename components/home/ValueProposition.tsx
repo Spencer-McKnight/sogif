@@ -71,6 +71,7 @@ export function ValueProposition() {
           className="mb-16"
         >
           <SectionHeader
+            align="left-to-center"
             eyebrow="Why Invest with Us?"
             title="Your Pathway to Growth & Income"
             description="We've used our experience to create the kind of fund that we want to invest in."

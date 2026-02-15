@@ -2,39 +2,40 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { BookDown, ClipboardPen, ChartSpline } from 'lucide-react'
 import { AppCard, ButtonLink, Container, SectionHeader } from '@/components/ui'
+import { useConstants } from '@/lib/contexts/ConstantsContext'
 
-// TODO: Replace with CMS-managed content
+const icons = [BookDown, ClipboardPen, ChartSpline]
+
 const steps = [
   {
-    number: '01',
     title: 'Review the PDS',
     description: 'Read our Product Disclosure Statement to understand the fund structure, risks, and potential returns.',
-    detail: 'Available on our website',
+    linkLabel: 'Download PDS',
+    urlKey: 'pdsUrl' as const,
+    buttonVariant: 'navy' as const,
   },
   {
-    number: '02',
-    title: 'Complete Application',
+    title: 'Apply Online',
     description: 'Fill out our straightforward online application form with your personal and investment details.',
-    detail: 'Takes only a few minutes',
+    linkLabel: 'Start Application',
+    urlKey: 'onlineApplicationUrl' as const,
+    buttonVariant: 'primary' as const,
   },
   {
-    number: '03',
-    title: 'Transfer Funds',
-    description: 'Transfer your investment amount to the fund account. Minimum initial investment is $10,000.',
-    detail: 'Bank transfer or BPAY',
-  },
-  {
-    number: '04',
-    title: 'Start Earning',
-    description: 'Once processed, you\'ll receive quarterly distribution payments and access to the investor portal.',
-    detail: 'Portal access',
+    title: 'Transfer & Access',
+    description: 'Transfer your investment amount and track performance, distributions, and portfolio updates via the investor portal.',
+    linkLabel: 'Investor Portal',
+    urlKey: 'portalUrl' as const,
+    buttonVariant: 'success' as const,
   },
 ]
 
 export function HowItWorks() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const constants = useConstants()
 
   return (
     <section className="section-padding bg-sogif-silver" ref={ref}>
@@ -47,76 +48,62 @@ export function HowItWorks() {
           className="mb-16"
         >
           <SectionHeader
+            align="center-to-left"
             eyebrow="Investment Process"
-            title="Simple Steps to Start Investing"
-            description="Our streamlined process makes it easy to become a SOGIF investor. Here's what to expect from application to your first distribution."
+            title="3 Steps to Start Investing"
           />
         </motion.div>
 
         {/* Steps */}
         <div className="relative">
-          {/* Connection Line - Desktop */}
+          {/* Connection Line - Desktop (horizontal) */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-sogif-cyan-dark/20 via-sogif-cyan-dark to-sogif-cyan-dark/20 -translate-y-1/2" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-                className="relative"
-              >
-                {/* Step Card */}
-                <AppCard variant="plain" className="relative z-10 group card-gradient-hover">
-                  {/* Number Badge */}
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sogif-navy text-sogif-cyan-light font-bold rounded-xl mb-4">
-                    {step.number}
-                  </div>
+          {/* Connection Line - Mobile/Tablet (vertical) */}
+          <div className="lg:hidden absolute top-0 bottom-0 left-1/2 w-0.5 bg-gradient-to-b from-sogif-cyan-dark/20 via-sogif-cyan-dark to-sogif-cyan-dark/20 -translate-x-1/2" />
 
-                  <h3 className="type-title font-bold text-gray-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="type-support text-gray-800 mb-3">
-                    {step.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 type-support text-sogif-cyan-dark font-medium">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    {step.detail}
-                  </span>
-                </AppCard>
+          <div className="grid lg:grid-cols-3 gap-10 max-w-md mx-auto lg:max-w-none">
+            {steps.map((step, index) => {
+              const Icon = icons[index]
+              const href = constants[step.urlKey]
 
-                {/* Arrow - Mobile/Tablet */}
-                {index < steps.length - 1 && (
-                  <div className="lg:hidden flex justify-center my-4">
-                    <svg className="w-6 h-6 text-sogif-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                  </div>
-                )}
-              </motion.div>
-            ))}
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                  className="relative h-full"
+                >
+                  <AppCard variant="plain" className="relative z-10 group card-gradient-hover h-full flex flex-col">
+                    {/* Icon & Title */}
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="flex-shrink-0 inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors">
+                        <Icon className="w-7 h-7" strokeWidth={1.5} />
+                      </div>
+                      <h3 className="type-title font-bold text-gray-900">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="type-support text-gray-800 mb-4 flex-1">
+                      {step.description}
+                    </p>
+
+                    <ButtonLink
+                      href={href}
+                      external
+                      variant={step.buttonVariant}
+                      size="md"
+                      className="lg:self-start"
+                    >
+                      {step.linkLabel}
+                    </ButtonLink>
+                  </AppCard>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <ButtonLink
-            href="/invest"
-            variant="primary"
-            size="lg"
-            className="group"
-          >
-            Start Application
-          </ButtonLink>
-        </motion.div>
       </Container>
     </section>
   )

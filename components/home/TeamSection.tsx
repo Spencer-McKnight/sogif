@@ -69,6 +69,7 @@ export function TeamSection() {
           className="mb-16"
         >
           <SectionHeader
+            align="left"
             eyebrow="Leadership Team"
             title="Master Leadership & Proven Results"
             description="Supported by a team of passionate and intelligent analysts."

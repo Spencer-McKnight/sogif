@@ -94,7 +94,11 @@ Location: `components/ui`
 - `Badge`: status, announcement, and trust chips
 - `DisclaimerText`: reusable legal/informational disclaimer text
 - `AppCard`: card shells for plain/property-light/stat use cases
-- `SectionHeader`: eyebrow/title/description section intro block
+- `SectionHeader`: eyebrow/title/description section intro block with responsive alignment via `align` prop:
+  - `center` (default): always centered — use for hero sections
+  - `left`: always left-aligned
+  - `left-to-center`: left on mobile, centered from `lg` — good for content-heavy sections
+  - `center-to-left`: centered on mobile, left from `lg` — use when desktop layout needs a left anchor
 
 All primitives are exported from `components/ui/index.ts`.
 
