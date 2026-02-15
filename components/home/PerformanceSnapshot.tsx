@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef, useMemo, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useMemo, useState } from 'react'
 import { AppCard, AppLink, ChartContainer, ChartTooltip, Container, DisclaimerText, SectionHeader } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
@@ -34,12 +33,12 @@ interface PerformanceStats {
  */
 function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
   if (!data.length) return []
-  
+
   // Data comes newest first, reverse to chronological order (oldest first)
   const chronological = [...data].reverse()
-  
+
   let cumulativeDistribution = 0
-  
+
   return chronological.map((item) => {
     cumulativeDistribution += item.distribution
     // Convert 0 or null to undefined - CMS stores 0 for missing prices, Recharts needs undefined to skip
@@ -70,23 +69,23 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
       annualizedReturn: 0,
     }
   }
-  
+
   const latest = data[0] // Most recent (data is newest first)
   const chronological = [...data].reverse()
-  
+
   // Total distributions (all time)
   const totalDistributions = data.reduce((sum, item) => sum + item.distribution, 0)
-  
+
   // Cumulative return percentage from inception
   const inception = chronological[0]
   const latestCumulativeReturn = latest.issuePrice + totalDistributions
   const returnPercentage = ((latestCumulativeReturn - inception.issuePrice) / inception.issuePrice) * 100
-  
+
   // Calculate approximate years since inception for annualized return
   const monthCount = data.length
   const years = monthCount / 12
   const annualizedReturn = years > 0 ? returnPercentage / years : 0
-  
+
   return {
     latestRedemption: latest.redemptionPrice,
     latestIssue: latest.issuePrice,
@@ -131,12 +130,12 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
           const value = data[key]
           // Skip redemption price if undefined or 0 (before property acquisition)
           if (value === undefined || value === 0) return null
-          
+
           return (
             <div key={key} className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-2">
-                <div 
-                  className="h-2.5 w-2.5 rounded-full" 
+                <div
+                  className="h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: color }}
                 />
                 <span className="type-caption text-white/90">{label}</span>
@@ -163,7 +162,7 @@ function ChartIndicator({ cx, cy, color, onHover }: ChartIndicatorProps) {
   if (cx === undefined || cy === undefined) return null
 
   return (
-    <g 
+    <g
       className="cursor-pointer"
       onMouseEnter={(e) => {
         const svg = (e.target as SVGElement).ownerSVGElement
@@ -196,31 +195,28 @@ function ChartIndicator({ cx, cy, color, onHover }: ChartIndicatorProps) {
 }
 
 export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-  
   const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
   const stats = useMemo(() => calculateStats(performanceData), [performanceData])
-  
+
   // Find first data point with redemption price (start of the redemption line)
   const firstRedemptionPoint = useMemo(() => {
     return chartData.find(d => d.redemptionPrice !== undefined)
   }, [chartData])
-  
+
   // Find May 2024 - first quarterly distribution
   const firstDistributionPoint = useMemo(() => {
     return chartData.find(d => d.month === 'May-24')
   }, [chartData])
-  
+
   // State for indicator tooltips
   const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
   const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
 
   const performanceStats = [
-    { 
-      label: 'Latest Redemption Price', 
-      value: (stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A', 
-      change: null 
+    {
+      label: 'Latest Redemption Price',
+      value: (stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A',
+      change: null
     },
     { label: 'Total Distributions', value: `$${stats.totalDistributions.toFixed(4)}`, change: `+${(stats.totalDistributions * 100).toFixed(2)}%` },
     { label: 'Cumulative Return*', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
@@ -232,19 +228,14 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   }
 
   return (
-    <section className="section-padding bg-sogif-navy relative overflow-hidden" ref={ref}>
+    <section className="section-padding bg-sogif-navy relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-sogif-cyan-light/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-sogif-gold/5 rounded-full blur-3xl" />
 
       <Container className="relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <SectionHeader
             dark
             align="left-to-center"
@@ -252,16 +243,11 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             title="Consistent Growth, Reliable Returns"
             description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
           />
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 min-w-0">
           {/* Stats Column - appears second on mobile, first on desktop */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1"
-          >
+          <div className="lg:col-span-2 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
             {performanceStats.map((stat) => (
               <AppCard
                 key={stat.label}
@@ -326,15 +312,10 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
-          </motion.div>
+          </div>
 
           {/* Chart Column - appears first on mobile, second on desktop */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2"
-          >
+          <div className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
@@ -446,7 +427,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             <DisclaimerText tone="hero" className="mt-4">
               *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
             </DisclaimerText>
-          </motion.div>
+          </div>
         </div>
       </Container>
 
@@ -460,7 +441,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           }}
         >
           <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[220px]">
-            No property was acquired until the minimum subscription was achieved. 
+            No property was acquired until the minimum subscription was achieved.
             Accordingly, there was no redemption price prior to December 2023.
           </div>
         </div>

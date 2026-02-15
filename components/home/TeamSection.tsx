@@ -1,9 +1,5 @@
-'use client'
-
-import { useRef } from 'react'
 import Image from 'next/image'
-import { motion, useInView } from 'framer-motion'
-import { AppCard, AppLink, Container, SectionHeader } from '@/components/ui'
+import { AppLink, Container, SectionHeader } from '@/components/ui'
 
 type Director = {
   id: string
@@ -55,35 +51,24 @@ const directors: Director[] = [
 ]
 
 export function TeamSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-
   return (
-    <section className="section-padding bg-sogif-silver" ref={ref}>
+    <section className="section-padding bg-sogif-silver">
       <Container>
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <SectionHeader
             align="left"
             eyebrow="Leadership Team"
             title="Master Leadership & Proven Results"
             description="Supported by a team of passionate and intelligent analysts."
           />
-        </motion.div>
+        </div>
 
         {/* Team Grid */}
         <div className="grid gap-8 lg:grid-cols-3">
-          {directors.map((director, index) => (
-            <motion.div
+          {directors.map((director) => (
+            <div
               key={director.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               className="group flex w-full flex-row items-start gap-5 lg:mx-auto lg:max-w-[18rem] lg:flex-col lg:gap-0"
             >
               {/* Image */}
@@ -113,23 +98,18 @@ export function TeamSection() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-12 text-center"
-        >
+        <div className="mt-12 text-center">
           <AppLink
             href="/about"
             showArrow
           >
             Learn more about the fund
           </AppLink>
-        </motion.div>
+        </div>
       </Container>
     </section>
   )

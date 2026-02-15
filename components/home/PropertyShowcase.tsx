@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState } from 'react'
 import { AppLink, Container, SectionHeader } from '@/components/ui'
 import { PropertyDetailModal, PropertyGrid } from '@/components/properties'
 import type { Property } from '@/components/properties'
@@ -89,24 +88,17 @@ const properties: Property[] = [
 ]
 
 export function PropertyShowcase() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
 
   return (
-    <section className="section-padding bg-sogif-steel relative overflow-hidden" ref={ref}>
+    <section className="section-padding bg-sogif-steel relative overflow-hidden">
       {/* Subtle background decorations */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/40 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-sogif-cyan-dark/5 rounded-full blur-3xl" />
 
       <Container className="relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
-        >
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
             <SectionHeader
               align="left"
@@ -123,7 +115,7 @@ export function PropertyShowcase() {
           >
             View All Properties
           </AppLink>
-        </motion.div>
+        </div>
 
         {/* Properties Grid */}
         <PropertyGrid
@@ -132,12 +124,7 @@ export function PropertyShowcase() {
         />
 
         {/* Trust Statement */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-16 text-center"
-        >
+        <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-3 bg-white/70 backdrop-blur-sm border border-sogif-cyan-dark/10 rounded-full px-6 py-3 shadow-sm">
             <svg className="min-w-5 min-h-5 w-5 h-5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -146,7 +133,7 @@ export function PropertyShowcase() {
               All investments independently valued and audited annually
             </span>
           </div>
-        </motion.div>
+        </div>
       </Container>
 
       {/* Property Detail Modal */}

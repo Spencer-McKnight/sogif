@@ -1,7 +1,5 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
 import { BookDown, ClipboardPen, ChartSpline } from 'lucide-react'
 import { AppCard, ButtonLink, Container, SectionHeader } from '@/components/ui'
 import { useConstants } from '@/lib/contexts/ConstantsContext'
@@ -33,26 +31,19 @@ const steps = [
 ]
 
 export function HowItWorks() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const constants = useConstants()
 
   return (
-    <section className="section-padding bg-sogif-silver" ref={ref}>
+    <section className="section-padding bg-sogif-silver">
       <Container>
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <SectionHeader
             align="center-to-left"
             eyebrow="Investment Process"
             title="3 Steps to Start Investing"
           />
-        </motion.div>
+        </div>
 
         {/* Steps */}
         <div className="relative lg:mb-12">
@@ -68,11 +59,8 @@ export function HowItWorks() {
               const href = constants[step.urlKey]
 
               return (
-                <motion.div
+                <div
                   key={step.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
                   className="relative h-full"
                 >
                   <AppCard variant="plain" className="relative z-10 group card-gradient-hover h-full flex flex-col">
@@ -99,7 +87,7 @@ export function HowItWorks() {
                       {step.linkLabel}
                     </ButtonLink>
                   </AppCard>
-                </motion.div>
+                </div>
               )
             })}
           </div>

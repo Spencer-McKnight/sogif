@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState } from 'react'
 import { AppCard, Badge, Button, ButtonLink, Container, DisclaimerText } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
@@ -14,8 +13,6 @@ const ctaContent = {
 }
 
 export function RegisterInterestCTA() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -33,7 +30,7 @@ export function RegisterInterestCTA() {
   }
 
   return (
-    <section id="register" className="section-padding bg-sogif-navy relative overflow-hidden" ref={ref}>
+    <section id="register" className="section-padding bg-sogif-navy relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(0,217,255,0.1),transparent_50%)]" />
@@ -43,11 +40,7 @@ export function RegisterInterestCTA() {
       <Container className="relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
+          <div>
             <Badge variant="announcementGold" className="gap-2 mb-6">
               <svg className="w-4 h-4 text-sogif-gold" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
@@ -74,14 +67,10 @@ export function RegisterInterestCTA() {
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
           {/* Right Column - Form Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div>
             <AppCard variant="plain" className="p-8 shadow-2xl shadow-black/15 border-white/80">
               <h3 className="type-title font-bold text-gray-900 mb-2">
                 {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
@@ -144,7 +133,7 @@ export function RegisterInterestCTA() {
               </div>
 
             </AppCard>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

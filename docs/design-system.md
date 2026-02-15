@@ -80,9 +80,15 @@ Use high contrast text first:
 
 ### Motion
 
-- Prefer existing framer-motion pattern already in sections: fade-up with short stagger.
+**Load-in animations are banned.** No fade-up, slide-in, stagger, or opacity transitions on page load or scroll into view. Content must render immediately and be fully visible without JavaScript animation. This ensures SEO crawlers index all content and suits the serious tone of the business.
+
+Allowed animation contexts:
+- **Interactions only**: hover effects, button presses, modal open/close, menu transitions, tooltips.
+- **Scroll-linked transforms**: parallax backgrounds (e.g. hero `useScroll`/`useTransform`) are acceptable since they don't hide content.
 - Keep hover transitions subtle and consistent (`duration-base`, `ease-standard`).
 - Respect reduced motion: `media-zoom-hover` and lift helpers are disabled in reduced-motion mode.
+
+Do **not** use `initial`, `animate`, `whileInView`, `variants`, or `useInView` from framer-motion for entrance animations. Use plain HTML elements instead of `motion.*` for static content.
 
 ## Reusable UI Primitives
 

@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { Badge, ButtonLink, Container } from '@/components/ui'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion' // kept for parallax only
+import { ButtonLink, Container } from '@/components/ui'
 import { HeroStats } from './HeroStats'
 
 // TODO: Replace with CMS-managed content
@@ -17,11 +17,6 @@ const heroContent = {
     ],
     ctaPrimary: { label: 'Join the Fund', href: '/invest' },
     ctaSecondary: { label: 'Performance', href: '#performance' },
-}
-
-const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
 }
 
 export function HeroSection() {
@@ -52,38 +47,21 @@ export function HeroSection() {
             <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 lg:pb-20">
                 <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
                     {/* Left Column - Text Content */}
-                    <motion.div
-                        initial="initial"
-                        animate="animate"
-                        transition={{ staggerChildren: 0.1 }}
-                        className="text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0"
-                    >
-                        <motion.h1
-                            variants={fadeInUp}
-                            transition={{ duration: 0.5 }}
-                            className="type-display font-bold text-white mb-5 md:mb-6"
-                        >
+                    <div className="text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0">
+                        <h1 className="type-display font-bold text-white mb-5 md:mb-6">
                             <span className="relative inline-block">
                                 {heroContent.headlineTop}
                                 <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/20 rounded-full" />
                             </span>
                             <br />
                             <span className="text-sogif-cyan-light">{heroContent.headlineBottom}</span>
-                        </motion.h1>
+                        </h1>
 
-                        <motion.p
-                            variants={fadeInUp}
-                            transition={{ duration: 0.5 }}
-                            className="type-body text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0"
-                        >
+                        <p className="type-body text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
                             {heroContent.subheadline}
-                        </motion.p>
+                        </p>
 
-                        <motion.div
-                            variants={fadeInUp}
-                            transition={{ duration: 0.5 }}
-                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 lg:mb-0"
-                        >
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 lg:mb-0">
                             <ButtonLink
                                 href={heroContent.ctaPrimary.href}
                                 variant="primary"
@@ -103,8 +81,8 @@ export function HeroSection() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </ButtonLink>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
 
                     {/* Right Column - Stats Display */}
                     <HeroStats stats={heroContent.stats} />
