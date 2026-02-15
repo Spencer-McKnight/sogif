@@ -178,7 +178,7 @@
   }
 
   .section-padding {
-    @apply sm:py-24 md:py-28 lg:py-32;
+    @apply py-24 md:py-28 lg:py-32;
   }
 
   .section-eyebrow {
