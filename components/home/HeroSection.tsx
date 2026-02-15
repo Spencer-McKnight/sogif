@@ -34,7 +34,7 @@ export function HeroSection() {
     )
 
     return (
-        <section className="relative md:min-h-[calc(100vh-8rem)] xl:min-h-[calc(100vh-14rem)] flex flex-col overflow-hidden bg-sogif-navy">
+        <section className="relative md:min-h-[80vh] xl:min-h-[75vh] xxl:min-h-[70vh] flex flex-col overflow-hidden bg-sogif-navy">
             {/* Background Image */}
             <motion.div className="absolute inset-0" style={{ y: backgroundY }}>
                 <Image

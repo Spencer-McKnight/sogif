@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { AppCard, Container, SectionHeader } from '@/components/ui'
+import { AppCard, ButtonLink, Container, SectionHeader } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const valueProps = [
@@ -14,9 +14,15 @@ const valueProps = [
     highlight: 'Quarterly distributions from June 2024',
   },
   {
+    icon: 'connected',
+    title: 'Connected Opportunities',
+    description: 'Guided by Steve McKnight who connects SOGIF with unique acquisition opportunities.',
+    highlight: '70+ years combined gaining opportunity entries',
+  },
+  {
     icon: 'growth',
-    title: 'Long-term Growth',
-    description: 'Strategic property acquisitions and entrepreneurial investments designed to grow your capital over time.',
+    title: 'Solid Capital Base',
+    description: 'Invest alongside committed investors with access to 10k+ capital and an optional automated additional investment system.',
     highlight: 'Capital appreciation strategy',
   },
   {
@@ -24,13 +30,7 @@ const valueProps = [
     title: 'Diversified Portfolio',
     description: 'Spread across property investments, stock, cash, bonds and strategic assets to minimize concentrated risk.',
     highlight: 'Multi-asset allocation',
-  },
-  {
-    icon: 'expert',
-    title: 'Expert Management',
-    description: 'Guided by directors with decades of experience managing hundreds of millions in investor capital.',
-    highlight: '$600M+ combined experience',
-  },
+  }
 ]
 
 const icons = {
@@ -49,7 +49,7 @@ const icons = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
     </svg>
   ),
-  expert: (
+  connected: (
     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
     </svg>
@@ -71,9 +71,9 @@ export function ValueProposition() {
           className="mb-16"
         >
           <SectionHeader
-            eyebrow="Why Choose SOGIF"
+            eyebrow="Why Invest with Us?"
             title="Your Pathway to Growth & Income"
-            description="SOGIF combines the stability of traditional investments with the growth potential of strategic opportunities, managed by experienced professionals with a proven track record."
+            description="We've used our experience to create the kind of fund that we want to invest in."
           />
         </motion.div>
 
@@ -138,6 +138,23 @@ export function ValueProposition() {
             </svg>
             <span>AFSL No 339481</span>
           </div>
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-12 flex justify-center"
+        >
+          <ButtonLink
+            href="/invest"
+            variant="primary"
+            size="lg"
+            glow="gold"
+          >
+            Invest Now
+          </ButtonLink>
         </motion.div>
       </Container>
     </section>
