@@ -30,7 +30,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
     <button
       type="button"
       onClick={onClick}
-      className="group w-full h-full flex flex-col text-left rounded-2xl bg-white shadow-sm hover:shadow-md border border-border-soft overflow-hidden transition-all duration-300 hover:-translate-y-0.5 focus-ring"
+      className="group w-full h-full flex flex-col text-left rounded-2xl bg-white shadow-sm hover:shadow-lg ring-1 ring-border-soft overflow-hidden transition-all duration-300 hover:scale-[1.02] focus-ring"
     >
       {/* Image / Placeholder */}
       <div className="relative h-48 sm:h-56 overflow-hidden bg-sogif-navy">

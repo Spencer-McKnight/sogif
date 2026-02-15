@@ -71,10 +71,10 @@ export function ValueProposition() {
         </div>
 
         {/* Value Props Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-x-16 lg:gap-y-12">
           {valueProps.map((prop) => (
             <div key={prop.title}>
-              <AppCard variant="plain" className="group card-gradient-hover">
+              <AppCard variant="plain" className="group shadow-lg card-gradient-hover">
                 {/* Icon & Title */}
                 <div className="flex items-center gap-4 mb-4">
                   <div className="flex-shrink-0 inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors">

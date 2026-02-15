@@ -5,8 +5,7 @@ import { AppCard, Badge, Button, ButtonLink, Container, DisclaimerText } from '@
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
-  headline: 'Interested in our strategy?',
-  subheadline: 'Strategic Opportunities (Growth & Income) Fund. It\'s in the name. We aim to protect and grow your capital, with passive distributions along the way. We\'re closing to new investors soon to stabilise our capital, so join now.',
+  headline: 'Thinking about investing?',
   minInvestment: '$10,000',
   additionalInvestment: '$1,000',
   closingDate: 'June 2026',
@@ -51,12 +50,8 @@ export function RegisterInterestCTA() {
             <h2 className="type-heading font-bold text-white mb-4">
               {ctaContent.headline}
             </h2>
-            <p className="type-body text-white/90 mb-8">
-              {ctaContent.subheadline}
-            </p>
-
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-2 gap-4 mt-8 mb-8">
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                 <p className="text-white/90 type-support mb-1">Minimum Investment</p>
                 <p className="type-title font-bold text-white tabular-nums">{ctaContent.minInvestment}</p>

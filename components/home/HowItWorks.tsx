@@ -63,7 +63,7 @@ export function HowItWorks() {
                   key={step.title}
                   className="relative h-full"
                 >
-                  <AppCard variant="plain" className="relative z-10 group card-gradient-hover h-full flex flex-col">
+                  <AppCard variant="plain" className="relative z-10 group shadow-lg card-gradient-hover h-full flex flex-col">
                     {/* Icon & Title */}
                     <div className="flex items-center gap-4 mb-4">
                       <div className="flex-shrink-0 inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors">
