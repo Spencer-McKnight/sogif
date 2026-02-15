@@ -86,7 +86,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           <span className="relative text-xl sm:text-2xl font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
             {property.purchasePrice}
           </span>
-          <span className="type-caption text-sogif-cyan-dark/70">
+          <span className="type-caption">
             valued {formatValuationDate(property.valuationDate)}
           </span>
         </div>

@@ -17,7 +17,7 @@ const valueProps = [
     icon: 'connected',
     title: 'Connected Opportunities',
     description: 'Guided by Steve McKnight who connects SOGIF with unique acquisition opportunities.',
-    highlight: '70+ years combined gaining opportunity entries',
+    highlight: '70+ years combined networking and transactions',
   },
   {
     icon: 'growth',
@@ -87,15 +87,17 @@ export function ValueProposition() {
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
             >
               <AppCard variant="plain" className="group card-gradient-hover">
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors mb-5">
-                  {icons[prop.icon as keyof typeof icons]}
+                {/* Icon & Title */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex-shrink-0 inline-flex items-center justify-center w-14 h-14 bg-sogif-navy/5 group-hover:bg-sogif-cyan-dark/10 rounded-xl text-gray-900 group-hover:text-sogif-cyan-dark transition-colors">
+                    {icons[prop.icon as keyof typeof icons]}
+                  </div>
+                  <h3 className="type-title font-bold text-gray-900">
+                    {prop.title}
+                  </h3>
                 </div>
 
                 {/* Content */}
-                <h3 className="type-title font-bold text-gray-900 mb-3">
-                  {prop.title}
-                </h3>
                 <p className="type-support text-gray-800 mb-4">
                   {prop.description}
                 </p>

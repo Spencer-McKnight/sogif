@@ -70,7 +70,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="top-0 left-0 translate-x-0 translate-y-0 h-full max-h-full max-w-full rounded-none sm:top-[50%] sm:left-[50%] sm:translate-x-[-50%] sm:translate-y-[-50%] sm:h-auto sm:max-w-3xl sm:max-h-[92vh] sm:rounded-2xl overflow-y-auto p-0 gap-0 border-0 shadow-2xl [&>button]:hidden !duration-0 data-[state=open]:animate-none data-[state=closed]:animate-none sm:!duration-200 sm:data-[state=open]:animate-in sm:data-[state=closed]:animate-out">
+      <DialogContent className="top-0 left-0 translate-x-0 translate-y-0 h-full max-h-full max-w-full rounded-none sm:top-[50%] sm:left-[50%] sm:translate-x-[-50%] sm:translate-y-[-50%] sm:h-auto sm:max-w-3xl sm:max-h-[92vh] sm:rounded-2xl overflow-y-auto p-0 gap-0 border-0 shadow-2xl [&>button]:hidden !duration-0 data-[state=open]:animate-none data-[state=closed]:animate-none sm:!duration-150 sm:data-[state=open]:animate-in sm:data-[state=closed]:animate-out sm:data-[state=open]:fade-in-0 sm:data-[state=closed]:fade-out-0 sm:data-[state=open]:zoom-in-100 sm:data-[state=closed]:zoom-out-100 sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] sm:data-[state=closed]:slide-out-to-left-1/2 sm:data-[state=closed]:slide-out-to-top-[48%]">
 
         {/* Sticky close button for mobile — stays pinned while scrolling */}
         <div className="sm:hidden sticky top-0 z-30 h-0 pointer-events-none">
@@ -83,7 +83,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
         </div>
 
         {/* ── Hero Image ── */}
-        <div className="relative h-72 sm:h-96 bg-sogif-navy overflow-hidden">
+        <div className="relative h-72 sm:h-[28rem] bg-sogif-navy overflow-hidden">
           {hasImage ? (
             <Image
               src={property.images[safeIdx]}
@@ -222,7 +222,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
             <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden mb-3">
               <Cell label="Land Size" value={property.landSize} />
               <Cell label="Building Size" value={property.buildingSize} />
-              <div className="bg-white p-3.5 flex items-center justify-center">
+              <div className="bg-white p-3.5 flex items-center">
                 <a
                   href={property.mapLink}
                   target="_blank"
