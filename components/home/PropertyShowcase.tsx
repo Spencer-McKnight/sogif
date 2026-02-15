@@ -1,47 +1,97 @@
 'use client'
 
-import { useRef } from 'react'
-import Image from 'next/image'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { AppCard, AppLink, Badge, Container, SectionHeader } from '@/components/ui'
+import { AppLink, Container, SectionHeader } from '@/components/ui'
+import { PropertyCard, PropertyDetailModal } from '@/components/properties'
+import type { Property } from '@/components/properties'
 
 // TODO: Replace with CMS-managed property data
-const properties = [
+const properties: Property[] = [
   {
-    id: '1',
-    title: 'Commercial Property Portfolio',
-    location: 'Melbourne Metro, VIC',
-    type: 'Commercial',
-    status: 'Active',
-    image: 'https://www.datocms-assets.com/192130/1768821769-house1.webp?w=800&fit=max&auto=format',
+    id: 3,
+    address: '1 Prestige Place, Narre Warren, VIC 3805',
+    slug: '1-prestige-place-narre-warren',
+    headline: 'International Tenant | Melbourne Metro Asset | Brand Name Dealership',
+    shortDescription: 'Our first acquisition in Victoria, this car dealership is located in busy Narre Warren. It is leased to an international tenant.',
+    longDescription: 'The property is located in Narre Warren - an established residential area situated approximately 40 radial kilometres south east of Melbourne\'s CBD. The site comprises a two-storey purpose built car dealership (showroom and workshop) constructed circa 2006 that is leased to an Australian subsidiary of Inchcape Plc (which has a market cap of £2.66b is listed on the London Stock Exchange). Inchcape Australasia have the distribution rights to Subaru in Australia, and also control the retail Subaru sales network by owning most of the dealerships (especially in Victoria where they own all bar two small dealerships).\n\nThe Property comprises 4,062m² of land, and buildings of 1,331m² that comprise showroom/offices and a service area. There is parking for 106 outdoor display / parking places. The site is leased until 5 December 2026, with 2 × 5 year options.',
+    propertyType: 'Retail (Showroom)',
+    acquiredDate: '2024-04-15',
+    soldDate: null,
+    purchasePrice: '$10,250,000',
+    salePrice: null,
+    landSize: '4,062m²',
+    buildingSize: '1,331m²',
+    independentValuation: '$10,250,000',
+    capitalisationRate: '5.00%',
+    valuationDate: '6 December 2023',
+    occupancyAtPurchase: '100%',
+    financing: 'All cash purchase',
+    waleLeaseExpiry: '2.68',
+    waleIncome: '2.68',
+    waleLettableArea: '2.68',
+    mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1571.4590699144921!2d145.3168609158708!3d-38.025687834277484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad61a002a8d217f%3A0x7e0a661a1b84c95e!2s1%20Prestige%20Pl%2C%20Narre%20Warren%20VIC%203805!5e0!3m2!1sen!2sau!4v1714442850570!5m2!1sen!2sau',
+    mapLink: 'https://maps.app.goo.gl/o3N9KucFQ13RTy5f8',
+    images: [],
   },
   {
-    id: '2',
-    title: 'Residential Development',
-    location: 'Greater Sydney, NSW',
-    type: 'Residential',
-    status: 'Active',
-    image: 'https://www.datocms-assets.com/192130/1768821769-house2.webp?w=800&fit=max&auto=format',
+    id: 5,
+    address: '24 Main Road, Moonah, TAS 7009',
+    slug: '24-main-road-moonah',
+    headline: 'Strong Retail Asset | Long Lease | Brand Name Tenant',
+    shortDescription: 'A recently modernised high profile retail building located in Moonah - just 7kms from Hobart\'s CBD.',
+    longDescription: 'The site comprises a regular shaped allotment on the corner of Main Road and Florence Street, that is generally level throughout. The site has a good profile to passing pedestrian and vehicular traffic. Accommodation comprises a split level, "L" shaped showroom, goods inwards / delivery areas, staff amenities, low clearance mezzanine store and a higher clearance mezzanine store.\n\nThe property comprises a recently modernised retail showroom with open plan retail, ground floor storeroom, staff room and toilets with two upper level mezzanine store areas. The original building was constructed in 1960\'s then later extended in 2010 and 2013. There is concrete paved onsite parking with access from Florence Street.',
+    propertyType: 'Retail (Showroom)',
+    acquiredDate: '2024-01-19',
+    soldDate: null,
+    purchasePrice: '$7,540,200',
+    salePrice: null,
+    landSize: '2,519m²',
+    buildingSize: '2,197m²',
+    independentValuation: '$7,540,200',
+    capitalisationRate: '6.50%',
+    valuationDate: '30 November 2023',
+    occupancyAtPurchase: '100%',
+    financing: 'All cash purchase',
+    waleLeaseExpiry: '4.81',
+    waleIncome: '4.81',
+    waleLettableArea: '4.81',
+    mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d869.6391462959836!2d147.2963550632522!3d-42.849499928785704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xaa6e74e8c7ada11d%3A0x38beacea0f6aee6f!2s24%20Main%20Rd%2C%20Moonah%20TAS%207009!5e0!3m2!1sen!2sau!4v1714442985186!5m2!1sen!2sau',
+    mapLink: 'https://maps.app.goo.gl/VZ76AZCEf9xBUVtw9',
+    images: [],
   },
   {
-    id: '3',
-    title: 'Mixed-Use Investment',
-    location: 'Brisbane, QLD',
-    type: 'Mixed-Use',
-    status: 'Monitoring',
-    image: 'https://www.datocms-assets.com/192130/1768821769-house3.webp?w=800&fit=max&auto=format',
+    id: 6,
+    address: '68 Pimpama Jacobs Well Road, Pimpama, QLD 4209',
+    slug: '68-pimpama-jacobs-well-road-pimpama-qld-4209',
+    headline: 'Growth Area | Long Leases | Attractive Return',
+    shortDescription: 'Strategically nestled in the high-growth corridor between Brisbane and the Gold Coast, this multi-tenant retail site is anchored by a Caltex service station.',
+    longDescription: 'Pimpama, in the busy Brisbane - Gold Coast corridor, approximately 30kms north-west of Southport CBD and 51kms south-east of the Brisbane CBD, is (reported to be) the fastest growing area in Australia (with exception of capital cities). The property is situated on a high profile 3,292m2 (corner site) on the south-eastern intersection of Pimpama Jacobs Well Road and Attenborough Boulevard. The site is zoned \'Centre\' under the Gold Coast Planning Scheme 2003 (version 1.2 amended November 2011). This zoning has re-development potential to 27m (estimated to be 9 stories in height (STCA)).\n\nThe property comprises a single level retail building containing three attached tenancies, with the building positioned towards the southern end of the site.\n\nImprovements include Caltex Service station with 32 bowsers facilitating 8 vehicle service points and a tank capacity of 180,000 litres. The service station provides a convenience retail store of 151m2 in area and a connected 252m2 metre canopy which is 4.5metres in height. The convenience store has console, coolroom, back office, storeroom and bathroom amenities.\n\nAdjoining the Caltex retail store is a 95m2 store leased to The Cheesecake Shop. The third adjoining tenancy with a lettable area of 158m2, is leased to Ramen Danbo (Japanese Noodles), and includes two drive thru windows and a queuing capacity for 13 vehicles.',
+    propertyType: 'Retail (Service Station)',
+    acquiredDate: '2024-01-31',
+    soldDate: null,
+    purchasePrice: '$7,225,000',
+    salePrice: null,
+    landSize: '3,292m²',
+    buildingSize: '404m²',
+    independentValuation: '$7,225,000',
+    capitalisationRate: '7.00%',
+    valuationDate: '8 December 2023',
+    occupancyAtPurchase: '100%',
+    financing: 'All cash purchase',
+    waleLeaseExpiry: '7.81',
+    waleIncome: '10.07',
+    waleLettableArea: '8.32',
+    mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1247.6136977880476!2d153.29069696277145!3d-27.816405800998737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b91148412331df9%3A0x6d29f1d725b04710!2s68%20Pimpama%20Jacobs%20Well%20Rd%2C%20Pimpama%20QLD%204209!5e0!3m2!1sen!2sau!4v1714439241161!5m2!1sen!2sau',
+    mapLink: 'https://maps.app.goo.gl/m1iJ4YYc1W5b6Hxd9',
+    images: [],
   },
 ]
-
-const statusColors = {
-  Active: 'bg-sogif-success text-white',
-  Monitoring: 'bg-sogif-gold text-sogif-navy',
-  Exited: 'bg-gray-200 text-gray-700',
-}
 
 export function PropertyShowcase() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
 
   return (
     <section className="section-padding bg-sogif-steel relative overflow-hidden" ref={ref}>
@@ -78,55 +128,17 @@ export function PropertyShowcase() {
         {/* Properties Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {properties.map((property, index) => (
-            <motion.article
+            <motion.div
               key={property.id}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-              className="group"
             >
-              <AppCard variant="property-light">
-                {/* Image */}
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={property.image}
-                    alt={property.title}
-                    fill
-                    className="object-cover media-zoom-hover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-                  {/* Status Badge */}
-                  <div className="absolute top-4 left-4">
-                    <Badge
-                      size="sm"
-                      className={statusColors[property.status as keyof typeof statusColors]}
-                    >
-                      {property.status}
-                    </Badge>
-                  </div>
-
-                  {/* Type Badge */}
-                  <div className="absolute bottom-4 left-4">
-                    <span className="text-white type-support font-medium drop-shadow-md">{property.type}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="type-title font-bold text-sogif-navy mb-2 group-hover:text-sogif-cyan-dark transition-colors">
-                    {property.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <svg className="w-4 h-4 text-sogif-cyan-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span className="type-support">{property.location}</span>
-                  </div>
-                </div>
-              </AppCard>
-            </motion.article>
+              <PropertyCard
+                property={property}
+                onClick={() => setSelectedProperty(property)}
+              />
+            </motion.div>
           ))}
         </div>
 
@@ -147,6 +159,13 @@ export function PropertyShowcase() {
           </div>
         </motion.div>
       </Container>
+
+      {/* Property Detail Modal */}
+      <PropertyDetailModal
+        property={selectedProperty}
+        open={!!selectedProperty}
+        onOpenChange={(open) => { if (!open) setSelectedProperty(null) }}
+      />
     </section>
   )
 }

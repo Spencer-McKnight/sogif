@@ -42,6 +42,20 @@ export {
   TableCaption,
 } from './table'
 
+// Shadcn Components - Dialog
+export {
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogTrigger,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from './dialog'
+
 // Shadcn Components - Chart
 export {
   ChartContainer,
