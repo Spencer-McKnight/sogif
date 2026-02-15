@@ -124,18 +124,6 @@ export function ValueProposition() {
             <span>AFSL No {constants.afsl}</span>
           </div>
         </div>
-
-        {/* CTA Button */}
-        <div className="mt-12 flex justify-center">
-          <ButtonLink
-            href="/invest"
-            variant="primary"
-            size="lg"
-            glow="gold"
-          >
-            Invest Now
-          </ButtonLink>
-        </div>
       </Container>
     </section>
   )
