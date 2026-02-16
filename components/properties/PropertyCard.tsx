@@ -18,6 +18,15 @@ function formatValuationDate(dateStr: string) {
   return dateStr
 }
 
+function splitAddress(address: string) {
+  const firstComma = address.indexOf(',')
+  if (firstComma === -1) return { street: address, locality: '' }
+  return {
+    street: address.substring(0, firstComma),
+    locality: address.substring(firstComma + 1).trim(),
+  }
+}
+
 interface PropertyCardProps {
   property: Property
   onClick?: () => void
@@ -25,6 +34,8 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property, onClick }: PropertyCardProps) {
   const hasImage = property.images.length > 0
+  const { street, locality } = splitAddress(property.address)
+  const headlineSegments = property.headline.split('|').map(s => s.trim())
 
   return (
     <button
@@ -82,8 +93,8 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
         {/* Price + valuation */}
-        <div className="flex items-baseline gap-2 mb-2">
-          <span className="relative text-xl sm:text-2xl font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
+        <div className="flex flex-col xl:flex-row xl:items-baseline xl:gap-2 mb-2">
+          <span className="relative w-fit type-title font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
             {property.purchasePrice}
           </span>
           <span className="type-caption">
@@ -92,17 +103,17 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         </div>
 
         {/* Address */}
-        <h3 className="text-base sm:text-lg font-bold text-sogif-navy leading-snug mb-0.5 min-h-[3.125em] line-clamp-2">
-          {property.address}
+        <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
+          {street}
+          {locality && <><br />{locality}</>}
         </h3>
 
         {/* Headline */}
-        <p className="type-caption text-text-muted line-clamp-2">
-          {property.headline}
-        </p>
-
-        {/* Spacer pushes metrics to bottom */}
-        <div className="flex-1 min-h-4" />
+        <div className="type-caption text-text-muted mb-3">
+          {headlineSegments.map((segment, i) => (
+            <span key={i} className="block">{segment}</span>
+          ))}
+        </div>
 
         {/* Metrics strip — always at bottom */}
         <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-soft">

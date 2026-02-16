@@ -113,7 +113,7 @@ export function PropertyShowcase() {
             variant="text"
             className="shrink-0"
           >
-            View All Properties
+            All Properties
           </AppLink>
         </div>
 
