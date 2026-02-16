@@ -29,11 +29,40 @@ interface ValueSlide {
     strategyPairs: StrategyPair[]
     ctaHref: string
     ctaLabel: string
-    icon: ComponentType<{ className?: string }>
     accent: AccentColor
 }
 
 const slides: ValueSlide[] = [
+    {
+        id: 'passive-income',
+        label: 'Capital Distributions',
+        title: 'Passive Income, Paid Quarterly',
+        description:
+            'Convert portfolio performance into usable cash flow while keeping long-term growth in play.',
+        strategyPairs: [
+            {
+                title: 'Diversified income mix',
+                description:
+                    'We combine interest, dividends, and realised gains so distributions are steadier across changing market cycles.',
+                icon: ChartNoAxesCombined,
+            },
+            {
+                title: 'Governed payout decisions',
+                description:
+                    'Responsible Entity oversight sets clear payout guardrails, helping protect investors through transparent decisions.',
+                icon: ShieldCheck,
+            },
+            {
+                title: 'Cashflow-first policy',
+                description:
+                    'A practical distribution cadence supports dependable income without forcing short-term exits.',
+                icon: HandCoins,
+            },
+        ],
+        ctaHref: '/invest',
+        ctaLabel: 'Invest',
+        accent: 'gold',
+    },
     {
         id: 'property-opportunity',
         label: 'Commercial Property Alpha',
@@ -62,39 +91,7 @@ const slides: ValueSlide[] = [
         ],
         ctaHref: '/properties',
         ctaLabel: 'Properties',
-        icon: Landmark,
         accent: 'cyan-light',
-    },
-    {
-        id: 'passive-income',
-        label: 'Capital Distributions',
-        title: 'Passive Income, Paid Quarterly',
-        description:
-            'Convert portfolio performance into usable cash flow while keeping long-term growth in play.',
-        strategyPairs: [
-            {
-                title: 'Diversified income mix',
-                description:
-                    'We combine interest, dividends, and realised gains so distributions are steadier across changing market cycles.',
-                icon: ChartNoAxesCombined,
-            },
-            {
-                title: 'Governed payout decisions',
-                description:
-                    'Responsible Entity oversight sets clear payout guardrails, helping protect investors through transparent decisions.',
-                icon: ShieldCheck,
-            },
-            {
-                title: 'Cashflow-first policy',
-                description:
-                    'A practical distribution cadence supports dependable income without forcing short-term exits.',
-                icon: HandCoins,
-            },
-        ],
-        ctaHref: '/invest',
-        ctaLabel: 'See Income Approach',
-        icon: HandCoins,
-        accent: 'gold',
     },
     {
         id: 'equities-approach',
@@ -124,7 +121,6 @@ const slides: ValueSlide[] = [
         ],
         ctaHref: '/performance',
         ctaLabel: 'See Performance Method',
-        icon: ChartNoAxesCombined,
         accent: 'success',
     },
 ]
@@ -254,7 +250,7 @@ export function ValueCarousel() {
                                                             className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
                                                         >
                                                             <div className="mb-2 flex items-center gap-2">
-                                                                <PairIcon className="h-4 w-4 text-[hsl(var(--slide-accent))]" />
+                                                                <PairIcon className="h-6 w-6 text-[hsl(var(--slide-accent))]" />
                                                                 <h4 className="type-support font-semibold text-white">{pair.title}</h4>
                                                             </div>
                                                             <p className="type-caption text-white/75">{pair.description}</p>

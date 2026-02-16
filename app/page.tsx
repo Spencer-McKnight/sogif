@@ -22,11 +22,11 @@ export default async function Home() {
 
         <ValueCarousel />
 
-        {/* Performance: Data visualization and fund metrics */}
-        <PerformanceSnapshot performanceData={constants.performanceData} />
-
         {/* Properties: Portfolio showcase for tangibility */}
         <PropertyShowcase />
+
+        {/* Performance: Data visualization and fund metrics */}
+        <PerformanceSnapshot performanceData={constants.performanceData} />
 
         {/* Team: Leadership credibility and experience */}
         <TeamSection />
