@@ -1,7 +1,7 @@
 import { Header, Footer } from '@/components/layout'
 import {
   HeroSection,
-  ValueProposition,
+  ValueCarousel,
   PerformanceSnapshot,
   PropertyShowcase,
   HowItWorks,
@@ -20,6 +20,8 @@ export default async function Home() {
         {/* Hero: Primary value proposition and key metrics */}
         <HeroSection />
 
+        <ValueCarousel />
+
         {/* Performance: Data visualization and fund metrics */}
         <PerformanceSnapshot performanceData={constants.performanceData} />
 
@@ -28,9 +30,6 @@ export default async function Home() {
 
         {/* Team: Leadership credibility and experience */}
         <TeamSection />
-
-        {/* Value Props: Why choose SOGIF - benefits and trust signals */}
-        <ValueProposition />
 
         {/* How It Works: Clear investment process for conversion */}
         <HowItWorks />

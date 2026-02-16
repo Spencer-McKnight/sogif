@@ -1,6 +1,6 @@
 export { HeroSection } from './HeroSection'
 export { HeroStats } from './HeroStats'
-export { ValueProposition } from './ValueProposition'
+export { ValueCarousel } from './ValueCarousel'
 export { PerformanceSnapshot } from './PerformanceSnapshot'
 export { PropertyShowcase } from './PropertyShowcase'
 export { HowItWorks } from './HowItWorks'

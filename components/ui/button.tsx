@@ -28,23 +28,36 @@ const buttonVariants = cva(
         success: 'cta-glow-success-passive',
         cyan: 'cta-glow-cyan',
       },
-      fullWidth: {
-        true: 'w-full',
-        false: '',
-      },
     },
     defaultVariants: {
       variant: 'primary',
       size: 'md',
       glow: 'none',
-      fullWidth: false,
     },
   }
 )
 
+type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+
+const fullWidthBreakpoints: Record<Breakpoint, string> = {
+  sm: 'w-full sm:w-fit',
+  md: 'w-full md:w-fit',
+  lg: 'w-full lg:w-fit',
+  xl: 'w-full xl:w-fit',
+  '2xl': 'w-full 2xl:w-fit',
+}
+
+function resolveFullWidth(fullWidth: boolean | Breakpoint | null | undefined): string {
+  if (fullWidth === true) return 'w-full'
+  if (typeof fullWidth === 'string') return fullWidthBreakpoints[fullWidth]
+  return ''
+}
+
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> { }
+  VariantProps<typeof buttonVariants> {
+  fullWidth?: boolean | Breakpoint
+}
 
 export interface ButtonLinkProps
   extends VariantProps<typeof buttonVariants>,
@@ -53,6 +66,7 @@ export interface ButtonLinkProps
   className?: string
   external?: boolean
   children: ReactNode
+  fullWidth?: boolean | Breakpoint
 }
 
 export function Button({
@@ -67,7 +81,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={cn(buttonVariants({ variant, size, glow, fullWidth }), className)}
+      className={cn(buttonVariants({ variant, size, glow }), resolveFullWidth(fullWidth), className)}
       {...props}
     />
   )
@@ -84,7 +98,7 @@ export function ButtonLink({
   children,
   ...props
 }: ButtonLinkProps) {
-  const classes = cn(buttonVariants({ variant, size, glow, fullWidth }), className)
+  const classes = cn(buttonVariants({ variant, size, glow }), resolveFullWidth(fullWidth), className)
 
   if (external) {
     return (

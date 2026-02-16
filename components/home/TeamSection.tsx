@@ -65,11 +65,11 @@ export function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="grid sm:gap-8 md:gap-24 xl:gap-32 lg:grid-cols-3">
           {directors.map((director) => (
             <div
               key={director.id}
-              className="group flex w-full flex-row items-start gap-5 lg:mx-auto lg:max-w-[18rem] lg:flex-col lg:gap-0"
+              className="group flex w-full flex-row items-start gap-8 lg:flex-col lg:gap-0"
             >
               {/* Image */}
               <div className="relative w-28 shrink-0 sm:w-36 lg:mb-6 lg:w-full">

@@ -16,6 +16,7 @@ interface SectionHeaderProps extends HTMLAttributes<HTMLDivElement> {
   description?: string
   align?: SectionAlign
   dark?: boolean
+  eyebrowClassName?: string
 }
 
 export function SectionHeader({
@@ -24,6 +25,7 @@ export function SectionHeader({
   description,
   align = 'center',
   dark = false,
+  eyebrowClassName,
   className,
   ...props
 }: SectionHeaderProps) {
@@ -35,7 +37,8 @@ export function SectionHeader({
       <span
         className={cn(
           'section-eyebrow',
-          dark ? 'text-sogif-cyan-light' : 'text-sogif-cyan-dark'
+          dark ? 'text-sogif-cyan-light' : 'text-sogif-cyan-dark',
+          eyebrowClassName
         )}
       >
         {eyebrow}

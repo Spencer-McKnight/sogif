@@ -82,7 +82,7 @@ export function HowItWorks() {
                       external
                       variant={step.buttonVariant}
                       size="md"
-                      className="lg:self-start"
+                      fullWidth="lg"
                     >
                       {step.linkLabel}
                     </ButtonLink>
