@@ -217,7 +217,7 @@ export function ValueCarousel() {
                 {slides.map((slide) => {
                     return (
                         <SwiperSlide key={slide.id} className="flex h-auto w-full" style={accentVar(slide.accent)}>
-                            <article className="relative section-padding flex h-full w-full items-center overflow-hidden">
+                            <article className="relative section-padding flex h-full w-full items-center overflow-hidden mb-12">
                                 <Container className="relative grid h-full gap-8 lg:grid-cols-12 lg:gap-9">
                                     <div className="flex h-full flex-col lg:col-span-5">
                                         <SectionHeader
@@ -268,7 +268,7 @@ export function ValueCarousel() {
                 })}
             </Swiper>
 
-            <div className="absolute bottom-7 left-0 right-0 z-10 md:bottom-8">
+            <div className="absolute bottom-12 left-0 right-0 z-10 md:bottom-13">
                 <CarouselControls
                     swiper={swiperInstance}
                     activeIndex={activeIndex}

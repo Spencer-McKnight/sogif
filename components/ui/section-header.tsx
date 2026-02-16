@@ -23,7 +23,7 @@ export function SectionHeader({
   eyebrow,
   title,
   description,
-  align = 'center',
+  align = 'left',
   dark = false,
   eyebrowClassName,
   className,
