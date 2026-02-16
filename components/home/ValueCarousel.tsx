@@ -218,7 +218,7 @@ export function ValueCarousel() {
                     return (
                         <SwiperSlide key={slide.id} className="flex h-auto w-full" style={accentVar(slide.accent)}>
                             <article className="relative section-padding flex h-full w-full items-center overflow-hidden mb-12">
-                                <Container className="relative grid h-full gap-8 lg:grid-cols-12 lg:gap-9">
+                                <Container className="relative grid h-full gap-8 lg:grid-cols-12 lg:gap-12">
                                     <div className="flex h-full flex-col lg:col-span-5">
                                         <SectionHeader
                                             eyebrow={slide.label}

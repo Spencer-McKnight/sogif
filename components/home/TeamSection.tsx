@@ -65,7 +65,7 @@ export function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid sm:gap-8 md:gap-24 xl:gap-32 lg:grid-cols-3">
+        <div className="grid gap-8 lg:grid-cols-3">
           {directors.map((director) => (
             <div
               key={director.id}

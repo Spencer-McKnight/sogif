@@ -61,6 +61,146 @@ Use high contrast text first:
 - On dark backgrounds: `text-white`, `text-white/90`, `text-white/75`.
 - On light backgrounds: `text-gray-900` for headings, `text-gray-800` for body.
 
+## Grid & Layout Structure
+
+Every section shares a single spatial framework so that content edges align vertically as the user scrolls. The system is built on three layers: **container**, **section rhythm**, and **content grid**.
+
+### Container
+
+All page content flows through `Container` (`components/ui/container.tsx`), which applies the `.section-container` utility:
+
+```
+max-w-7xl (1280 px)  ·  px-4 sm:px-6 lg:px-8
+```
+
+This gives a consistent left and right content edge at every breakpoint. Never override these padding values inside a section — let the container own horizontal rhythm.
+
+### Section Rhythm
+
+Vertical spacing between section backgrounds uses `.section-padding`:
+
+```
+py-24 (96 px)  ·  md:py-28 (112 px)  ·  lg:py-32 (128 px)
+```
+
+Apply `section-padding` to the outer `<section>` element. For areas that intentionally break rhythm (footer, hero), use bespoke vertical padding but keep it proportional.
+
+Section headers sit between the section top and the content grid. Use a consistent bottom margin of **`mb-12`** for compact sections (where the header sits alongside other elements, e.g. PropertyShowcase) or **`mb-16`** for standard sections where the header stands alone above the grid.
+
+### 12-Column Content Grid
+
+Interior layouts use a **conceptual 12-column grid** implemented with Tailwind's `grid-cols-12`. This is the canonical system for all two-column and asymmetric layouts on desktop (`lg`+). Three-column equal layouts may use the shorthand `grid-cols-3` directly.
+
+#### Breakpoint Behavior
+
+| Breakpoint | Width    | Typical behavior |
+|-----------|----------|------------------|
+| Base      | < 640 px | Single column. Content stacks vertically. |
+| `sm`      | ≥ 640 px | Minor adjustments (button rows, inline stats). Grid stays single-column. |
+| `md`      | ≥ 768 px | Card grids may go to 2–3 columns. Two-column prose layouts remain stacked. |
+| `lg`      | ≥ 1024 px | Full grid activates. Two-column and three-column layouts engage. |
+| `xl`      | ≥ 1280 px | Content reaches max-width. Extra space is margin. |
+
+#### Standard Layout Templates
+
+Use these named patterns. They keep the vertical split-point consistent across sections so that left/right edges align as the user scrolls.
+
+**1. Asymmetric Two-Column (5 / 7)**
+
+The primary split for content + supporting element layouts. The narrower column holds text/stats; the wider column holds charts, forms, or card groups.
+
+```
+grid lg:grid-cols-12 gap-8 lg:gap-12
+├── lg:col-span-5   (text / stats / CTAs)
+└── lg:col-span-7   (chart / form / cards)
+```
+
+Used by: ValueCarousel, PerformanceSnapshot, RegisterInterestCTA.
+
+**2. Equal Two-Column (6 / 6)**
+
+For layouts where both sides carry equal visual weight.
+
+```
+grid lg:grid-cols-2 gap-8 lg:gap-16
+├── col 1   (content block)
+└── col 2   (content block)
+```
+
+Used by: HeroSection (text + stats).
+
+**3. Three-Column Equal**
+
+For card rows and team grids.
+
+```
+grid md:grid-cols-3 gap-8
+├── col 1
+├── col 2
+└── col 3
+```
+
+Used by: PropertyGrid, TeamSection, HowItWorks.
+
+**4. Footer Grid**
+
+Brand-heavy left column with two narrow right columns.
+
+```
+grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8
+├── lg:col-span-2   (brand + legal entity)
+├── col              (page links)
+└── col              (contact)
+```
+
+#### Gap Scale
+
+Use only these gap values to keep spacing predictable:
+
+| Token | Value | Use case |
+|-------|-------|----------|
+| `gap-4` | 16 px | Tight inline groups (stat pairs, badge rows) |
+| `gap-6` | 24 px | Compact card grids, stacked stat cards, footer columns on mobile |
+| `gap-8` | 32 px | **Standard grid gap.** Card grids, three-column layouts, footer desktop |
+| `gap-12` | 48 px | Wide gap for two-column content splits on mobile/tablet |
+| `gap-16` | 64 px | Wide gap for two-column content splits on desktop (`lg:gap-16`) |
+
+Avoid orphan values like `gap-9`, `gap-10`, `gap-24`, or `gap-32`. If a layout feels too tight at `gap-8`, step up to `gap-12` — do not invent intermediate values.
+
+#### Responsive Gap Pattern
+
+Two-column content layouts should follow the standard responsive ramp:
+
+```
+gap-8 lg:gap-12
+```
+
+For wide hero-style splits where desktop breathing room is essential:
+
+```
+gap-8 lg:gap-16
+```
+
+Card grids stay at a flat `gap-8` across all breakpoints unless density requires `gap-6`.
+
+### Mobile Layout Rules
+
+- **Single-column stacking**: All grids collapse to 1 column on mobile. No horizontal scrolling.
+- **Centered single cards**: On mobile, single-column card groups (e.g. HowItWorks steps) may use `max-w-md mx-auto lg:max-w-none` to prevent overly wide cards at tablet-ish widths.
+- **Content reordering**: Use `order-1 / order-2` with `lg:order-*` overrides when mobile should show a visual element (chart, image) before text for engagement, but desktop should lead with text for scanability.
+- **Full-width CTAs**: Primary action buttons should be `w-full sm:w-auto` so they fill the viewport on small screens.
+
+### Alignment Checklist (New Sections)
+
+When adding a new section to any page:
+
+1. Wrap content in `Container`.
+2. Apply `section-padding` to the `<section>`.
+3. Start with `SectionHeader` using the appropriate `align` prop.
+4. Choose a layout template (5/7, 6/6, 3-col, or single-column).
+5. Use only gap tokens from the scale above.
+6. Verify vertical alignment with adjacent sections — left edges of content columns should match.
+
 ## Interaction Rules
 
 ### CTA Glow

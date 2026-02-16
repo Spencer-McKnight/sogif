@@ -53,7 +53,7 @@ export function HowItWorks() {
           {/* Connection Line - Mobile/Tablet (vertical) */}
           <div className="lg:hidden absolute top-0 bottom-0 left-1/2 w-0.5 bg-gradient-to-b from-sogif-cyan-dark/20 via-sogif-cyan-dark to-sogif-cyan-dark/20 -translate-x-1/2" />
 
-          <div className="grid lg:grid-cols-3 gap-10 max-w-md mx-auto lg:max-w-none">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-md mx-auto lg:max-w-none">
             {steps.map((step, index) => {
               const Icon = icons[index]
               const href = constants[step.urlKey]

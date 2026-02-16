@@ -45,7 +45,7 @@ export function HeroSection() {
 
             {/* Content - flex-1 to fill available space, centered vertically */}
             <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 lg:pb-20">
-                <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
+                <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                     {/* Left Column - Text Content */}
                     <div className="text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0">
                         <h1 className="type-display font-bold text-white mb-5 md:mb-6">

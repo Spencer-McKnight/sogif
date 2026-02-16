@@ -244,9 +244,9 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           />
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 min-w-0">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
           {/* Stats Column - appears second on mobile, first on desktop */}
-          <div className="lg:col-span-2 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
+          <div className="lg:col-span-5 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
             {performanceStats.map((stat) => (
               <AppCard
                 key={stat.label}
@@ -313,7 +313,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </div>
 
           {/* Chart Column - appears first on mobile, second on desktop */}
-          <div className="lg:col-span-3 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2">
+          <div className="lg:col-span-7 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
