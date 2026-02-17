@@ -111,9 +111,9 @@ const chartConfig = {
 }
 
 const TOOLTIP_METRICS = [
-  { key: 'redemptionPrice', label: 'Redemption', color: 'hsl(41, 90%, 61%)' },
-  { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 65%)' },
   { key: 'cumulativeReturn', label: 'Cumulative', color: 'hsl(160, 84%, 39%)' },
+  { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 65%)' },
+  { key: 'redemptionPrice', label: 'Redemption', color: 'hsl(41, 90%, 61%)' },
 ] as const
 
 function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
@@ -212,14 +212,15 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
   const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
 
-  const performanceStats = [
+  const performanceStats: { label: string; value: string; change: string | null }[] = [
+    { label: 'Latest Issue Price', value: `$${stats.latestIssue.toFixed(4)}`, change: null },
     {
       label: 'Latest Redemption Price',
       value: (stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A',
       change: null
     },
     { label: 'Total Distributions', value: `$${stats.totalDistributions.toFixed(4)}`, change: `+${(stats.totalDistributions * 100).toFixed(2)}%` },
-    { label: 'Cumulative Return*', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
+    { label: 'Cumulative Return', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
   ]
 
   // Don't render if no data
@@ -257,7 +258,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
           {/* Stats Column - appears second on mobile, first on desktop */}
-          <div className="lg:col-span-5 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
+          <div className="lg:col-span-5 xl:col-span-4 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
             {performanceStats.map((stat) => (
               <AppCard
                 key={stat.label}
@@ -290,8 +291,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sogif-success font-semibold type-support mb-0.5 lg:mb-1">Existing Investor?</p>
-                  <p className="text-white/90 type-support">View your personalised returns</p>
+                  <p className="text-sogif-success font-semibold type-support mb-0.5 lg:mb-1">Already an investor?</p>
+                  <p className="text-white/90 type-support">View personalised returns with the portal</p>
                 </div>
               </div>
               <svg
@@ -306,118 +307,121 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </div>
 
           {/* Chart Column - appears first on mobile, second on desktop */}
-          <div className="lg:col-span-7 min-w-0 bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 order-1 lg:order-2">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
-                <p className="text-white/90 type-support">Monthly performance since inception</p>
-              </div>
-            </div>
+          <div className="lg:col-span-7 xl:col-span-8 min-w-0 order-1 lg:order-2 lg:relative">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 flex flex-col lg:absolute lg:inset-0 overflow-hidden">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
+                  <p className="text-white/90 type-support">Monthly performance since inception</p>
+                </div>
 
-            {/* Legend */}
-            <div className="flex flex-wrap items-center gap-4 mb-4 type-support">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-sogif-gold" />
-                <span className="text-white/90">Redemption Price</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-sogif-cyan-light" />
-                <span className="text-white/90">Issue Price</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-sogif-success" />
-                <span className="text-white/90">Cumulative Return</span>
-              </div>
-            </div>
 
-            <div className="h-96">
-              <ChartContainer config={chartConfig} className="h-full w-full">
-                <ResponsiveContainer>
-                  <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
-                      </linearGradient>
-                      <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0} />
-                      </linearGradient>
-                      <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <XAxis
-                      dataKey="month"
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
-                      interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
-                      tickFormatter={(value) => {
-                        const [month, year] = value.split('-')
-                        return `${month.substring(0, 3)} '${year}`
-                      }}
-                    />
-                    <YAxis
-                      domain={[0.90, 1.15]}
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
-                      tickFormatter={(value) => `$${value.toFixed(2)}`}
-                    />
-                    <ChartTooltip
-                      content={<CustomTooltip />}
-                      cursor={{ stroke: 'rgba(255,255,255,0.2)' }}
-                    />
-                    {/* Redemption Price - Gold (lowest, rendered first) */}
-                    <Area
-                      type="monotone"
-                      dataKey="redemptionPrice"
-                      stroke="hsl(41, 90%, 61%)"
-                      strokeWidth={2}
-                      fill="url(#redemptionGradient)"
-                    />
-                    {/* Issue Price - Cyan (middle) */}
-                    <Area
-                      type="monotone"
-                      dataKey="issuePrice"
-                      stroke="hsl(189, 100%, 65%)"
-                      strokeWidth={2}
-                      fill="url(#issueGradient)"
-                    />
-                    {/* Cumulative Return - Green (highest, rendered last) */}
-                    <Area
-                      type="monotone"
-                      dataKey="cumulativeReturn"
-                      stroke="hsl(160, 84%, 39%)"
-                      strokeWidth={2}
-                      fill="url(#cumulativeGradient)"
-                    />
-                    {/* Indicator dot at start of redemption price line */}
-                    {firstRedemptionPoint && (
-                      <ReferenceDot
-                        x={firstRedemptionPoint.month}
-                        y={firstRedemptionPoint.redemptionPrice}
-                        shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
+              {/* Legend */}
+              <div className="flex flex-wrap items-center gap-4 mb-4 type-support">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-sogif-success" />
+                  <span className="text-white/90">Cumulative Return</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-sogif-cyan-light" />
+                  <span className="text-white/90">Issue Price</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-sogif-gold" />
+                  <span className="text-white/90">Redemption Price</span>
+                </div>
+              </div>
+
+              <div className="h-72 sm:h-80 lg:flex-1 lg:min-h-0">
+                <ChartContainer config={chartConfig} className="h-full w-full">
+                  <ResponsiveContainer>
+                    <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
+                          <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0.2} />
+                          <stop offset="95%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis
+                        dataKey="month"
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                        interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
+                        tickFormatter={(value) => {
+                          const [month, year] = value.split('-')
+                          return `${month.substring(0, 3)} '${year}`
+                        }}
                       />
-                    )}
-                    {/* Indicator dot at first distribution on cumulative return line */}
-                    {firstDistributionPoint && (
-                      <ReferenceDot
-                        x={firstDistributionPoint.month}
-                        y={firstDistributionPoint.cumulativeReturn}
-                        shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
+                      <YAxis
+                        domain={[0.90, 1.15]}
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                        tickFormatter={(value) => `$${value.toFixed(2)}`}
                       />
-                    )}
-                  </AreaChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </div>
+                      <ChartTooltip
+                        content={<CustomTooltip />}
+                        cursor={{ stroke: 'rgba(255,255,255,0.2)' }}
+                      />
+                      {/* Redemption Price - Gold (lowest, rendered first) */}
+                      <Area
+                        type="monotone"
+                        dataKey="redemptionPrice"
+                        stroke="hsl(41, 90%, 61%)"
+                        strokeWidth={2}
+                        fill="url(#redemptionGradient)"
+                      />
+                      {/* Issue Price - Cyan (middle) */}
+                      <Area
+                        type="monotone"
+                        dataKey="issuePrice"
+                        stroke="hsl(189, 100%, 65%)"
+                        strokeWidth={2}
+                        fill="url(#issueGradient)"
+                      />
+                      {/* Cumulative Return - Green (highest, rendered last) */}
+                      <Area
+                        type="monotone"
+                        dataKey="cumulativeReturn"
+                        stroke="hsl(160, 84%, 39%)"
+                        strokeWidth={2}
+                        fill="url(#cumulativeGradient)"
+                      />
+                      {/* Indicator dot at start of redemption price line */}
+                      {firstRedemptionPoint && (
+                        <ReferenceDot
+                          x={firstRedemptionPoint.month}
+                          y={firstRedemptionPoint.redemptionPrice}
+                          shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
+                        />
+                      )}
+                      {/* Indicator dot at first distribution on cumulative return line */}
+                      {firstDistributionPoint && (
+                        <ReferenceDot
+                          x={firstDistributionPoint.month}
+                          y={firstDistributionPoint.cumulativeReturn}
+                          shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
+                        />
+                      )}
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </div>
 
-            <DisclaimerText tone="hero" className="mt-4">
-              *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
-            </DisclaimerText>
+              <DisclaimerText tone="hero" className="mt-4">
+                *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
+              </DisclaimerText>
+            </div>
           </div>
         </div>
 
