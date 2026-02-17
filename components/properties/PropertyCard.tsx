@@ -33,9 +33,7 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, onClick }: PropertyCardProps) {
-  const hasImage = property.images.length > 0
   const { street, locality } = splitAddress(property.address)
-  const headlineSegments = property.headline.split('|').map(s => s.trim())
 
   return (
     <button
@@ -43,37 +41,20 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
       onClick={onClick}
       className="group w-full h-full flex flex-col text-left rounded-2xl bg-white shadow-sm hover:shadow-lg ring-1 ring-border-soft overflow-hidden transition-all duration-300 hover:scale-[1.02] focus-ring"
     >
-      {/* Image / Placeholder */}
-      <div className="relative h-48 sm:h-56 rounded-t-2xl overflow-hidden bg-sogif-navy [backface-visibility:hidden] isolate">
-        {hasImage ? (
-          <Image
-            src={property.images[0]}
-            alt={property.address}
-            fill
-            className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.01]"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center px-6">
-              <svg className="w-10 h-10 text-white/20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-              <span className="type-caption text-white/30 block">{property.propertyType}</span>
-            </div>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy/70 via-transparent to-sogif-navy/20" />
+      {/* Image */}
+      <div className="relative h-48 sm:h-56 rounded-t-2xl overflow-hidden [backface-visibility:hidden] isolate">
+        <Image
+          src={property.images[0]}
+          alt={property.address}
+          fill
+          className="object-cover overflow-hidden rounded-t-2xl"
+        />
 
-        {/* Property Type — top left */}
-        <div className="absolute top-3 left-3">
-          <span className="type-caption font-medium text-white/90 bg-white/15 backdrop-blur-sm rounded-full px-3 py-1">
-            {property.propertyType}
-          </span>
-        </div>
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent" />
 
         {/* Explore affordance — top right */}
         <div className="absolute top-3 right-3">
-          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm text-white/50 group-hover:bg-white/25 group-hover:text-white transition-all duration-300">
+          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm text-white/80 group-hover:bg-white/40 group-hover:text-white transition-all duration-300">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
             </svg>
@@ -91,7 +72,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
       </div>
 
       {/* Content — 2-col grid on mobile/tablet (wide cards), 1-col on md+ (narrow cards in 3-col grid) */}
-      <div className="flex-1 p-5 grid grid-cols-[1fr,auto] md:grid-cols-1 gap-x-4">
+      <div className="flex-1 p-5 grid grid-cols-[1fr,auto] sm:grid-cols-1 gap-x-4">
         {/* Info column */}
         <div className="min-w-0">
           {/* Price + valuation */}
@@ -109,25 +90,23 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
             {street}
             {locality && <><br />{locality}</>}
           </h3>
-          <div className="type-caption lg:my-2 text-text-muted">
-            {headlineSegments.map((segment, i) => (
-              <span key={i} className="block">{segment}</span>
-            ))}
+          <div className="type-caption lg:my-2">
+            {property.propertyType}
           </div>
         </div>
 
         {/* Stats — right column on mobile/tablet, horizontal row below on md+ */}
-        <div className="flex flex-col gap-2 border-l border-border-soft pl-4 self-start md:grid md:grid-cols-3 md:gap-3 md:pt-3 md:mt-1 md:pl-0 md:border-l-0 md:border-t md:self-auto">
+        <div className="flex flex-col justify-between border-l border-border-soft pl-4 sm:flex-row sm:pt-3 sm:mt-1 sm:pl-0 sm:border-l-0 sm:border-t">
           <div>
-            <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
+            <p className="type-caption text-text-muted w-fit mb-0.5">Cap Rate</p>
             <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
           </div>
           <div>
-            <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
+            <p className="type-caption text-text-muted w-fit mb-0.5">Land Size</p>
             <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
           </div>
           <div>
-            <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
+            <p className="type-caption text-text-muted w-fit mb-0.5">Acquired</p>
             <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
           </div>
         </div>

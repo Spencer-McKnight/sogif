@@ -25,16 +25,6 @@ function getStatusInfo(property: Property) {
   return { label: 'Active', variant: 'statusSuccess' as const }
 }
 
-function Cell({ label, value, sub, valueClass }: { label: string; value: string; sub?: string; valueClass?: string }) {
-  return (
-    <div className="bg-white p-3.5">
-      <span className="type-caption text-text-muted block mb-0.5">{label}</span>
-      <span className={`text-sm font-semibold tabular-nums ${valueClass ?? 'text-sogif-navy'}`}>{value}</span>
-      {sub && <span className="type-caption text-text-muted block mt-0.5">{sub}</span>}
-    </div>
-  )
-}
-
 function LargeCell({ label, value, sub, valueClass }: { label: string; value: string; sub?: string; valueClass?: string }) {
   return (
     <div className="bg-white p-3.5">
@@ -83,7 +73,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
         </div>
 
         {/* ── Hero Image ── */}
-        <div className="relative h-72 sm:h-[28rem] bg-sogif-navy overflow-hidden">
+        <div className="relative h-72 sm:h-[28rem] overflow-hidden">
           {hasImage ? (
             <Image
               src={property.images[safeIdx]}
@@ -130,7 +120,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
             </>
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-sogif-navy via-sogif-navy/30 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
 
           {/* Close button — desktop only (mobile uses sticky close above) */}
           <DialogClose className="hidden sm:grid absolute top-3 right-3 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 place-items-center hover:bg-black/40 hover:text-white transition-all focus-ring-inverse">
@@ -166,7 +156,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
           {/* Investment Summary */}
           <section>
             <h4 className="type-overline text-sogif-cyan-dark mb-3">Investment Summary</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden max-sm:[&>*:nth-child(odd)]:pl-0 max-sm:[&>*:nth-child(even)]:pr-0 sm:[&>*:nth-child(3n+1)]:pl-0 sm:[&>*:nth-child(3n)]:pr-0">
               <LargeCell label="Purchase Price" value={property.purchasePrice} sub={`Acquired ${formatShortDate(property.acquiredDate)}`} />
               {showValuation && (
                 <LargeCell
@@ -178,8 +168,8 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
               {showCapRate && (
                 <LargeCell label="Cap Rate" value={property.capitalisationRate} />
               )}
-              <Cell label="Financing" value={property.financing} />
-              <Cell label="Occupancy at Purchase" value={property.occupancyAtPurchase} />
+              <LargeCell label="Financing" value={property.financing} />
+              <LargeCell label="Occupancy at Purchase" value={property.occupancyAtPurchase} />
               {isExited && property.salePrice ? (
                 <LargeCell
                   label="Sale Price"
@@ -188,10 +178,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
                   valueClass="text-sogif-gold"
                 />
               ) : (
-                <div className="bg-white p-3.5">
-                  <span className="type-caption text-text-muted block mb-0.5">Status</span>
-                  <span className="text-sm font-semibold text-emerald-600">Currently Owned</span>
-                </div>
+                <LargeCell label="Status" value="Currently Owned" valueClass="text-emerald-600" />
               )}
             </div>
           </section>
@@ -199,10 +186,10 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
           {/* Lease Profile */}
           <section>
             <h4 className="type-overline text-sogif-cyan-dark mb-3">Lease Profile</h4>
-            <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden">
-              <Cell label="WALE (Expiry)" value={property.waleLeaseExpiry} />
-              <Cell label="WALE (Income)" value={property.waleIncome} />
-              <Cell label="WALE (Area)" value={property.waleLettableArea} />
+            <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden [&>*:nth-child(3n+1)]:pl-0 [&>*:nth-child(3n)]:pr-0">
+              <LargeCell label="WALE (Expiry)" value={property.waleLeaseExpiry} />
+              <LargeCell label="WALE (Income)" value={property.waleIncome} />
+              <LargeCell label="WALE (Area)" value={property.waleLettableArea} />
             </div>
           </section>
 
@@ -219,9 +206,9 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
           {/* Property & Location */}
           <section>
             <h4 className="type-overline text-sogif-cyan-dark mb-3">Property</h4>
-            <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden mb-3">
-              <Cell label="Land Size" value={property.landSize} />
-              <Cell label="Building Size" value={property.buildingSize} />
+            <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden mb-3 [&>*:nth-child(3n+1)]:pl-0 [&>*:nth-child(3n)]:pr-0">
+              <LargeCell label="Land Size" value={property.landSize} />
+              <LargeCell label="Building Size" value={property.buildingSize} />
               <div className="bg-white p-3.5 flex items-center">
                 <a
                   href={property.mapLink}
