@@ -58,6 +58,9 @@ export {
   DialogDescription,
 } from './dialog'
 
+// Shadcn Components - Collapsible
+export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './collapsible'
+
 // Shadcn Components - Form
 export { Input } from './input'
 export { Label } from './label'

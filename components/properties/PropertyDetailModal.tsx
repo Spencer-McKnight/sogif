@@ -112,7 +112,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
               </button>
               <button
                 onClick={() => setImgIdx(i => i === property.images.length - 1 ? 0 : i + 1)}
-                className="absolute right-14 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm text-white/90 grid place-items-center hover:bg-black/50 transition-colors focus-ring-inverse"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm text-white/90 grid place-items-center hover:bg-black/50 transition-colors focus-ring-inverse"
                 aria-label="Next image"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>

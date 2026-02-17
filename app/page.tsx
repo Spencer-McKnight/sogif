@@ -21,11 +21,11 @@ export default async function Home() {
 
         <ValueCarousel />
 
-        <TeamSection />
-
         <PropertyShowcase />
 
         <PerformanceSnapshot performanceData={constants.performanceData} />
+
+        <TeamSection />
 
         <InvestmentSteps />
 

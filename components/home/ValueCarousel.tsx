@@ -125,37 +125,31 @@ const slides: ValueSlide[] = [
     },
 ]
 
-const INDICATOR_WIDTH = 68 // 1×32px active + 2×8px inactive + 2×10px gap
 
 function CarouselControls({
     swiper,
     activeIndex,
     slideCount,
-    activeSlide,
+    accent,
 }: {
     swiper: SwiperType | null
     activeIndex: number
     slideCount: number
-    activeSlide: ValueSlide
+    accent: AccentColor
 }) {
     if (!swiper) return null
 
     return (
-        <div className="flex items-center justify-center gap-1" style={accentVar(activeSlide.accent)}>
+        <div className="flex items-center justify-center gap-1" style={accentVar(accent)}>
             <button
                 onClick={() => swiper.slidePrev()}
                 aria-label="Previous slide"
-                className="group flex h-20 w-20 items-center justify-center text-white/30 transition-colors duration-200 hover:text-white focus-ring-inverse"
+                className="group flex size-12 items-center justify-center text-white/30 transition-colors hover:text-white focus-ring-inverse"
             >
-                <ChevronLeft className="h-7 w-7 transition-transform duration-200 group-hover:-translate-x-0.5" />
+                <ChevronLeft className="size-6 transition-transform group-hover:-translate-x-0.5" />
             </button>
 
-            <div
-                className="flex items-center justify-center gap-2.5"
-                style={{ width: INDICATOR_WIDTH }}
-                role="tablist"
-                aria-label="Slide navigation"
-            >
+            <div className="flex items-center gap-2.5" role="tablist" aria-label="Slide navigation">
                 {Array.from({ length: slideCount }).map((_, i) => (
                     <button
                         key={i}
@@ -176,9 +170,9 @@ function CarouselControls({
             <button
                 onClick={() => swiper.slideNext()}
                 aria-label="Next slide"
-                className="group flex h-[88px] w-[88px] items-center justify-center text-white/30 transition-colors duration-200 hover:text-white focus-ring-inverse"
+                className="group flex size-12 items-center justify-center text-white/30 transition-colors hover:text-white focus-ring-inverse"
             >
-                <ChevronRight className="h-7 w-7 transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ChevronRight className="size-6 transition-transform group-hover:translate-x-0.5" />
             </button>
         </div>
     )
@@ -190,7 +184,7 @@ export function ValueCarousel() {
     const activeSlide = slides[activeIndex] ?? slides[0]
 
     return (
-        <section className="relative overflow-hidden bg-sogif-navy">
+        <section className="relative bg-sogif-navy">
             <div className="pointer-events-none absolute inset-0">
                 {slides.map((slide, i) => (
                     <div
@@ -212,68 +206,59 @@ export function ValueCarousel() {
                 keyboard={{ enabled: true }}
                 onSwiper={setSwiperInstance}
                 onSlideChange={(s) => setActiveIndex(s.realIndex)}
-                className="[&_.swiper-slide]:!h-auto [&_.swiper-wrapper]:items-stretch"
             >
-                {slides.map((slide) => {
-                    return (
-                        <SwiperSlide key={slide.id} className="flex h-auto w-full" style={accentVar(slide.accent)}>
-                            <article className="relative section-padding flex h-full w-full items-center overflow-hidden mb-12">
-                                <Container className="relative grid h-full gap-8 lg:grid-cols-12 lg:gap-12">
-                                    <div className="flex h-full flex-col lg:col-span-5">
-                                        <SectionHeader
-                                            eyebrow={slide.label}
-                                            title={slide.title}
-                                            description={slide.description}
-                                            eyebrowClassName="text-[hsl(var(--slide-accent))]"
-                                            align="left"
-                                            dark
-                                        />
-                                        <AppLink
-                                            href={slide.ctaHref}
-                                            variant="light"
-                                            showArrow
-                                            className="mt-5 shrink-0 hover:text-[hsl(var(--slide-accent))]"
-                                        >
-                                            {slide.ctaLabel}
-                                        </AppLink>
-                                    </div>
+                {slides.map((slide) => (
+                    <SwiperSlide key={slide.id} style={accentVar(slide.accent)}>
+                        <article className="relative section-padding">
+                            <Container className="relative grid gap-8 lg:grid-cols-12 lg:gap-12">
+                                <div className="lg:col-span-5">
+                                    <SectionHeader
+                                        eyebrow={slide.label}
+                                        title={slide.title}
+                                        description={slide.description}
+                                        eyebrowClassName="text-[hsl(var(--slide-accent))]"
+                                        align="left"
+                                        dark
+                                    />
+                                    <AppLink
+                                        href={slide.ctaHref}
+                                        variant="light"
+                                        showArrow
+                                        className="mt-5 hover:text-[hsl(var(--slide-accent))]"
+                                    >
+                                        {slide.ctaLabel}
+                                    </AppLink>
+                                </div>
 
-                                    <div className="flex h-full lg:col-span-7">
-                                        <div className="flex h-full w-full flex-col">
-                                            <div className="flex-1 space-y-3">
-                                                {slide.strategyPairs.map((pair) => {
-                                                    const PairIcon = pair.icon
-
-                                                    return (
-                                                        <div
-                                                            key={pair.title}
-                                                            className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
-                                                        >
-                                                            <div className="mb-2 flex items-center gap-2">
-                                                                <PairIcon className="h-6 w-6 text-[hsl(var(--slide-accent))]" />
-                                                                <h4 className="type-support font-semibold text-white">{pair.title}</h4>
-                                                            </div>
-                                                            <p className="type-caption text-white/75">{pair.description}</p>
-                                                        </div>
-                                                    )
-                                                })}
+                                <div className="space-y-3 lg:col-span-7">
+                                    {slide.strategyPairs.map((pair) => {
+                                        const PairIcon = pair.icon
+                                        return (
+                                            <div
+                                                key={pair.title}
+                                                className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                                            >
+                                                <div className="mb-2 flex items-center gap-2">
+                                                    <PairIcon className="size-6 text-[hsl(var(--slide-accent))]" />
+                                                    <h4 className="type-support font-semibold text-white">{pair.title}</h4>
+                                                </div>
+                                                <p className="type-caption text-white/75">{pair.description}</p>
                                             </div>
-
-                                        </div>
-                                    </div>
-                                </Container>
-                            </article>
-                        </SwiperSlide>
-                    )
-                })}
+                                        )
+                                    })}
+                                </div>
+                            </Container>
+                        </article>
+                    </SwiperSlide>
+                ))}
             </Swiper>
 
-            <div className="absolute bottom-12 left-0 right-0 z-10 md:bottom-13">
+            <div className="relative z-10 pb-12 md:pb-14">
                 <CarouselControls
                     swiper={swiperInstance}
                     activeIndex={activeIndex}
                     slideCount={slides.length}
-                    activeSlide={activeSlide}
+                    accent={activeSlide.accent}
                 />
             </div>
         </section>

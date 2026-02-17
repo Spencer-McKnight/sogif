@@ -1,5 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
-import { AppLink, Container, SectionHeader } from '@/components/ui'
+import {
+  AppLink,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Container,
+  SectionHeader,
+} from '@/components/ui'
 
 type Director = {
   id: string
@@ -50,6 +60,100 @@ const directors: Director[] = [
   },
 ]
 
+function DirectorCard({ director }: { director: Director }) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="group flex w-full flex-col">
+      {/* Top section: horizontal on mobile, vertical on tablet+ */}
+      <div className="flex items-start gap-4 sm:flex-col sm:items-stretch sm:gap-0">
+        {/* Image — thumbnail on mobile, card image on tablet+ */}
+        <div className="relative w-40 shrink-0 sm:mb-6 sm:w-full">
+          <div className="relative aspect-square overflow-hidden rounded-lg sm:rounded-xl">
+            <Image
+              src={director.image}
+              alt={director.name}
+              fill
+              className="object-cover object-top lg:transition-transform lg:duration-700 lg:ease-standard lg:group-hover:scale-105"
+            />
+
+            {/* Gradient overlay — desktop hover only */}
+            <div
+              className="absolute inset-0 hidden bg-gradient-to-t from-sogif-navy via-sogif-navy/85 to-sogif-navy/40 opacity-0 transition-opacity duration-500 ease-standard group-hover:opacity-100 lg:block"
+              aria-hidden="true"
+            />
+
+            {/* Description content — desktop hover only */}
+            <div className="absolute inset-0 hidden flex-col justify-end p-8 lg:flex">
+              <div className="translate-y-4 space-y-2.5 opacity-0 transition-all duration-500 ease-standard group-hover:translate-y-0 group-hover:opacity-100 [transition-delay:120ms]">
+                {director.description.map((paragraph, i) => (
+                  <p
+                    key={paragraph}
+                    className="text-left text-white/90 type-support leading-relaxed"
+                    style={{ transitionDelay: `${150 + i * 80}ms` }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Info — beside image on mobile, below image on tablet+ */}
+        <div className="min-w-0 flex flex-col justify-center sm:justify-start">
+          <h3 className="mb-1 text-left type-title text-gray-900">{director.name}</h3>
+          <p className="mb-1 text-left type-overline font-bold tracking-[0.12em] text-sogif-cyan-dark">
+            {director.role}
+          </p>
+          <p className="text-left text-gray-600 type-support">{director.credentials}</p>
+          {/* Expandable description — mobile/tablet only */}
+          <Collapsible
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            className="mt-3 lg:hidden"
+          >
+            <CollapsibleTrigger asChild>
+              <button
+                className="inline-flex items-center gap-1.5 type-support font-semibold text-sogif-cyan-dark transition-colors duration-fast hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sogif-cyan-dark focus-visible:ring-offset-2 rounded-sm"
+                aria-label={
+                  isOpen
+                    ? `Show less about ${director.name}`
+                    : `Read more about ${director.name}`
+                }
+              >
+                {isOpen ? 'Show less' : 'Read more'}
+                <svg
+                  className={`h-4 w-4 transition-transform duration-base ${isOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+                </svg>
+              </button>
+            </CollapsibleTrigger>
+
+            <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+              <div className="space-y-2.5 pt-3">
+                {director.description.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="text-left text-gray-700 type-support leading-relaxed"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function TeamSection() {
   return (
     <section className="section-padding bg-sogif-steel">
@@ -59,9 +163,9 @@ export function TeamSection() {
           <div className="max-w-3xl">
             <SectionHeader
               align="left"
-              eyebrow="Leadership Team"
-              title="Master Leadership & Proven Results"
-              description="Supported by a team of passionate and intelligent analysts."
+              eyebrow="Meet the Team"
+              title="Board of Directors"
+              description="Master investors and businessment with proven success. Supported by a team of passionate and intelligent analysts."
             />
           </div>
           <AppLink
@@ -74,43 +178,13 @@ export function TeamSection() {
           </AppLink>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid gap-8 lg:grid-cols-3">
+        {/* Team Grid — 1 col mobile, 3 col tablet+ */}
+        <div className="grid gap-8 lg:gap-16 sm:grid-cols-3">
           {directors.map((director) => (
-            <div
-              key={director.id}
-              className="group flex w-full flex-row items-start gap-8 lg:flex-col lg:gap-0"
-            >
-              {/* Image */}
-              <div className="relative w-28 shrink-0 sm:w-36 lg:mb-6 lg:w-full">
-                <div className="relative aspect-square overflow-hidden rounded-xl transition-all duration-base ease-standard">
-                  <Image
-                    src={director.image}
-                    alt={director.name}
-                    fill
-                    className="object-cover object-top media-zoom-hover"
-                  />
-                </div>
-              </div>
-
-              {/* Info */}
-              <div className="min-w-0 flex-1">
-                <h3 className="mb-1 text-left type-title text-gray-900">{director.name}</h3>
-                <p className="mb-3 text-left type-overline font-bold tracking-[0.12em] text-sogif-cyan-dark">
-                  {director.role}
-                </p>
-                <p className="mb-3 text-left text-gray-600 type-support">{director.credentials}</p>
-                <div className="space-y-2">
-                  {director.description.map((paragraph) => (
-                    <p key={paragraph} className="text-left text-gray-800 type-support leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <DirectorCard key={director.id} director={director} />
           ))}
         </div>
+
         {/* Mobile page link */}
         <div className="mt-10 text-center md:hidden">
           <AppLink href="/about" showArrow variant="text">

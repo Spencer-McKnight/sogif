@@ -90,45 +90,45 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         )}
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col flex-1 p-5">
-        {/* Price + valuation */}
-        <div className="flex flex-col xl:flex-row xl:items-baseline xl:gap-2 mb-2">
-          <span className="relative w-fit type-title font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
-            {property.purchasePrice}
-          </span>
-          <span className="type-caption">
-            valued {formatValuationDate(property.valuationDate)}
-          </span>
-        </div>
-
-        {/* Address + Headline + Metrics — side-by-side on mobile, stacked on sm+ */}
-        <div className="flex gap-4 sm:block flex-1">
-          <div className="flex-1 min-w-0">
-            <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
-              {street}
-              {locality && <><br />{locality}</>}
-            </h3>
-            <div className="type-caption text-text-muted">
-              {headlineSegments.map((segment, i) => (
-                <span key={i} className="block">{segment}</span>
-              ))}
-            </div>
+      {/* Content — 2-col grid on mobile/tablet (wide cards), 1-col on md+ (narrow cards in 3-col grid) */}
+      <div className="flex-1 p-5 grid grid-cols-[1fr,auto] md:grid-cols-1 gap-x-4">
+        {/* Info column */}
+        <div className="min-w-0">
+          {/* Price + valuation */}
+          <div className="flex flex-col xl:flex-row xl:items-baseline xl:gap-2 mb-2">
+            <span className="relative w-fit type-title font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
+              {property.purchasePrice}
+            </span>
+            <span className="type-caption">
+              valued {formatValuationDate(property.valuationDate)}
+            </span>
           </div>
 
-          <div className="flex flex-col gap-2 shrink-0 border-l border-border-soft pl-4 sm:grid sm:grid-cols-3 sm:gap-3 sm:pt-3 sm:mt-3 sm:pl-0 sm:border-l-0 sm:border-t">
-            <div>
-              <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
-              <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
-            </div>
-            <div>
-              <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
-              <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
-            </div>
-            <div>
-              <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
-              <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
-            </div>
+          {/* Address + headline */}
+          <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
+            {street}
+            {locality && <><br />{locality}</>}
+          </h3>
+          <div className="type-caption lg:my-2 text-text-muted">
+            {headlineSegments.map((segment, i) => (
+              <span key={i} className="block">{segment}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats — right column on mobile/tablet, horizontal row below on md+ */}
+        <div className="flex flex-col gap-2 border-l border-border-soft pl-4 self-start md:grid md:grid-cols-3 md:gap-3 md:pt-3 md:mt-1 md:pl-0 md:border-l-0 md:border-t md:self-auto">
+          <div>
+            <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
+            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
+          </div>
+          <div>
+            <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
+            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
+          </div>
+          <div>
+            <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
+            <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
           </div>
         </div>
       </div>
