@@ -25,8 +25,9 @@ const steps: Step[] = [
     },
 ]
 
-/* Ascending stagger: step 1 sits lowest, step 3 highest on lg */
-const stagger = ['lg:mt-16', 'lg:mt-8', 'lg:mt-0']
+/* Mobile alignment: 1 left, 2 center, 3 right | Tablet+ stagger: step 1 lowest, step 3 highest */
+const mobileAlign = ['items-start', 'items-center', 'items-end']
+const stagger = ['md:mt-16', 'md:mt-8', 'md:mt-0']
 
 export function InvestmentSteps() {
     return (
@@ -52,7 +53,7 @@ export function InvestmentSteps() {
                 <div className="relative">
                     <div className="grid gap-8 md:grid-cols-3">
                         {steps.map((step, i) => (
-                            <div key={step.number} className={`relative ${stagger[i]}`}>
+                            <div key={step.number} className={`relative flex flex-col ${mobileAlign[i]} md:items-start ${stagger[i]}`}>
                                 <div className="group flex items-start gap-3 sm:gap-4">
                                     <span
                                         className="shrink-0 font-black leading-[0.85] text-sogif-navy-light/25 group-hover:text-sogif-navy-light/90 text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter transition-colors duration-300 ease-standard"
@@ -75,7 +76,7 @@ export function InvestmentSteps() {
                 </div>
 
                 {/* Button right-aligned on desktop — sits at the ascending peak */}
-                <div className="mt-14 lg:mt-6 flex justify-center lg:justify-end">
+                <div className="mt-14 lg:mt-6 flex justify-center md:justify-end">
                     <ButtonLink
                         href="/invest"
                         variant="primary"

@@ -235,13 +235,24 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
       <Container className="relative">
         {/* Section Header */}
-        <div className="mb-16">
-          <SectionHeader
-            dark
-            eyebrow="Performance"
-            title="Historical Returns"
-            description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
-          />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="max-w-3xl">
+            <SectionHeader
+              dark
+              align="left"
+              eyebrow="Performance"
+              title="Historical Returns"
+              description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
+            />
+          </div>
+          <AppLink
+            href="/performance"
+            showArrow
+            variant="light"
+            className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"
+          >
+            Full Performance
+          </AppLink>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
@@ -264,24 +275,6 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 </div>
               </AppCard>
             ))}
-
-            <AppLink
-              href="/performance"
-              className="group flex items-center justify-between bg-sogif-cyan-light/10 border border-sogif-cyan-light/30 hover:bg-sogif-cyan-light/20 rounded-xl p-4 lg:p-6 text-white"
-            >
-              <div>
-                <p className="text-white font-semibold type-support mb-0.5 lg:mb-1">View Full Performance</p>
-                <p className="text-white/90 type-support">Monthly data, distributions & analysis</p>
-              </div>
-              <svg
-                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-cyan-light group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </AppLink>
 
             {/* Existing Investor Portal CTA */}
             <a
@@ -426,6 +419,13 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
             </DisclaimerText>
           </div>
+        </div>
+
+        {/* Mobile page link */}
+        <div className="mt-10 text-center md:hidden">
+          <AppLink href="/performance" showArrow variant="light" className="text-sogif-cyan-light hover:text-white">
+            Full Performance
+          </AppLink>
         </div>
       </Container>
 

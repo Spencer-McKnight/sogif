@@ -99,7 +99,7 @@ export function PropertyShowcase() {
       <Container className="relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <SectionHeader
               align="left"
               eyebrow="Property Showcase"
@@ -111,7 +111,7 @@ export function PropertyShowcase() {
             href="/properties"
             showArrow
             variant="text"
-            className="shrink-0"
+            className="hidden md:inline-flex shrink-0"
           >
             All Properties
           </AppLink>
@@ -122,6 +122,13 @@ export function PropertyShowcase() {
           properties={properties}
           onPropertyClick={setSelectedProperty}
         />
+
+        {/* Mobile page link */}
+        <div className="mt-10 text-center md:hidden">
+          <AppLink href="/properties" showArrow variant="text">
+            All Properties
+          </AppLink>
+        </div>
       </Container>
 
       {/* Property Detail Modal */}
