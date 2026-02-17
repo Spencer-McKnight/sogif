@@ -93,13 +93,13 @@ Interior layouts use a **conceptual 12-column grid** implemented with Tailwind's
 
 #### Breakpoint Behavior
 
-| Breakpoint | Width    | Typical behavior |
-|-----------|----------|------------------|
-| Base      | < 640 px | Single column. Content stacks vertically. |
-| `sm`      | ≥ 640 px | Minor adjustments (button rows, inline stats). Grid stays single-column. |
-| `md`      | ≥ 768 px | Card grids may go to 2–3 columns. Two-column prose layouts remain stacked. |
-| `lg`      | ≥ 1024 px | Full grid activates. Two-column and three-column layouts engage. |
-| `xl`      | ≥ 1280 px | Content reaches max-width. Extra space is margin. |
+| Breakpoint | Width     | Typical behavior                                                           |
+| ---------- | --------- | -------------------------------------------------------------------------- |
+| Base       | < 640 px  | Single column. Content stacks vertically.                                  |
+| `sm`       | ≥ 640 px  | Minor adjustments (button rows, inline stats). Grid stays single-column.   |
+| `md`       | ≥ 768 px  | Card grids may go to 2–3 columns. Two-column prose layouts remain stacked. |
+| `lg`       | ≥ 1024 px | Full grid activates. Two-column and three-column layouts engage.           |
+| `xl`       | ≥ 1280 px | Content reaches max-width. Extra space is margin.                          |
 
 #### Standard Layout Templates
 
@@ -157,13 +157,13 @@ grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8
 
 Use only these gap values to keep spacing predictable:
 
-| Token | Value | Use case |
-|-------|-------|----------|
-| `gap-4` | 16 px | Tight inline groups (stat pairs, badge rows) |
-| `gap-6` | 24 px | Compact card grids, stacked stat cards, footer columns on mobile |
-| `gap-8` | 32 px | **Standard grid gap.** Card grids, three-column layouts, footer desktop |
-| `gap-12` | 48 px | Wide gap for two-column content splits on mobile/tablet |
-| `gap-16` | 64 px | Wide gap for two-column content splits on desktop (`lg:gap-16`) |
+| Token    | Value | Use case                                                                |
+| -------- | ----- | ----------------------------------------------------------------------- |
+| `gap-4`  | 16 px | Tight inline groups (stat pairs, badge rows)                            |
+| `gap-6`  | 24 px | Compact card grids, stacked stat cards, footer columns on mobile        |
+| `gap-8`  | 32 px | **Standard grid gap.** Card grids, three-column layouts, footer desktop |
+| `gap-12` | 48 px | Wide gap for two-column content splits on mobile/tablet                 |
+| `gap-16` | 64 px | Wide gap for two-column content splits on desktop (`lg:gap-16`)         |
 
 Avoid orphan values like `gap-9`, `gap-10`, `gap-24`, or `gap-32`. If a layout feels too tight at `gap-8`, step up to `gap-12` — do not invent intermediate values.
 
@@ -186,7 +186,7 @@ Card grids stay at a flat `gap-8` across all breakpoints unless density requires
 ### Mobile Layout Rules
 
 - **Single-column stacking**: All grids collapse to 1 column on mobile. No horizontal scrolling.
-- **Centered single cards**: On mobile, single-column card groups (e.g. HowItWorks steps) may use `max-w-md mx-auto lg:max-w-none` to prevent overly wide cards at tablet-ish widths.
+- **Centered single cards**: On mobile, single-column card groups may use `max-w-md mx-auto lg:max-w-none` to prevent overly wide cards at tablet-ish widths.
 - **Content reordering**: Use `order-1 / order-2` with `lg:order-*` overrides when mobile should show a visual element (chart, image) before text for engagement, but desktop should lead with text for scanability.
 - **Full-width CTAs**: Primary action buttons should be `w-full sm:w-auto` so they fill the viewport on small screens.
 
@@ -223,6 +223,7 @@ When adding a new section to any page:
 **Load-in animations are banned.** No fade-up, slide-in, stagger, or opacity transitions on page load or scroll into view. Content must render immediately and be fully visible without JavaScript animation. This ensures SEO crawlers index all content and suits the serious tone of the business.
 
 Allowed animation contexts:
+
 - **Interactions only**: hover effects, button presses, modal open/close, menu transitions, tooltips.
 - **Scroll-linked transforms**: parallax backgrounds (e.g. hero `useScroll`/`useTransform`) are acceptable since they don't hide content.
 - Keep hover transitions subtle and consistent (`duration-base`, `ease-standard`).

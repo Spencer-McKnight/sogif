@@ -4,7 +4,7 @@ import {
   ValueCarousel,
   PerformanceSnapshot,
   PropertyShowcase,
-  HowItWorks,
+  InvestmentSteps,
   TeamSection,
   RegisterInterestCTA,
 } from '@/components/home'
@@ -31,8 +31,7 @@ export default async function Home() {
         {/* Team: Leadership credibility and experience */}
         <TeamSection />
 
-        {/* How It Works: Clear investment process for conversion */}
-        <HowItWorks />
+        <InvestmentSteps />
 
         {/* CTA: Final conversion with dual paths */}
         <RegisterInterestCTA />
