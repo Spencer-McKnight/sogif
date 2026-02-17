@@ -207,7 +207,7 @@ export function RegisterInterestCTA() {
                   </Button>
 
                   <DisclaimerText tone="dark" className="mt-2">
-                    By registering, you agree to receive information via email. If submitting phone number, you may be called directly.
+                    By submitting, you agree to receive information via email. Providing a phone number will prompt SOGIF to reach out via phone.
                   </DisclaimerText>
                 </form>
               ) : (

@@ -258,24 +258,26 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
           {/* Stats Column - appears second on mobile, first on desktop */}
-          <div className="lg:col-span-5 xl:col-span-4 min-w-0 space-y-3 lg:space-y-4 order-2 lg:order-1">
-            {performanceStats.map((stat) => (
-              <AppCard
-                key={stat.label}
-                variant="stat"
-              >
-                <p className="text-white/90 type-support mb-1 lg:mb-2">{stat.label}</p>
-                <div className="flex items-end gap-2 lg:gap-3">
-                  <span className="type-metric font-bold text-white">{stat.value}</span>
-                  {stat.change && (
-                    <span className={`type-support font-medium pb-0.5 lg:pb-1 ${stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/90'
-                      }`}>
-                      {stat.change}
-                    </span>
-                  )}
-                </div>
-              </AppCard>
-            ))}
+          <div className="lg:col-span-5 xl:col-span-4 min-w-0 order-2 lg:order-1 space-y-3 lg:space-y-4">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-4">
+              {performanceStats.map((stat) => (
+                <AppCard
+                  key={stat.label}
+                  variant="stat"
+                >
+                  <p className="text-white/90 type-support mb-1 lg:mb-2">{stat.label}</p>
+                  <div className="flex items-end gap-2 lg:gap-3">
+                    <span className="type-metric font-bold text-white">{stat.value}</span>
+                    {stat.change && (
+                      <span className={`type-support font-medium pb-0.5 lg:pb-1 ${stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/90'
+                        }`}>
+                        {stat.change}
+                      </span>
+                    )}
+                  </div>
+                </AppCard>
+              ))}
+            </div>
 
             {/* Existing Investor Portal CTA */}
             <a

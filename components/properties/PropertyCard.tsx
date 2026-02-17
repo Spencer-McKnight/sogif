@@ -102,32 +102,33 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           </span>
         </div>
 
-        {/* Address */}
-        <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
-          {street}
-          {locality && <><br />{locality}</>}
-        </h3>
-
-        {/* Headline */}
-        <div className="type-caption text-text-muted mb-3">
-          {headlineSegments.map((segment, i) => (
-            <span key={i} className="block">{segment}</span>
-          ))}
-        </div>
-
-        {/* Metrics strip — always at bottom */}
-        <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-soft">
-          <div>
-            <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
-            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
+        {/* Address + Headline + Metrics — side-by-side on mobile, stacked on sm+ */}
+        <div className="flex gap-4 sm:block flex-1">
+          <div className="flex-1 min-w-0">
+            <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
+              {street}
+              {locality && <><br />{locality}</>}
+            </h3>
+            <div className="type-caption text-text-muted">
+              {headlineSegments.map((segment, i) => (
+                <span key={i} className="block">{segment}</span>
+              ))}
+            </div>
           </div>
-          <div>
-            <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
-            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
-          </div>
-          <div>
-            <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
-            <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
+
+          <div className="flex flex-col gap-2 shrink-0 border-l border-border-soft pl-4 sm:grid sm:grid-cols-3 sm:gap-3 sm:pt-3 sm:mt-3 sm:pl-0 sm:border-l-0 sm:border-t">
+            <div>
+              <span className="type-caption text-text-muted block mb-0.5">Cap Rate</span>
+              <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
+            </div>
+            <div>
+              <span className="type-caption text-text-muted block mb-0.5">Land Size</span>
+              <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
+            </div>
+            <div>
+              <span className="type-caption text-text-muted block mb-0.5">Acquired</span>
+              <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
+            </div>
           </div>
         </div>
       </div>
