@@ -16,7 +16,7 @@ const steps: Step[] = [
     {
         number: '2',
         title: 'Apply',
-        description: 'Complete the online application form and deposit your funds.',
+        description: 'Complete the online application form and transfer funds.',
     },
     {
         number: '3',
@@ -42,9 +42,9 @@ export function InvestmentSteps() {
             />
 
             <Container className="relative">
-                <div className="mb-16">
+                <div className="mb-12">
                     <SectionHeader
-                        eyebrow="Where do I start?"
+                        eyebrow="How it works"
                         title="Easy Steps to Invest"
                     />
                 </div>
@@ -55,7 +55,7 @@ export function InvestmentSteps() {
                             <div key={step.number} className={`relative ${stagger[i]}`}>
                                 <div className="group flex items-start gap-3 sm:gap-4">
                                     <span
-                                        className="shrink-0 font-black leading-[0.85] text-sogif-navy/[0.07] text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter"
+                                        className="shrink-0 font-black leading-[0.85] text-sogif-navy-light/25 group-hover:text-sogif-navy-light/90 text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter transition-colors duration-300 ease-standard"
                                         aria-hidden="true"
                                     >
                                         {step.number}
@@ -69,23 +69,6 @@ export function InvestmentSteps() {
                                         </p>
                                     </div>
                                 </div>
-                                {/* Connector arc — bridges gap to the next step */}
-                                {i < steps.length - 1 && (
-                                    <svg
-                                        className="hidden md:block absolute right-0 translate-x-1/2 top-[2.5rem] sm:top-[3.5rem] lg:top-[4rem] w-8 h-6 pointer-events-none"
-                                        viewBox="0 0 32 24"
-                                        fill="none"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            d="M 4 20 C 12 19, 16 5, 28 4"
-                                            stroke="hsl(41, 98%, 65%)"
-                                            strokeWidth="1.5"
-                                            strokeOpacity="0.22"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                )}
                             </div>
                         ))}
                     </div>

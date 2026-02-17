@@ -238,8 +238,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
         <div className="mb-16">
           <SectionHeader
             dark
-            eyebrow="Fund Performance"
-            title="Consistent Growth, Reliable Returns"
+            eyebrow="Performance"
+            title="Historical Returns"
             description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
           />
         </div>
