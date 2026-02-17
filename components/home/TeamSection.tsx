@@ -52,7 +52,7 @@ const directors: Director[] = [
 
 export function TeamSection() {
   return (
-    <section className="section-padding bg-sogif-silver">
+    <section className="section-padding bg-sogif-steel">
       <Container>
         {/* Section Header */}
         <div className="mb-16">
@@ -73,7 +73,7 @@ export function TeamSection() {
             >
               {/* Image */}
               <div className="relative w-28 shrink-0 sm:w-36 lg:mb-6 lg:w-full">
-                <div className="relative aspect-square overflow-hidden rounded-2xl bg-gray-100 transition-all duration-base ease-standard group-hover:shadow-lg group-hover:shadow-sogif-cyan-dark/10">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-white transition-all duration-base ease-standard group-hover:shadow-lg group-hover:shadow-sogif-cyan-dark/15">
                   <Image
                     src={director.image}
                     alt={director.name}

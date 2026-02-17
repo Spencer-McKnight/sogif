@@ -91,9 +91,9 @@ export function PropertyShowcase() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
 
   return (
-    <section className="section-padding bg-sogif-steel relative overflow-hidden">
+    <section className="section-padding bg-sogif-silver-light relative overflow-hidden">
       {/* Subtle background decorations */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/40 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-sogif-steel/30 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-sogif-cyan-dark/5 rounded-full blur-3xl" />
 
       <Container className="relative">

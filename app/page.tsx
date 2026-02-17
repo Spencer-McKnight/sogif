@@ -17,23 +17,18 @@ export default async function Home() {
     <>
       <Header />
       <main>
-        {/* Hero: Primary value proposition and key metrics */}
         <HeroSection />
 
         <ValueCarousel />
 
-        {/* Properties: Portfolio showcase for tangibility */}
+        <TeamSection />
+
         <PropertyShowcase />
 
-        {/* Performance: Data visualization and fund metrics */}
         <PerformanceSnapshot performanceData={constants.performanceData} />
-
-        {/* Team: Leadership credibility and experience */}
-        <TeamSection />
 
         <InvestmentSteps />
 
-        {/* CTA: Final conversion with dual paths */}
         <RegisterInterestCTA />
       </main>
       <Footer />
