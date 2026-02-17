@@ -58,6 +58,11 @@ export {
   DialogDescription,
 } from './dialog'
 
+// Shadcn Components - Form
+export { Input } from './input'
+export { Label } from './label'
+export { Slider } from './slider'
+
 // Shadcn Components - Chart
 export {
   ChartContainer,
