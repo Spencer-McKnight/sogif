@@ -52,24 +52,40 @@ export function InvestmentSteps() {
                 <div className="relative">
                     <div className="grid gap-8 md:grid-cols-3">
                         {steps.map((step, i) => (
-                            <div key={step.number} className={stagger[i]}>
-                                <div className="flex items-start gap-3 sm:gap-4">
+                            <div key={step.number} className={`relative ${stagger[i]}`}>
+                                <div className="group flex items-start gap-3 sm:gap-4">
                                     <span
-                                        className="shrink-0 font-black leading-[0.85] text-sogif-navy/[0.05] text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter"
+                                        className="shrink-0 font-black leading-[0.85] text-sogif-navy/[0.07] text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter"
                                         aria-hidden="true"
                                     >
                                         {step.number}
                                     </span>
                                     <div className="pt-4 sm:pt-6 lg:pt-8">
-                                        <h3 className="type-title font-bold text-sogif-navy">
+                                        <h3 className="relative w-fit type-title font-bold text-sogif-navy after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
                                             {step.title}
                                         </h3>
-                                        <div className="mt-2 h-0.5 w-8 rounded-full bg-sogif-gold" />
-                                        <p className="mt-3 type-support text-gray-600 max-w-[16rem]">
+                                        <p className="mt-4 type-support text-gray-600 max-w-[16rem]">
                                             {step.description}
                                         </p>
                                     </div>
                                 </div>
+                                {/* Connector arc — bridges gap to the next step */}
+                                {i < steps.length - 1 && (
+                                    <svg
+                                        className="hidden md:block absolute right-0 translate-x-1/2 top-[2.5rem] sm:top-[3.5rem] lg:top-[4rem] w-8 h-6 pointer-events-none"
+                                        viewBox="0 0 32 24"
+                                        fill="none"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M 4 20 C 12 19, 16 5, 28 4"
+                                            stroke="hsl(41, 98%, 65%)"
+                                            strokeWidth="1.5"
+                                            strokeOpacity="0.22"
+                                            strokeLinecap="round"
+                                        />
+                                    </svg>
+                                )}
                             </div>
                         ))}
                     </div>
