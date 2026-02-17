@@ -44,13 +44,13 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
       className="group w-full h-full flex flex-col text-left rounded-2xl bg-white shadow-sm hover:shadow-lg ring-1 ring-border-soft overflow-hidden transition-all duration-300 hover:scale-[1.02] focus-ring"
     >
       {/* Image / Placeholder */}
-      <div className="relative h-48 sm:h-56 overflow-hidden bg-sogif-navy">
+      <div className="relative h-48 sm:h-56 rounded-t-2xl overflow-hidden bg-sogif-navy [backface-visibility:hidden] isolate">
         {hasImage ? (
           <Image
             src={property.images[0]}
             alt={property.address}
             fill
-            className="object-cover media-zoom-hover"
+            className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.01]"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">

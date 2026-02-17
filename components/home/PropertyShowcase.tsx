@@ -31,7 +31,11 @@ const properties: Property[] = [
     waleLettableArea: '2.68',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1571.4590699144921!2d145.3168609158708!3d-38.025687834277484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad61a002a8d217f%3A0x7e0a661a1b84c95e!2s1%20Prestige%20Pl%2C%20Narre%20Warren%20VIC%203805!5e0!3m2!1sen!2sau!4v1714442850570!5m2!1sen!2sau',
     mapLink: 'https://maps.app.goo.gl/o3N9KucFQ13RTy5f8',
-    images: [],
+    images: [
+      'https://www.datocms-assets.com/192130/1771326898-example-house-1.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-2.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-3.webp',
+    ],
   },
   {
     id: 5,
@@ -57,7 +61,11 @@ const properties: Property[] = [
     waleLettableArea: '4.81',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d869.6391462959836!2d147.2963550632522!3d-42.849499928785704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xaa6e74e8c7ada11d%3A0x38beacea0f6aee6f!2s24%20Main%20Rd%2C%20Moonah%20TAS%207009!5e0!3m2!1sen!2sau!4v1714442985186!5m2!1sen!2sau',
     mapLink: 'https://maps.app.goo.gl/VZ76AZCEf9xBUVtw9',
-    images: [],
+    images: [
+      'https://www.datocms-assets.com/192130/1771326898-example-house-2.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-3.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-1.webp',
+    ],
   },
   {
     id: 6,
@@ -83,7 +91,11 @@ const properties: Property[] = [
     waleLettableArea: '8.32',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1247.6136977880476!2d153.29069696277145!3d-27.816405800998737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b91148412331df9%3A0x6d29f1d725b04710!2s68%20Pimpama%20Jacobs%20Well%20Rd%2C%20Pimpama%20QLD%204209!5e0!3m2!1sen!2sau!4v1714439241161!5m2!1sen!2sau',
     mapLink: 'https://maps.app.goo.gl/m1iJ4YYc1W5b6Hxd9',
-    images: [],
+    images: [
+      'https://www.datocms-assets.com/192130/1771326898-example-house-3.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-1.webp',
+      'https://www.datocms-assets.com/192130/1771326898-example-house-2.webp',
+    ],
   },
 ]
 

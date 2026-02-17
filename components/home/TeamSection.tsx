@@ -22,7 +22,7 @@ const directors: Director[] = [
       'CEO of PropertyInvesting.com.',
       'Author of "Money Magnet" and "From 0 to 130 Properties in 3.5 Years" series. 200,000 copies sold.',
     ],
-    image: 'https://www.datocms-assets.com/192130/1768821769-steve-mcknight.webp?w=400&fit=max&auto=format',
+    image: 'https://www.datocms-assets.com/192130/1771332026-steve-mcknight.webp',
   },
   {
     id: 'paul-harper',
@@ -34,7 +34,7 @@ const directors: Director[] = [
       'Served as responsible manager for a $600M fund and chaired an investment committee overseeing $500M+ capital.',
       'Key contributor to the Passive Income (USA Commercial Property) Fund.',
     ],
-    image: 'https://www.datocms-assets.com/192130/1768821769-paul-harper.webp?w=400&fit=max&auto=format',
+    image: 'https://www.datocms-assets.com/192130/1771330956-paul-harper.webp',
   },
   {
     id: 'ewan-macdonald',
@@ -46,7 +46,7 @@ const directors: Director[] = [
       'Specialises in AFSL compliance, governance frameworks, and regulatory implementation.',
       'PCL Compliance member, supporting legal integrity across all operations.',
     ],
-    image: 'https://www.datocms-assets.com/192130/1768871746-ewan-macdonald.webp?w=400&fit=max&auto=format',
+    image: 'https://www.datocms-assets.com/192130/1771330967-ewan-macdonald.webp',
   },
 ]
 
@@ -83,7 +83,7 @@ export function TeamSection() {
             >
               {/* Image */}
               <div className="relative w-28 shrink-0 sm:w-36 lg:mb-6 lg:w-full">
-                <div className="relative aspect-square overflow-hidden rounded-2xl bg-white transition-all duration-base ease-standard group-hover:shadow-lg group-hover:shadow-sogif-cyan-dark/15">
+                <div className="relative aspect-square overflow-hidden rounded-xl transition-all duration-base ease-standard">
                   <Image
                     src={director.image}
                     alt={director.name}
@@ -95,7 +95,7 @@ export function TeamSection() {
 
               {/* Info */}
               <div className="min-w-0 flex-1">
-                <h3 className="mb-1 text-left type-title font-bold text-gray-900">{director.name}</h3>
+                <h3 className="mb-1 text-left type-title text-gray-900">{director.name}</h3>
                 <p className="mb-3 text-left type-overline font-bold tracking-[0.12em] text-sogif-cyan-dark">
                   {director.role}
                 </p>
