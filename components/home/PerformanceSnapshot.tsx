@@ -25,6 +25,10 @@ interface PerformanceStats {
   totalDistributions: number
   cumulativeReturnPercent: number
   annualizedReturn: number
+  annualizedReturnPercent: number
+  annualizedDistributions: number
+  annualizedStartMonth: string
+  annualizedEndMonth: string
 }
 
 /**
@@ -67,6 +71,10 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
       totalDistributions: 0,
       cumulativeReturnPercent: 0,
       annualizedReturn: 0,
+      annualizedReturnPercent: 0,
+      annualizedDistributions: 0,
+      annualizedStartMonth: '',
+      annualizedEndMonth: '',
     }
   }
 
@@ -86,12 +94,23 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   const years = monthCount / 12
   const annualizedReturn = years > 0 ? returnPercentage / years : 0
 
+  // Trailing 12-month stats (data is newest first)
+  const trailing12 = data.slice(0, Math.min(12, data.length))
+  const startPoint = trailing12[trailing12.length - 1] // 12 months ago (or oldest available)
+  const annualizedDistributions = trailing12.reduce((sum, item) => sum + item.distribution, 0)
+  const trailing12Return = latest.issuePrice + annualizedDistributions
+  const annualizedReturnPercent = ((trailing12Return - startPoint.issuePrice) / startPoint.issuePrice) * 100
+
   return {
     latestRedemption: latest.redemptionPrice,
     latestIssue: latest.issuePrice,
     totalDistributions,
     cumulativeReturnPercent: returnPercentage,
     annualizedReturn,
+    annualizedReturnPercent,
+    annualizedDistributions,
+    annualizedStartMonth: startPoint.month,
+    annualizedEndMonth: latest.month,
   }
 }
 
@@ -124,7 +143,7 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
 
   return (
     <div className="rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
-      <p className="mb-2 type-support font-medium text-white">{data.month}</p>
+      <p className="mb-2 type-support font-medium text-white">{(() => { const [month, year] = data.month.split('-'); return `${month} '${year}` })()}</p>
       <div className="space-y-1.5">
         {TOOLTIP_METRICS.map(({ key, label, color }) => {
           const value = data[key]
@@ -198,6 +217,35 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
   const stats = useMemo(() => calculateStats(performanceData), [performanceData])
 
+  // Y-axis domain and ticks at every $0.05
+  const { yDomain, yTicks } = useMemo(() => {
+    if (!chartData.length) return { yDomain: [0.9, 1.2] as [number, number], yTicks: [0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2] }
+
+    let min = Infinity
+    let max = -Infinity
+
+    for (const d of chartData) {
+      min = Math.min(min, d.issuePrice, d.cumulativeReturn)
+      max = Math.max(max, d.issuePrice, d.cumulativeReturn)
+      if (d.redemptionPrice !== undefined) {
+        min = Math.min(min, d.redemptionPrice)
+        max = Math.max(max, d.redemptionPrice)
+      }
+    }
+
+    // Snap to 0.05 boundaries with padding
+    const domainMin = Math.floor((min - 0.02) / 0.05) * 0.05
+    const domainMax = Math.ceil((max + 0.02) / 0.05) * 0.05
+
+    // Generate ticks at every 0.05 step
+    const ticks: number[] = []
+    for (let v = domainMin; v <= domainMax + 0.001; v += 0.05) {
+      ticks.push(Math.round(v * 100) / 100)
+    }
+
+    return { yDomain: [domainMin, domainMax] as [number, number], yTicks: ticks }
+  }, [chartData])
+
   // Find first data point with redemption price (start of the redemption line)
   const firstRedemptionPoint = useMemo(() => {
     return chartData.find(d => d.redemptionPrice !== undefined)
@@ -208,20 +256,15 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
     return chartData.find(d => d.month === 'May-24')
   }, [chartData])
 
+  // Find Dec 2024 - aggressive property acquisition
+  const acquisitionPoint = useMemo(() => {
+    return chartData.find(d => d.month === 'Dec-24')
+  }, [chartData])
+
   // State for indicator tooltips
   const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
   const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
-
-  const performanceStats: { label: string; value: string; change: string | null }[] = [
-    { label: 'Latest Issue Price', value: `$${stats.latestIssue.toFixed(4)}`, change: null },
-    {
-      label: 'Latest Redemption Price',
-      value: (stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A',
-      change: null
-    },
-    { label: 'Total Distributions', value: `$${stats.totalDistributions.toFixed(4)}`, change: `+${(stats.totalDistributions * 100).toFixed(2)}%` },
-    { label: 'Cumulative Return', value: `${stats.cumulativeReturnPercent.toFixed(1)}%`, change: `~${stats.annualizedReturn.toFixed(1)}% p.a.` },
-  ]
+  const [acquisitionTooltip, setAcquisitionTooltip] = useState<{ x: number; y: number } | null>(null)
 
   // Don't render if no data
   if (!performanceData.length) {
@@ -230,10 +273,6 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
 
   return (
     <section className="section-padding bg-sogif-navy relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-sogif-cyan-light/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-sogif-gold/5 rounded-full blur-3xl" />
-
       <Container className="relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -242,8 +281,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               dark
               align="left"
               eyebrow="Performance"
-              title="Historical Returns"
-              description="Track our fund's performance with transparent monthly reporting. Our diversified strategy aims to deliver steady growth with quarterly income distributions."
+              title="Price & Distribution History"
             />
           </div>
           <AppLink
@@ -252,219 +290,206 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             variant="light"
             className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"
           >
-            Full Performance
+            More Charts
           </AppLink>
         </div>
+        <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
+          <ResponsiveContainer>
+            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <defs>
+                <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <XAxis
+                dataKey="month"
+                axisLine={false}
+                tickLine={false}
+                tick={{ style: { fill: 'rgba(255,255,255,0.8)', fontSize: 12, fontFamily: 'inherit' } }}
+                interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
+                tickFormatter={(value) => {
+                  const [month, year] = value.split('-')
+                  return `${month.substring(0, 3)} '${year}`
+                }}
+              />
+              <YAxis
+                domain={yDomain}
+                ticks={yTicks}
+                axisLine={false}
+                tickLine={false}
+                tick={{ style: { fill: 'rgba(255,255,255,0.8)', fontSize: 12, fontFamily: 'inherit' } }}
+                tickFormatter={(value) => `$${value.toFixed(2)}`}
+              />
+              <ChartTooltip
+                content={<CustomTooltip />}
+                cursor={{ stroke: 'rgba(255,255,255,0.2)' }}
+              />
+              {/* Redemption Price - Gold (lowest, rendered first) */}
+              <Area
+                type="monotone"
+                dataKey="redemptionPrice"
+                stroke="hsl(41, 90%, 61%)"
+                strokeWidth={2}
+                fill="url(#redemptionGradient)"
+              />
+              {/* Issue Price - Cyan (middle) */}
+              <Area
+                type="monotone"
+                dataKey="issuePrice"
+                stroke="hsl(189, 100%, 65%)"
+                strokeWidth={2}
+                fill="url(#issueGradient)"
+              />
+              {/* Cumulative Return - Green (highest, rendered last) */}
+              <Area
+                type="monotone"
+                dataKey="cumulativeReturn"
+                stroke="hsl(160, 84%, 39%)"
+                strokeWidth={2}
+                fill="url(#cumulativeGradient)"
+              />
+              {/* Indicator dot at start of redemption price line */}
+              {firstRedemptionPoint && (
+                <ReferenceDot
+                  x={firstRedemptionPoint.month}
+                  y={firstRedemptionPoint.redemptionPrice}
+                  shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
+                />
+              )}
+              {/* Indicator dot at first distribution on cumulative return line */}
+              {firstDistributionPoint && (
+                <ReferenceDot
+                  x={firstDistributionPoint.month}
+                  y={firstDistributionPoint.cumulativeReturn}
+                  shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
+                />
+              )}
+              {/* Indicator dot at Dec 2024 - aggressive acquisition on issue price line */}
+              {acquisitionPoint && (
+                <ReferenceDot
+                  x={acquisitionPoint.month}
+                  y={acquisitionPoint.issuePrice}
+                  shape={(props) => <ChartIndicator {...props} color="hsl(189, 100%, 65%)" onHover={setAcquisitionTooltip} />}
+                />
+              )}
+            </AreaChart>
+          </ResponsiveContainer>
+        </ChartContainer>
 
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
-          {/* Stats Column - appears second on mobile, first on desktop */}
-          <div className="lg:col-span-5 xl:col-span-4 min-w-0 order-2 lg:order-1 space-y-3 lg:space-y-4">
-            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-4">
-              {performanceStats.map((stat) => (
-                <AppCard
-                  key={stat.label}
-                  variant="stat"
-                >
-                  <p className="text-white/90 type-support mb-1 lg:mb-2">{stat.label}</p>
-                  <div className="flex items-end gap-2 lg:gap-3">
-                    <span className="type-metric font-bold text-white">{stat.value}</span>
-                    {stat.change && (
-                      <span className={`type-support font-medium pb-0.5 lg:pb-1 ${stat.change.startsWith('+') ? 'text-sogif-success' : 'text-white/90'
-                        }`}>
-                        {stat.change}
-                      </span>
-                    )}
-                  </div>
-                </AppCard>
-              ))}
+        {/* Value Highlights */}
+        {/* flex-col-reverse on mobile puts Current Prices first; md:grid restores desktop order */}
+        <div className="mt-8 flex flex-col-reverse md:grid md:grid-cols-3 gap-8 border-t md:border-t-0 border-white/10 pt-8 md:pt-0">
+          <div>
+            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Since Inception</p>
+            <div className="flex gap-8">
+              <div>
+                <p className="type-metric font-semibold text-white">{stats.cumulativeReturnPercent.toFixed(1)}%</p>
+                <p className="type-caption text-white/60">Cumulative Return</p>
+              </div>
+              <div>
+                <p className="type-metric font-semibold text-white">${stats.totalDistributions.toFixed(4)}</p>
+                <p className="type-caption text-white/60">Distributions</p>
+              </div>
             </div>
-
-            {/* Existing Investor Portal CTA */}
-            <a
-              href="https://portal.sogif.au"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-between bg-sogif-success/10 border border-sogif-success/30 hover:bg-sogif-success/20 rounded-xl p-4 lg:p-6 transition-all focus-ring"
-            >
-              <div className="flex items-center gap-3 lg:gap-4">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-sogif-success/20 rounded-lg flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sogif-success font-semibold type-support mb-0.5 lg:mb-1">Already an investor?</p>
-                  <p className="text-white/90 type-support">View personalised returns with the portal</p>
-                </div>
-              </div>
-              <svg
-                className="w-5 h-5 lg:w-6 lg:h-6 text-sogif-success group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
           </div>
-
-          {/* Chart Column - appears first on mobile, second on desktop */}
-          <div className="lg:col-span-7 xl:col-span-8 min-w-0 order-1 lg:order-2 lg:relative">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-6 flex flex-col lg:absolute lg:inset-0 overflow-hidden">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="type-title text-white font-semibold">Fund Pricing & Returns</h3>
-                  <p className="text-white/90 type-support">Monthly performance since inception</p>
-                </div>
-
+          <div className="md:border-l md:border-white/10 md:pl-8">
+            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Annualised ({(() => { const [sM, sY] = stats.annualizedStartMonth.split('-'); const [, eY] = stats.annualizedEndMonth.split('-'); return `${sM} 20${sY} – 20${eY}` })()})</p>
+            <div className="flex gap-8">
+              <div>
+                <p className="type-metric font-semibold text-white">{stats.annualizedReturnPercent.toFixed(1)}%</p>
+                <p className="type-caption text-white/60">Cumulative Return</p>
               </div>
-
-              {/* Legend */}
-              <div className="flex flex-wrap items-center gap-4 mb-4 type-support">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-sogif-success" />
-                  <span className="text-white/90">Cumulative Return</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-sogif-cyan-light" />
-                  <span className="text-white/90">Issue Price</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-sogif-gold" />
-                  <span className="text-white/90">Redemption Price</span>
-                </div>
+              <div>
+                <p className="type-metric font-semibold text-white">${stats.annualizedDistributions.toFixed(4)}</p>
+                <p className="type-caption text-white/60">Distributions</p>
               </div>
-
-              <div className="h-72 sm:h-80 lg:flex-1 lg:min-h-0">
-                <ChartContainer config={chartConfig} className="h-full w-full">
-                  <ResponsiveContainer>
-                    <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="issueGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="hsl(189, 100%, 65%)" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="cumulativeGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0.3} />
-                          <stop offset="95%" stopColor="hsl(160, 84%, 39%)" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <XAxis
-                        dataKey="month"
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
-                        interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
-                        tickFormatter={(value) => {
-                          const [month, year] = value.split('-')
-                          return `${month.substring(0, 3)} '${year}`
-                        }}
-                      />
-                      <YAxis
-                        domain={[0.90, 1.15]}
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
-                        tickFormatter={(value) => `$${value.toFixed(2)}`}
-                      />
-                      <ChartTooltip
-                        content={<CustomTooltip />}
-                        cursor={{ stroke: 'rgba(255,255,255,0.2)' }}
-                      />
-                      {/* Redemption Price - Gold (lowest, rendered first) */}
-                      <Area
-                        type="monotone"
-                        dataKey="redemptionPrice"
-                        stroke="hsl(41, 90%, 61%)"
-                        strokeWidth={2}
-                        fill="url(#redemptionGradient)"
-                      />
-                      {/* Issue Price - Cyan (middle) */}
-                      <Area
-                        type="monotone"
-                        dataKey="issuePrice"
-                        stroke="hsl(189, 100%, 65%)"
-                        strokeWidth={2}
-                        fill="url(#issueGradient)"
-                      />
-                      {/* Cumulative Return - Green (highest, rendered last) */}
-                      <Area
-                        type="monotone"
-                        dataKey="cumulativeReturn"
-                        stroke="hsl(160, 84%, 39%)"
-                        strokeWidth={2}
-                        fill="url(#cumulativeGradient)"
-                      />
-                      {/* Indicator dot at start of redemption price line */}
-                      {firstRedemptionPoint && (
-                        <ReferenceDot
-                          x={firstRedemptionPoint.month}
-                          y={firstRedemptionPoint.redemptionPrice}
-                          shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
-                        />
-                      )}
-                      {/* Indicator dot at first distribution on cumulative return line */}
-                      {firstDistributionPoint && (
-                        <ReferenceDot
-                          x={firstDistributionPoint.month}
-                          y={firstDistributionPoint.cumulativeReturn}
-                          shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
-                        />
-                      )}
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+            </div>
+          </div>
+          <div className="md:border-l md:border-white/10 md:pl-8">
+            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Current Prices</p>
+            <div className="flex gap-8">
+              <div>
+                <p className="type-metric font-semibold text-white">${stats.latestIssue.toFixed(4)}</p>
+                <p className="type-caption text-white/60">Issue</p>
               </div>
-
-              <DisclaimerText tone="hero" className="mt-4">
-                *Cumulative return calculated as Issue Price plus all distributions since fund inception. Past performance is not a reliable indicator of future performance.
-              </DisclaimerText>
+              <div>
+                <p className="type-metric font-semibold text-white">
+                  {(stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A'}
+                </p>
+                <p className="type-caption text-white/60">Redemption</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Mobile page link */}
-        <div className="mt-10 text-center md:hidden">
-          <AppLink href="/performance" showArrow variant="light" className="text-sogif-cyan-light hover:text-white">
-            Full Performance
-          </AppLink>
-        </div>
-      </Container>
+        <DisclaimerText tone="hero" className="mt-8">
+          Cumulative return calculated as Issue Price plus all distributions since fund inception.
+        </DisclaimerText>
+        <DisclaimerText tone="hero">
+          Past performance is not a reliable indicator of future performance.
+        </DisclaimerText>
+      </Container >
 
       {/* Redemption start tooltip - rendered outside chart for proper z-index */}
-      {redemptionTooltip && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{
-            left: redemptionTooltip.x - 10,
-            top: redemptionTooltip.y - 90,
-          }}
-        >
-          <div className="bg-sogif-navy border border-sogif-gold/40 rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[220px]">
-            No property was acquired until the minimum subscription was achieved.
-            Accordingly, there was no redemption price prior to December 2023.
+      {
+        redemptionTooltip && (
+          <div
+            className="fixed z-[9999] pointer-events-none"
+            style={{
+              left: redemptionTooltip.x - 10,
+              top: redemptionTooltip.y - 90,
+            }}
+          >
+            <div className="border border-sogif-gold/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[220px]">
+              No property was acquired until the minimum subscription was achieved.
+              Accordingly, there was no redemption price prior to December 2023.
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       {/* First distribution tooltip */}
-      {distributionTooltip && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{
-            left: distributionTooltip.x - 10,
-            top: distributionTooltip.y - 55,
-          }}
-        >
-          <div className="bg-sogif-navy border border-sogif-success/40 rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
-            First quarterly distribution began here
+      {
+        distributionTooltip && (
+          <div
+            className="fixed z-[9999] pointer-events-none"
+            style={{
+              left: distributionTooltip.x - 10,
+              top: distributionTooltip.y - 55,
+            }}
+          >
+            <div className="border border-sogif-success/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
+              First quarterly distribution began here
+            </div>
           </div>
-        </div>
-      )}
-    </section>
+        )
+      }
+
+      {/* Aggressive acquisition tooltip */}
+      {
+        acquisitionTooltip && (
+          <div
+            className="fixed z-[9999] pointer-events-none"
+            style={{
+              left: acquisitionTooltip.x - 10,
+              top: acquisitionTooltip.y - 55,
+            }}
+          >
+            <div className="border border-sogif-cyan-light/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
+              Aggressive property acquisition began
+            </div>
+          </div>
+        )
+      }
+    </section >
   )
 }

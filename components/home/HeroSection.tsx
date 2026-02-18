@@ -14,7 +14,7 @@ const heroContent = {
     stats: [
         { value: '6.7%', label: 'Historical Annual Return', highlight: true },
         { value: '$170M+', label: 'Funds Under Management' },
-        { value: '$10,000', label: 'Minimum Investment' },
+        { value: '$10,000', label: 'Low Min. Investment' },
     ],
     ctaPrimary: { label: 'Join the Fund', href: '/invest' },
     ctaSecondary: { label: 'Performance', href: '#performance' },

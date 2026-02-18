@@ -186,7 +186,7 @@
   }
 
   .section-title {
-    @apply type-heading font-bold mb-4;
+    @apply type-heading mb-4;
   }
 
   .section-description {

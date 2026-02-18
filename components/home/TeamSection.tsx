@@ -174,12 +174,12 @@ export function TeamSection() {
             variant="text"
             className="hidden md:inline-flex shrink-0"
           >
-            About the Fund
+            Our strategies
           </AppLink>
         </div>
 
         {/* Team Grid — 1 col mobile, 3 col tablet+ */}
-        <div className="grid gap-8 lg:gap-16 sm:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-3">
           {directors.map((director) => (
             <DirectorCard key={director.id} director={director} />
           ))}
@@ -188,7 +188,7 @@ export function TeamSection() {
         {/* Mobile page link */}
         <div className="mt-10 text-center md:hidden">
           <AppLink href="/strategy" showArrow variant="text">
-            About the Fund
+            Our strategies
           </AppLink>
         </div>
       </Container>
