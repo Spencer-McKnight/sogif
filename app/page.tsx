@@ -19,11 +19,11 @@ export default async function Home() {
       <main>
         <HeroSection />
 
+        <PerformanceSnapshot performanceData={constants.performanceData} />
+
         <ValueCarousel />
 
         <PropertyShowcase />
-
-        <PerformanceSnapshot performanceData={constants.performanceData} />
 
         <TeamSection />
 

@@ -9,7 +9,7 @@ const footerLinks = {
   pages: [
     { label: 'Performance', href: '/performance' },
     { label: 'Properties', href: '/properties' },
-    { label: 'About', href: '/about' },
+    { label: 'Strategy', href: '/strategy' },
     { label: 'Updates', href: '/updates' },
     { label: 'Invest', href: '/invest' },
   ],

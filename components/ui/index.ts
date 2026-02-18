@@ -21,6 +21,7 @@ export { DisclaimerText } from './disclaimer-text'
 export { Badge, badgeVariants } from './badge'
 export { AppCard, appCardVariants } from './app-card'
 export { SectionHeader } from './section-header'
+export { SwiperControls } from './swiper-controls'
 
 // Shadcn Components - Card
 export { 

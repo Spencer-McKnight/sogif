@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, type ComponentType } from 'react'
-import { ChartNoAxesCombined, ChevronLeft, ChevronRight, HandCoins, Landmark, ShieldCheck, TrendingUp } from 'lucide-react'
+import { ChartNoAxesCombined, HandCoins, Landmark, ShieldCheck, TrendingUp } from 'lucide-react'
 import { A11y, Autoplay, Keyboard } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { AppLink, Container, SectionHeader } from '@/components/ui'
+import { AppLink, Container, SectionHeader, SwiperControls } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 import 'swiper/css'
@@ -126,56 +126,10 @@ const slides: ValueSlide[] = [
 ]
 
 
-function CarouselControls({
-    swiper,
-    activeIndex,
-    slideCount,
-    accent,
-}: {
-    swiper: SwiperType | null
-    activeIndex: number
-    slideCount: number
-    accent: AccentColor
-}) {
-    if (!swiper) return null
-
-    return (
-        <div className="flex items-center justify-center gap-1" style={accentVar(accent)}>
-            <button
-                onClick={() => swiper.slidePrev()}
-                aria-label="Previous slide"
-                className="group flex size-12 items-center justify-center text-white/30 transition-colors hover:text-white focus-ring-inverse"
-            >
-                <ChevronLeft className="size-6 transition-transform group-hover:-translate-x-0.5" />
-            </button>
-
-            <div className="flex items-center gap-2.5" role="tablist" aria-label="Slide navigation">
-                {Array.from({ length: slideCount }).map((_, i) => (
-                    <button
-                        key={i}
-                        role="tab"
-                        aria-selected={activeIndex === i}
-                        aria-label={`Go to slide ${i + 1}`}
-                        onClick={() => swiper.slideToLoop(i)}
-                        className={cn(
-                            'h-2 rounded-full transition-all duration-300 focus-ring-inverse',
-                            activeIndex === i
-                                ? 'w-8 bg-[hsl(var(--slide-accent))]'
-                                : 'w-2 bg-white/30 hover:bg-white/70'
-                        )}
-                    />
-                ))}
-            </div>
-
-            <button
-                onClick={() => swiper.slideNext()}
-                aria-label="Next slide"
-                className="group flex size-12 items-center justify-center text-white/30 transition-colors hover:text-white focus-ring-inverse"
-            >
-                <ChevronRight className="size-6 transition-transform group-hover:translate-x-0.5" />
-            </button>
-        </div>
-    )
+const accentHsl: Record<AccentColor, string> = {
+    'cyan-light': 'hsl(var(--sogif-cyan-light))',
+    'gold': 'hsl(var(--sogif-gold))',
+    'success': 'hsl(var(--sogif-success))',
 }
 
 export function ValueCarousel() {
@@ -254,11 +208,11 @@ export function ValueCarousel() {
             </Swiper>
 
             <div className="relative z-10 pb-12 md:pb-14">
-                <CarouselControls
+                <SwiperControls
                     swiper={swiperInstance}
                     activeIndex={activeIndex}
                     slideCount={slides.length}
-                    accent={activeSlide.accent}
+                    accentColor={accentHsl[activeSlide.accent]}
                 />
             </div>
         </section>

@@ -7,8 +7,8 @@ import { HeroStats } from './HeroStats'
 
 // TODO: Replace with CMS-managed content
 const heroContent = {
-    headlineTop: 'Patient Capital',
-    headlineBottom: 'Actively Managed',
+    headlineTop: 'Strategic Opportunities',
+    headlineBottom: 'Growth & Income',
     subheadline: 'Gain access to Steve McKnight’s selected Australian commercial property as we analyse and acquire. Amplify growth and strategically diversify with actively managed shares. Recieve quarterly distributions for passive income.',
     stats: [
         { value: '6.7%', label: 'Historical Annual Return', highlight: true },

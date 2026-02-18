@@ -187,7 +187,7 @@ export function TeamSection() {
 
         {/* Mobile page link */}
         <div className="mt-10 text-center md:hidden">
-          <AppLink href="/about" showArrow variant="text">
+          <AppLink href="/strategy" showArrow variant="text">
             About the Fund
           </AppLink>
         </div>

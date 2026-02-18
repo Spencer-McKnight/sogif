@@ -93,7 +93,7 @@ export function RegisterInterestCTA() {
           {/* Left Column - Content */}
           <div className="lg:col-span-5">
             <SectionHeader
-              eyebrow="Want to talk about it?"
+              eyebrow="Want to talk about your investment?"
               title={ctaContent.headline}
               align="left"
               dark={true}
@@ -207,7 +207,7 @@ export function RegisterInterestCTA() {
                   </Button>
 
                   <DisclaimerText tone="dark" className="mt-2">
-                    By submitting, you agree to receive information via email. Providing a phone number will prompt SOGIF to reach out via phone.
+                    By submitting, you agree to receive information via email. Providing a phone number will prompt a SOGIF team member to contact you via phone.
                   </DisclaimerText>
                 </form>
               ) : (

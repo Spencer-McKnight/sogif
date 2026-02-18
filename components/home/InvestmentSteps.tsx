@@ -10,24 +10,24 @@ type Step = {
 const steps: Step[] = [
     {
         number: '1',
-        title: 'Analyse',
-        description: 'Read the PDS and consider the investment amount that suits your goals.',
+        title: 'Read',
+        description: 'Read the offer documents to make an informed decision.',
     },
     {
         number: '2',
-        title: 'Apply',
-        description: 'Complete the online application form and transfer funds.',
+        title: 'Register',
+        description: 'Complete the online application form and identification check.',
     },
     {
         number: '3',
-        title: 'Access',
-        description: 'Gain access to the investor portal to track your investment.',
+        title: 'Remit',
+        description: 'Transfer funds to complete your application.',
     },
 ]
 
 /* Mobile alignment: 1 left, 2 center, 3 right | Tablet+ stagger: step 1 lowest, step 3 highest */
 const mobileAlign = ['items-start', 'items-center', 'items-end']
-const stagger = ['md:mt-16', 'md:mt-8', 'md:mt-0']
+const stagger = ['md:0', 'md:0', 'md:mt-0']
 
 export function InvestmentSteps() {
     return (
@@ -46,7 +46,7 @@ export function InvestmentSteps() {
                 <div className="mb-12">
                     <SectionHeader
                         eyebrow="How it works"
-                        title="Easy Steps to Invest"
+                        title="Three Easy Steps to Investing"
                     />
                 </div>
 
@@ -76,7 +76,7 @@ export function InvestmentSteps() {
                 </div>
 
                 {/* Button right-aligned on desktop — sits at the ascending peak */}
-                <div className="mt-14 lg:mt-6 flex justify-center md:justify-end">
+                <div className="mt-14 lg:mt-8 flex justify-center md:justify-end">
                     <ButtonLink
                         href="/invest"
                         variant="primary"
@@ -85,7 +85,7 @@ export function InvestmentSteps() {
                         fullWidth="sm"
                         className="group focus-ring"
                     >
-                        Start Investing
+                        Start Your Application Here
                         <svg
                             className="w-4 h-4 transition-transform duration-base ease-standard group-hover:translate-x-0.5"
                             fill="none"
