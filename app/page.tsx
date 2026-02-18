@@ -1,12 +1,12 @@
 import { Header, Footer } from '@/components/layout'
 import {
   HeroSection,
-  ValueCarousel,
   PerformanceSnapshot,
   PropertyShowcase,
   InvestmentSteps,
   TeamSection,
   RegisterInterestCTA,
+  StrategyOverview,
 } from '@/components/home'
 import { getConstants } from '@/lib/queries/constants'
 
@@ -21,11 +21,11 @@ export default async function Home() {
 
         <PerformanceSnapshot performanceData={constants.performanceData} />
 
-        <ValueCarousel />
+        <TeamSection />
+
+        <StrategyOverview />
 
         <PropertyShowcase />
-
-        <TeamSection />
 
         <InvestmentSteps />
 

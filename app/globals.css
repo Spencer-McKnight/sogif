@@ -133,7 +133,7 @@
 @layer utilities {
   /* Typography system: six role-based utilities */
   .type-display {
-    @apply text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight;
+    @apply text-4xl sm:text-5xl leading-tight tracking-tight;
   }
 
   .type-heading {
@@ -178,7 +178,7 @@
   }
 
   .section-padding {
-    @apply py-24 md:py-28 lg:py-44;
+    @apply py-16 sm:py-24;
   }
 
   .section-eyebrow {

@@ -31,7 +31,7 @@ const stagger = ['md:0', 'md:0', 'md:mt-0']
 
 export function InvestmentSteps() {
     return (
-        <section className="section-padding bg-sogif-silver-light relative overflow-hidden">
+        <section className="section-padding bg-sogif-silver relative overflow-hidden">
             {/* Faint gold radial glow anchoring the destination corner */}
             <div
                 className="absolute bottom-0 right-0 w-2/3 h-2/3 pointer-events-none hidden lg:block"
