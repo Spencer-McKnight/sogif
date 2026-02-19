@@ -89,6 +89,11 @@ export function HeroSection() {
                     <HeroStats stats={heroContent.stats} />
                 </div>
             </Container>
+
+            {/* Past performance disclaimer */}
+            <p className="relative z-10 text-[11px] text-white/30 text-center pb-4 px-4">
+                *Past performance is not a reliable indicator of future performance.
+            </p>
         </section>
     )
 }
