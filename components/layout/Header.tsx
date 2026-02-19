@@ -73,7 +73,7 @@ export function Header() {
               size="md"
               glow="gold"
             >
-              Invest Now
+              Apply
             </ButtonLink>
           </div>
 
@@ -205,7 +205,7 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="focus-ring-inverse"
                   >
-                    Invest Now
+                    Apply
                   </ButtonLink>
                 </div>
               </nav>
