@@ -30,7 +30,7 @@ export function Header() {
                 src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=96&fit=max&auto=format"
                 alt="SOGIF"
                 fill
-                className="object-contain"
+                className="object-contain drop-shadow-[0_0_3px_white] drop-shadow-[0_0_3px_rgba(255,255,255,0.4)]"
                 priority
               />
             </div>
@@ -132,7 +132,7 @@ export function Header() {
                         src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=96&fit=max&auto=format"
                         alt="SOGIF"
                         fill
-                        className="object-contain"
+                        className="object-contain drop-shadow-[0_0_3px_white] drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]"
                         priority
                       />
                     </div>
