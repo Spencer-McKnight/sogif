@@ -18,12 +18,12 @@ const PHONE_PATTERN = /^[+]?\d[\d\s\-()]{7,14}$/
 const PHONE_PREFIX = '+61 '
 
 const SLIDER_MIN = 10
-const SLIDER_MAX = 100
+const SLIDER_MAX = 500
 const SLIDER_STEP = 10
 const SLIDER_DEFAULT: [number, number] = [20, 70]
 
 function formatInvestment(value: number) {
-  return value >= SLIDER_MAX ? '$100k+' : `$${value}k`
+  return value >= SLIDER_MAX ? '$500k+' : `$${value}k`
 }
 
 interface FormData {
@@ -193,7 +193,7 @@ export function RegisterInterestCTA() {
                     />
                     <div className="flex justify-between type-support text-gray-600 tabular-nums">
                       <span>$10k</span>
-                      <span>$100k+</span>
+                      <span>$500k+</span>
                     </div>
                   </div>
 
