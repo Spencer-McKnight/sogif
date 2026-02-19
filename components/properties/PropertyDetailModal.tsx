@@ -178,16 +178,9 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
               ) : (
                 <LargeCell label="Status" value="Active" valueClass="text-emerald-600" />
               )}
-            </div>
-          </section>
-
-          {/* Lease Profile */}
-          <section>
-            <h4 className="type-overline text-sogif-cyan-dark mb-3">Lease Profile</h4>
-            <div className="grid grid-cols-3 gap-px bg-border-soft rounded-xl overflow-hidden [&>*:nth-child(3n+1)]:pl-0 [&>*:nth-child(3n)]:pr-0">
-              <LargeCell label="WALE (Expiry)" value={property.waleLeaseExpiry} />
-              <LargeCell label="WALE (Income)" value={property.waleIncome} />
-              <LargeCell label="WALE (Area)" value={property.waleLettableArea} />
+              <LargeCell label="Lease Expiry" value={`${property.waleLeaseExpiry} years`} />
+              <LargeCell label="Lease Income" value={`${property.waleIncome} years`} />
+              <LargeCell label="Lease Area" value={`${property.waleLettableArea} years`} />
             </div>
           </section>
 
@@ -196,7 +189,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
             <h4 className="type-overline text-sogif-cyan-dark mb-3">Overview</h4>
             <div className="space-y-3">
               {paragraphs.map((paragraph, i) => (
-                <p key={i} className="type-caption text-text-body leading-relaxed">{paragraph}</p>
+                <p key={i} className="type-caption text-text-body leading-relaxed text-justify">{paragraph}</p>
               ))}
             </div>
           </section>
@@ -237,6 +230,6 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
           </section>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   )
 }

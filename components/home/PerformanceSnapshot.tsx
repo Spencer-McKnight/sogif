@@ -391,37 +391,37 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           <div>
             <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Since Inception</p>
             <div className="flex gap-8">
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">{stats.cumulativeReturnPercent.toFixed(1)}%</p>
                 <p className="type-caption text-white/60">Cumulative Return</p>
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">${stats.totalDistributions.toFixed(4)}</p>
                 <p className="type-caption text-white/60">Distributions</p>
               </div>
             </div>
           </div>
-          <div className="md:border-l md:border-white/10 md:pl-8">
+          <div className="md:-ml-4 md:border-l md:border-white/10 md:pl-4">
             <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Annualised ({(() => { const [sM, sY] = stats.annualizedStartMonth.split('-'); const [, eY] = stats.annualizedEndMonth.split('-'); return `${sM} 20${sY} – 20${eY}` })()})</p>
             <div className="flex gap-8">
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">{stats.annualizedReturnPercent.toFixed(1)}%</p>
                 <p className="type-caption text-white/60">Cumulative Return</p>
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">${stats.annualizedDistributions.toFixed(4)}</p>
                 <p className="type-caption text-white/60">Distributions</p>
               </div>
             </div>
           </div>
-          <div className="md:border-l md:border-white/10 md:pl-8">
+          <div className="md:-ml-4 md:border-l md:border-white/10 md:pl-4">
             <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Current Prices</p>
             <div className="flex gap-8">
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">${stats.latestIssue.toFixed(4)}</p>
                 <p className="type-caption text-white/60">Issue</p>
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="type-metric font-semibold text-white">
                   {(stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A'}
                 </p>
@@ -432,7 +432,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
         </div>
 
         <DisclaimerText tone="hero" className="mt-8">
-          Cumulative return calculated as Issue Price plus all distributions since fund inception.
+          Cumulative return calculated as Issue Price plus distributions for that period.
         </DisclaimerText>
         <DisclaimerText tone="hero">
           Past performance is not a reliable indicator of future performance.

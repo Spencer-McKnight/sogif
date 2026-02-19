@@ -116,7 +116,7 @@ export function PropertyShowcase() {
               align="left"
               eyebrow="Property Showcase"
               title="Our Property Investments"
-              description="SOGIF invests in strategic real estate opportunities across Australia, focusing on properties with strong income potential and growth upside. Valued by independent local experts."
+              description="Using our experience to build a portfolio with high potential upside and minimal costs."
             />
           </div>
           <AppLink
