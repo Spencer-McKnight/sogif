@@ -217,6 +217,12 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
   const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
   const stats = useMemo(() => calculateStats(performanceData), [performanceData])
 
+  const annualizedPeriodLabel = useMemo(() => {
+    const [sM, sY] = stats.annualizedStartMonth.split('-')
+    const [eM, eY] = stats.annualizedEndMonth.split('-')
+    return `${sM} 20${sY} – ${eM} 20${eY}`
+  }, [stats.annualizedStartMonth, stats.annualizedEndMonth])
+
   // Y-axis domain and ticks at every $0.05
   const { yDomain, yTicks } = useMemo(() => {
     if (!chartData.length) return { yDomain: [0.9, 1.2] as [number, number], yTicks: [0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2] }
@@ -402,7 +408,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             </div>
           </div>
           <div className="md:-ml-4 md:border-l md:border-white/10 md:pl-4">
-            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">12 Month ({(() => { const [sM, sY] = stats.annualizedStartMonth.split('-'); const [, eY] = stats.annualizedEndMonth.split('-'); return `${sM} 20${sY} – 20${eY}` })()})</p>
+            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">12 Month ({annualizedPeriodLabel})</p>
             <div className="flex gap-8">
               <div className="flex-1">
                 <p className="type-metric font-semibold text-white">{stats.annualizedReturnPercent.toFixed(1)}%</p>

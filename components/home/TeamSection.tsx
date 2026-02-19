@@ -74,7 +74,7 @@ function DirectorCard({ director }: { director: Director }) {
 
 export function TeamSection() {
   return (
-    <section className="section-padding bg-sogif-steel">
+    <section className="section-padding bg-sogif-silver-light">
       <Container>
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
