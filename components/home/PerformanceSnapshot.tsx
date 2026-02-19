@@ -402,7 +402,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             </div>
           </div>
           <div className="md:-ml-4 md:border-l md:border-white/10 md:pl-4">
-            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">Annualised ({(() => { const [sM, sY] = stats.annualizedStartMonth.split('-'); const [, eY] = stats.annualizedEndMonth.split('-'); return `${sM} 20${sY} – 20${eY}` })()})</p>
+            <p className="type-caption font-medium uppercase tracking-wider text-white/50 mb-3">12 Month ({(() => { const [sM, sY] = stats.annualizedStartMonth.split('-'); const [, eY] = stats.annualizedEndMonth.split('-'); return `${sM} 20${sY} – 20${eY}` })()})</p>
             <div className="flex gap-8">
               <div className="flex-1">
                 <p className="type-metric font-semibold text-white">{stats.annualizedReturnPercent.toFixed(1)}%</p>
