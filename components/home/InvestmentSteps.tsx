@@ -76,7 +76,7 @@ export function InvestmentSteps() {
                 {/* Button right-aligned on desktop — sits at the ascending peak */}
                 <div className="mt-14 lg:mt-8 flex justify-center lg:justify-end">
                     <ButtonLink
-                        href="/invest"
+                        href="/apply"
                         variant="primary"
                         size="lg"
                         glow="gold"

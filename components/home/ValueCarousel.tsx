@@ -59,8 +59,8 @@ const slides: ValueSlide[] = [
                 icon: HandCoins,
             },
         ],
-        ctaHref: '/invest',
-        ctaLabel: 'Invest',
+        ctaHref: '/apply',
+        ctaLabel: 'apply',
         accent: 'gold',
     },
     {

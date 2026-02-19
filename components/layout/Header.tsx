@@ -68,7 +68,7 @@ export function Header() {
               <span className="hidden md:block">Investors</span>
             </ButtonLink>
             <ButtonLink
-              href="/invest"
+              href="/apply"
               variant="primary"
               size="md"
               glow="gold"
@@ -198,7 +198,7 @@ export function Header() {
                     </svg>
                   </ButtonLink>
                   <ButtonLink
-                    href="/invest"
+                    href="/apply"
                     variant="primary"
                     size="lg"
                     glow="gold"

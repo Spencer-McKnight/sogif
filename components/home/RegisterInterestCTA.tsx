@@ -222,7 +222,7 @@ export function RegisterInterestCTA() {
                   <div className="pt-6 border-t border-gray-100">
                     <p className="type-support text-gray-900 mb-4">Ready to invest?</p>
                     <ButtonLink
-                      href="/invest"
+                      href="/apply"
                       variant="primary"
                       size="lg"
                       glow="gold"
