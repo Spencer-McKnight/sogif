@@ -8,8 +8,8 @@ const appLinkVariants = cva(
   {
     variants: {
       variant: {
-        text: 'font-semibold text-sogif-cyan-dark hover:text-gray-900',
-        light: 'font-semibold text-white hover:text-sogif-cyan-light',
+        text: 'font-semibold text-xl text-sogif-cyan-dark hover:text-gray-900',
+        light: 'font-semibold text-xl text-white hover:text-sogif-cyan-light',
         nav: 'font-medium text-white/90 hover:text-white active:text-sogif-cyan-light',
         'nav-expanded': 'font-medium text-white hover:text-white active:text-white px-3 py-4',
         portal:

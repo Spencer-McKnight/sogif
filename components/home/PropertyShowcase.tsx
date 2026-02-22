@@ -112,7 +112,7 @@ export function PropertyShowcase() {
               align="left"
               eyebrow="Properties"
               title="Asset Showcase"
-              description="Using our experience to build a portfolio with high potential upside and minimal costs."
+              description="Selected portfolio with high potential upside and minimal costs."
             />
           </div>
           <AppLink
