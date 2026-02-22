@@ -18,6 +18,7 @@ const config: Config = {
         '3xl': ['2rem',     { lineHeight: '2.25rem' }],  // 32px  (default 30px)
         '4xl': ['2.375rem', { lineHeight: '2.5rem'  }],  // 38px  (default 36px)
         '5xl': ['2.95rem',  { lineHeight: '1'       }],  // 44px  (default 48px)
+        '6xl': ['3.3rem',  { lineHeight: '1'       }],  // 52px  (default 56px)
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],

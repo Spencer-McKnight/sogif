@@ -49,14 +49,14 @@
     --radius: 0.5rem;
 
     /* Extended SOGIF brand colors */
-    --sogif-navy: 210 73% 15%;
+    --sogif-navy: 210 73% 16%;
     --sogif-navy-light: 211 52% 25%;
     --sogif-cyan-light: 189 100% 65%;
     --sogif-cyan-dark: 189 100% 22%;
     --sogif-gold: 41 98% 67%;
     --sogif-success: 160 84% 39%;
-    --sogif-silver: 208 58% 97%;
-    --sogif-silver-light: 208 44% 99.5%;
+    --sogif-silver: 208 75% 94.5%;
+    --sogif-silver-light: 208 75% 98.5%;
 
     /* Semantic surfaces and text for reusable patterns */
     --surface-soft: 210 25% 97%;
@@ -134,11 +134,11 @@
      Sizes defined via custom tailwind fontSize tokens (tailwind.config.ts).
      To bump the scale, update the token values there — not individual components. */
   .type-display {
-    @apply text-4xl sm:text-5xl leading-tight tracking-tight font-display;
+    @apply text-4xl lg:text-5xl xl:text-6xl leading-tight tracking-tight font-display;
   }
 
   .type-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight font-display;
+    @apply text-3xl sm:text-4xl xl:text-5xl leading-tight tracking-tight font-display;
   }
 
   .type-title {
