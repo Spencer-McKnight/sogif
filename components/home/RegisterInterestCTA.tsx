@@ -145,7 +145,7 @@ export function RegisterInterestCTA() {
                       Phone number <span className="ml-1 text-gray-400 type-support">Optional</span>
                     </Label>
                     <p className="type-support text-gray-600">
-                      If you&apos;d like us to give you a call, tell us where to dial
+                      If you&apos;d like us to call
                     </p>
                     <Input
                       type="tel"
