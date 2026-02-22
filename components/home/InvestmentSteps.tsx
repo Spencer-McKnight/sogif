@@ -54,7 +54,7 @@ export function InvestmentSteps() {
                             <div key={step.number} className="relative flex flex-col items-center lg:items-start w-full">
                                 <div className="group flex items-start gap-3 sm:gap-4 w-full">
                                     <span
-                                        className="shrink-0 font-black leading-[0.85] text-sogif-navy-light/25 group-hover:text-sogif-navy-light/90 text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter transition-colors duration-300 ease-standard"
+                                        className="shrink-0 w-14 sm:w-[4.5rem] lg:w-auto text-right lg:text-left font-black leading-[0.85] text-sogif-navy-light/25 group-hover:text-sogif-navy-light/90 text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter transition-colors duration-300 ease-standard"
                                         aria-hidden="true"
                                     >
                                         {step.number}

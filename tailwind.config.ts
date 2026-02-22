@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       boxShadow: {
         'glow-gold': 'var(--shadow-glow-gold-passive)',
         'glow-cyan': 'var(--shadow-glow-cyan)',

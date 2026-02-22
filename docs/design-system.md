@@ -21,6 +21,19 @@ Primary tokens are defined in:
 - `app/globals.css` (CSS variables and utility classes)
 - `tailwind.config.ts` (Tailwind semantic mappings)
 
+### Typefaces
+
+Two fonts, loaded via `next/font/google` as CSS variable pairs, self-hosted at build time:
+
+| Role | Font | Variable | Tailwind class | Weights |
+|------|------|----------|---------------|---------|
+| Body / UI / metrics | Inter | `--font-sans` | `font-sans` | 300–700 |
+| Display / headings | Montserrat | `--font-display` | `font-display` | 500–900 |
+
+Both variables are applied once on `<html>` in `app/layout.tsx`. `font-sans` is set globally on `body`. `font-display` is composed into `type-display` and `type-heading` in `globals.css`.
+
+To use the display font ad-hoc: add `font-display` to any element. Italic variant is available via the standard `italic` utility.
+
 ### Typography Guidance
 
 Typography sizing is now centralized through eight role-based utility classes in `app/globals.css`.

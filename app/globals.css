@@ -125,18 +125,18 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased font-sans;
   }
 }
 
 @layer utilities {
   /* Typography system: six role-based utilities */
   .type-display {
-    @apply text-4xl sm:text-5xl leading-tight tracking-tight;
+    @apply text-4xl sm:text-5xl leading-tight tracking-tight font-display;
   }
 
   .type-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight;
+    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight font-display;
   }
 
   .type-title {
