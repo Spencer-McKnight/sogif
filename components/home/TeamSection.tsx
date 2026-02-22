@@ -81,7 +81,7 @@ export function TeamSection() {
           <div className="max-w-3xl">
             <SectionHeader
               align="left"
-              eyebrow="Meet the Team"
+              eyebrow="Team"
               title="Board of Directors"
               description="Supported by a team of passionate and intelligent analysts."
             />
@@ -92,21 +92,23 @@ export function TeamSection() {
             variant="text"
             className="hidden md:inline-flex shrink-0"
           >
-            Our strategies
+            Our Strategy
           </AppLink>
         </div>
 
-        {/* Team Grid — 1 col mobile, 3 col tablet+ */}
-        <div className="grid gap-8 sm:grid-cols-3">
+        {/* Team Grid — 1 col mobile, 12-col grid desktop */}
+        <div className="grid gap-8 sm:grid-cols-12">
           {directors.map((director) => (
-            <DirectorCard key={director.id} director={director} />
+            <div key={director.id} className="sm:col-span-4">
+              <DirectorCard director={director} />
+            </div>
           ))}
         </div>
 
         {/* Mobile page link */}
         <div className="mt-10 text-center md:hidden">
           <AppLink href="/strategy" showArrow variant="text">
-            Our strategies
+            Our Strategy
           </AppLink>
         </div>
       </Container>

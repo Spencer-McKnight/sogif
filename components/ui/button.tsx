@@ -15,6 +15,7 @@ const buttonVariants = cva(
         navy: 'bg-sogif-navy text-white hover:brightness-125 hover:bg-sogif-navy-light',
         outline:
           'border-2 border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/5',
+        cyan: 'bg-sogif-cyan-light text-gray-900 hover:brightness-110 hover:cta-glow-cyan active:bg-sogif-cyan-light/90',
         ghost: 'bg-transparent text-sogif-cyan-dark hover:text-gray-900',
       },
       size: {

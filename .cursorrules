@@ -12,6 +12,25 @@ The core stack is Next, DatoCMS, TS, Tailwind, GraphQL.
 Read the design system before implementing components ./docs/design-system.md
 Update the document if relevant changes are made
 
+## Grid System
+
+Always use a 12-column grid (`grid-cols-12`) for section-level layouts. Never use simplified shorthand grids like `grid-cols-2`, `grid-cols-3`, or `grid-cols-4`.
+
+**Why:** Fixed small-N grids couple column count to item count, preventing mixed-width slots and breaking cross-section column alignment when multiple blocks share the same container width. The 12-column system (divisible by 1, 2, 3, 4, 6) handles all standard layouts without restructuring the container.
+
+**How:** Declare `grid-cols-12` on the wrapper; assign `col-span-*` on each child.
+- 2-up → `col-span-6`
+- 3-up → `col-span-4`
+- 4-up → `col-span-3`
+- Mixed → e.g. `col-span-8` + `col-span-4`
+
+Apply responsive breakpoints on `col-span` (not on the grid container) to handle mobile stacking:
+```
+<div className="grid grid-cols-12 gap-8">
+  <div className="col-span-12 sm:col-span-6 lg:col-span-4">...</div>
+</div>
+```
+
 ## High-level Scope (Approved)
 
 Content Management System

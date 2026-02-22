@@ -17,7 +17,6 @@ const heroContent = {
         { value: '$10,000', label: 'Low Min. Investment' },
     ],
     ctaPrimary: { label: 'Join the Fund', href: '/apply' },
-    ctaSecondary: { label: 'Performance', href: '#performance' },
 }
 
 export function HeroSection() {
@@ -46,9 +45,9 @@ export function HeroSection() {
 
             {/* Content - flex-1 to fill available space, centered vertically */}
             <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-32 md:pb-12 lg:pb-20">
-                <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-4 md:gap-8 lg:gap-16 items-center">
-                    {/* Left Column - Text Content */}
-                    <div className="text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0">
+                <div className="w-full grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    {/* Left Column - Text Content (7/12) */}
+                    <div className="lg:col-span-7 text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0">
                         <h1 className="type-display text-white mb-5 md:mb-6">
                             <span className="relative inline-block">
                                 {heroContent.headlineTop}
@@ -62,7 +61,7 @@ export function HeroSection() {
                             {heroContent.subheadline}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-4 md:mb-8 lg:mb-0">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                             <ButtonLink
                                 href={heroContent.ctaPrimary.href}
                                 variant="primary"
@@ -72,21 +71,13 @@ export function HeroSection() {
                             >
                                 {heroContent.ctaPrimary.label}
                             </ButtonLink>
-                            <ButtonLink
-                                href={heroContent.ctaSecondary.href}
-                                variant="outline"
-                                size="lg"
-                            >
-                                {heroContent.ctaSecondary.label}
-                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </ButtonLink>
                         </div>
                     </div>
 
-                    {/* Right Column - Stats Display */}
-                    <HeroStats stats={heroContent.stats} />
+                    {/* Right Column - Stats Display (5/12) */}
+                    <div className="lg:col-span-4 lg:col-start-9">
+                        <HeroStats stats={heroContent.stats} />
+                    </div>
                 </div>
             </Container>
 

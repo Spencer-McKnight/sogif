@@ -11,9 +11,9 @@ export function PropertyGrid({
   onPropertyClick,
 }: PropertyGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-12 gap-8">
       {properties.map((property) => (
-        <div key={property.id} className="h-full">
+        <div key={property.id} className="h-full sm:col-span-6 lg:col-span-4">
           <PropertyCard
             property={property}
             onClick={onPropertyClick ? () => onPropertyClick(property) : undefined}

@@ -51,7 +51,6 @@
     /* Extended SOGIF brand colors */
     --sogif-navy: 210 73% 15%;
     --sogif-navy-light: 211 52% 25%;
-    --sogif-steel: 208 44% 87%;
     --sogif-cyan-light: 189 100% 65%;
     --sogif-cyan-dark: 189 100% 22%;
     --sogif-gold: 41 98% 65%;
@@ -174,7 +173,7 @@
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-14;
+    @apply max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 xl:px-20;
   }
 
   .section-padding {

@@ -102,24 +102,6 @@ export function Footer() {
                 Phone hours: 10am–4pm Melbourne time, business days
               </li>
             </ul>
-
-            {/* Investor Portal CTA */}
-            <AppLink
-              href={constants.portalUrl}
-              external
-              variant="portal"
-              className="mt-4 focus-ring-inverse"
-            >
-              <div className="w-6 h-6 bg-sogif-success/20 rounded flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 text-sogif-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <span className="text-sogif-success type-support font-medium block">Existing Investor?</span>
-                <span className="text-white/80 type-support">Login to Portal →</span>
-              </div>
-            </AppLink>
           </div>
         </div>
       </Container>

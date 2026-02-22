@@ -104,18 +104,14 @@ export function PropertyShowcase() {
 
   return (
     <section className="section-padding bg-sogif-silver relative overflow-hidden">
-      {/* Subtle background decorations */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-sogif-steel/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-sogif-cyan-dark/5 rounded-full blur-3xl" />
-
       <Container className="relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-3xl">
             <SectionHeader
               align="left"
-              eyebrow="Property Showcase"
-              title="Our Property Investments"
+              eyebrow="Properties"
+              title="Asset Showcase"
               description="Using our experience to build a portfolio with high potential upside and minimal costs."
             />
           </div>

@@ -105,43 +105,6 @@ Interior layouts use a **conceptual 12-column grid** implemented with Tailwind's
 
 Use these named patterns. They keep the vertical split-point consistent across sections so that left/right edges align as the user scrolls.
 
-**1. Asymmetric Two-Column (5 / 7)**
-
-The primary split for content + supporting element layouts. The narrower column holds text/stats; the wider column holds charts, forms, or card groups.
-
-```
-grid lg:grid-cols-12 gap-8 lg:gap-12
-├── lg:col-span-5   (text / stats / CTAs)
-└── lg:col-span-7   (chart / form / cards)
-```
-
-Used by: ValueCarousel, PerformanceSnapshot, RegisterInterestCTA.
-
-**2. Equal Two-Column (6 / 6)**
-
-For layouts where both sides carry equal visual weight.
-
-```
-grid lg:grid-cols-2 gap-8 lg:gap-16
-├── col 1   (content block)
-└── col 2   (content block)
-```
-
-Used by: HeroSection (text + stats).
-
-**3. Three-Column Equal**
-
-For card rows and team grids.
-
-```
-grid md:grid-cols-3 gap-8
-├── col 1
-├── col 2
-└── col 3
-```
-
-Used by: PropertyGrid, TeamSection, HowItWorks.
-
 **4. Footer Grid**
 
 Brand-heavy left column with two narrow right columns.

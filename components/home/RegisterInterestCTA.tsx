@@ -82,12 +82,6 @@ export function RegisterInterestCTA() {
 
   return (
     <section id="register" className="section-padding bg-sogif-navy relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(0,217,255,0.1),transparent_50%)]" />
-        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(245,185,66,0.1),transparent_50%)]" />
-      </div>
-
       <Container className="relative">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column - Content */}

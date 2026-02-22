@@ -85,7 +85,6 @@ const config: Config = {
         sogif: {
           navy: 'hsl(var(--sogif-navy))',
           'navy-light': 'hsl(var(--sogif-navy-light))',
-          steel: 'hsl(var(--sogif-steel))',
           'cyan-light': 'hsl(var(--sogif-cyan-light))',
           'cyan-dark': 'hsl(var(--sogif-cyan-dark))',
           gold: 'hsl(var(--sogif-gold))',
