@@ -25,7 +25,7 @@ export function HeroSection() {
     const { scrollY } = useScroll()
     const backgroundY = useTransform(
         scrollY,
-        [0, 600],
+        [0, 800],
         shouldReduceMotion ? [0, 0] : [0, 90]
     )
 
