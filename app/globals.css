@@ -130,7 +130,9 @@
 }
 
 @layer utilities {
-  /* Typography system: six role-based utilities */
+  /* Typography system: eight role-based utilities.
+     Sizes defined via custom tailwind fontSize tokens (tailwind.config.ts).
+     To bump the scale, update the token values there — not individual components. */
   .type-display {
     @apply text-4xl sm:text-5xl leading-tight tracking-tight font-display;
   }
@@ -148,19 +150,19 @@
   }
 
   .type-body {
-    @apply text-base sm:text-lg leading-relaxed;
+    @apply text-lg sm:text-xl leading-relaxed;
   }
 
   .type-support {
-    @apply text-sm sm:text-base leading-relaxed;
+    @apply text-base sm:text-lg leading-relaxed;
   }
 
   .type-caption {
-    @apply text-xs sm:text-sm leading-relaxed;
+    @apply text-sm sm:text-base leading-relaxed;
   }
 
   .type-overline {
-    @apply text-xs sm:text-sm font-semibold uppercase tracking-[0.08em] leading-none;
+    @apply text-sm sm:text-base font-semibold uppercase tracking-[0.08em] leading-none;
   }
 
   /* Focus states for accessibility */
@@ -181,7 +183,7 @@
   }
 
   .section-eyebrow {
-    @apply type-overline text-base sm:text-lg mb-3 block;
+    @apply type-overline text-lg sm:text-xl mb-3 block;
   }
 
   .section-title {

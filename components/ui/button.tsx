@@ -21,7 +21,7 @@ const buttonVariants = cva(
       size: {
         sm: 'min-h-10 px-4 py-2 type-support rounded-md',
         md: 'min-h-11 px-6 py-3 type-support rounded-md',
-        lg: 'min-h-12 px-8 py-4 type-body rounded-md',
+        lg: 'min-h-12 px-8 py-4 type-support rounded-md',
       },
       glow: {
         none: '',

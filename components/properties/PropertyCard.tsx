@@ -77,7 +77,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         <div className="min-w-0">
           {/* Price + valuation */}
           <div className="flex flex-col xl:flex-row xl:items-baseline xl:gap-2 mb-2">
-            <span className="relative w-fit type-title font-bold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
+            <span className="relative w-fit type-title font-semibold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
               {property.purchasePrice}
             </span>
             <span className="type-caption">
@@ -86,7 +86,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           </div>
 
           {/* Address + headline */}
-          <h3 className="type-body font-bold text-sogif-navy leading-snug mb-0.5">
+          <h3 className="type-body font-semibold text-sogif-navy leading-snug mb-0.5">
             {street}
             {locality && <><br />{locality}</>}
           </h3>

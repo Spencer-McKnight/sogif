@@ -37,7 +37,7 @@ function LargeCell({ label, value, sub, valueClass }: { label: string; value: st
   return (
     <div className="bg-white p-3.5">
       <span className="type-caption text-text-muted block mb-0.5">{label}</span>
-      <span className={`text-base sm:text-lg font-bold tabular-nums ${valueClass ?? 'text-sogif-navy'}`}>{value}</span>
+      <span className={`text-base sm:text-lg font-semibold tabular-nums ${valueClass ?? 'text-sogif-navy'}`}>{value}</span>
       {sub && <span className="type-caption text-text-muted block mt-0.5">{sub}</span>}
     </div>
   )
@@ -136,7 +136,7 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
         {/* ── Address & Description ── */}
         <div className="px-5 sm:px-6 pt-5 pb-4 border-b border-border-soft">
           <DialogHeader className="text-left">
-            <DialogTitle className="type-title font-bold text-sogif-navy leading-snug">
+            <DialogTitle className="type-title font-semibold text-sogif-navy leading-snug">
               {street}
               {locality && <><br /><span className="type-body font-semibold text-text-body">{locality}</span></>}
             </DialogTitle>

@@ -13,7 +13,7 @@ function StatItem({ stat }: { stat: Stat }) {
       {/* Content */}
       <div className="relative px-3 md:px-4 lg:px-5 py-1.5 md:py-4 lg:py-5 text-center">
         {/* Value */}
-        <p className="type-display font-bold tracking-tight text-white">
+        <p className="type-display font-semibold tracking-tight text-white">
           {stat.value}
         </p>
 

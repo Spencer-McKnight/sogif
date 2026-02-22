@@ -39,14 +39,16 @@ To use the display font ad-hoc: add `font-display` to any element. Italic varian
 Typography sizing is now centralized through eight role-based utility classes in `app/globals.css`.
 Use these classes instead of repeating inline responsive `text-*` chains in each component.
 
-- `type-display`: hero headlines and primary numeric moments (`text-4xl sm:text-5xl lg:text-6xl`)
-- `type-heading`: section-level headings and strong stat headings (`text-3xl sm:text-4xl lg:text-5xl`)
-- `type-title`: card titles, logo wordmarks, and compact emphasis (`text-xl sm:text-2xl`)
-- `type-metric`: KPI values and data-heavy highlights (`text-2xl sm:text-3xl lg:text-4xl`, tabular)
-- `type-body`: primary paragraph copy and larger CTA support text (`text-base sm:text-lg`)
-- `type-support`: secondary body text, controls, and dense UI copy (`text-sm sm:text-base`)
-- `type-caption`: legal notes, tooltips, and microcopy (`text-xs sm:text-sm`)
-- `type-overline`: eyebrow/meta labels in uppercase with tracking (`text-xs sm:text-sm`)
+- `type-display`: hero headlines and primary numeric moments (`text-4xl sm:text-5xl` → 38px / 44px)
+- `type-heading`: section-level headings and strong stat headings (`text-3xl sm:text-4xl lg:text-5xl` → 32 / 38 / 44px)
+- `type-title`: card titles, logo wordmarks, and compact emphasis (`text-xl sm:text-2xl` → 22px / 26px)
+- `type-metric`: KPI values and data-heavy highlights (`text-2xl sm:text-3xl lg:text-4xl`, tabular → 26 / 32 / 38px)
+- `type-body`: primary paragraph copy and larger CTA support text (`text-lg sm:text-xl` → 18px / 22px)
+- `type-support`: secondary body text, controls, and dense UI copy (`text-base sm:text-lg` → 16px / 18px)
+- `type-caption`: legal notes, tooltips, and microcopy (`text-sm sm:text-base` → 14px / 16px)
+- `type-overline`: eyebrow/meta labels in uppercase with tracking (`text-sm sm:text-base` → 14px / 16px)
+
+The scale overrides `xl`–`5xl` in `tailwind.config.ts → theme.extend.fontSize`. **To increment the scale, update those token values — not individual components.**
 
 Button and badge sizes remain variant-driven in `components/ui/button.tsx` and `components/ui/badge.tsx`, but now consume these role classes so sizing logic still lives in one typography system.
 

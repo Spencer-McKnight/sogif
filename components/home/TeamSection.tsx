@@ -59,7 +59,7 @@ function DirectorCard({ director }: { director: Director }) {
 
         <div className="min-w-0 flex flex-col justify-center sm:justify-start">
           <h3 className="mb-1 text-left type-title text-gray-900">{director.name}</h3>
-          <p className="mb-1 text-left type-overline font-bold tracking-[0.12em] text-sogif-cyan-dark">
+          <p className="mb-1 text-left type-overline font-semibold tracking-[0.12em] text-sogif-cyan-dark">
             {director.role}
           </p>
           <p className="text-left text-gray-600 type-support">{director.credentials}</p>
