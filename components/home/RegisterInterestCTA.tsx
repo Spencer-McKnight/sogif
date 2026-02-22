@@ -87,7 +87,7 @@ export function RegisterInterestCTA() {
           {/* Left Column - Content */}
           <div className="lg:col-span-5">
             <SectionHeader
-              eyebrow="Contact"
+              eyebrow="Connect"
               title={ctaContent.headline}
               align="left"
               dark={true}
