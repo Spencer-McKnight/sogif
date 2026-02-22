@@ -101,11 +101,11 @@ export function RegisterInterestCTA() {
             />
             <div className="grid grid-cols-2 gap-4 mt-8 mb-8">
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 type-support mb-1">Minimum Investment</p>
+                <p className="text-white/90 type-support mb-1">Min. Investment</p>
                 <p className="type-title font-bold text-white tabular-nums">{ctaContent.minInvestment}</p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 type-support mb-1">Additional Investment</p>
+                <p className="text-white/90 type-support mb-1">Min. Reinvestment</p>
                 <p className="type-title font-bold text-white tabular-nums">{ctaContent.additionalInvestment}</p>
               </div>
             </div>

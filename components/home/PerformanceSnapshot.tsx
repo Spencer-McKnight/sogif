@@ -299,7 +299,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             More Charts
           </AppLink>
         </div>
-        <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
+        <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] max-h-[50vh] w-full">
           <ResponsiveContainer>
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
