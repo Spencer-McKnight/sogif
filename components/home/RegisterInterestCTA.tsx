@@ -8,7 +8,7 @@ import { Slider } from '@/components/ui/slider'
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
-  headline: 'Connect With Us',
+  headline: 'Want to talk about your investment?',
   minInvestment: '$10,000',
   additionalInvestment: '$1,000',
 }
@@ -87,7 +87,7 @@ export function RegisterInterestCTA() {
           {/* Left Column - Content */}
           <div className="lg:col-span-5">
             <SectionHeader
-              eyebrow="Want to talk about your investment?"
+              eyebrow="Contact"
               title={ctaContent.headline}
               align="left"
               dark={true}
@@ -196,6 +196,7 @@ export function RegisterInterestCTA() {
                     disabled={isSubmitting}
                     variant="primary"
                     size="lg"
+                    fullWidth="sm"
                   >
                     {isSubmitting ? 'Sending...' : 'Submit'}
                   </Button>
