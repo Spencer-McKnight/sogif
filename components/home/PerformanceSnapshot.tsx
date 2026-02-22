@@ -10,6 +10,11 @@ interface PerformanceSnapshotProps {
   performanceData: PerformanceDataRow[]
 }
 
+interface ChartAnnotation {
+  text: string
+  color: string
+}
+
 interface ChartDataPoint {
   month: string
   issuePrice: number
@@ -17,6 +22,7 @@ interface ChartDataPoint {
   cumulativeReturn: number
   distribution: number
   cumulativeDistribution: number
+  annotation?: ChartAnnotation
 }
 
 interface PerformanceStats {
@@ -66,7 +72,7 @@ function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
  * Calculate summary statistics from the performance data
  *
  * Capital Growth = price-only return (no distributions)
- * Distributions  = income yield as % of starting price
+ * Distributions  = raw dollar totals
  * Cumulative     = total return (growth + distributions)
  */
 function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
@@ -92,8 +98,8 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
 
   // Since Inception
   const capitalGrowthInception = ((latest.issuePrice - inception.issuePrice) / inception.issuePrice) * 100
-  const distributionsInception = (totalDistributions / inception.issuePrice) * 100
-  const cumulativeInception = capitalGrowthInception + distributionsInception
+  const distributionsInception = totalDistributions
+  const cumulativeInception = ((latest.issuePrice + totalDistributions - inception.issuePrice) / inception.issuePrice) * 100
 
   // Trailing 12-month (data is newest first)
   const trailing12 = data.slice(0, Math.min(12, data.length))
@@ -101,8 +107,8 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   const trailing12Distributions = trailing12.reduce((sum, item) => sum + item.distribution, 0)
 
   const capitalGrowthPrevYear = ((latest.issuePrice - startPoint.issuePrice) / startPoint.issuePrice) * 100
-  const distributionsPrevYear = (trailing12Distributions / startPoint.issuePrice) * 100
-  const cumulativePrevYear = capitalGrowthPrevYear + distributionsPrevYear
+  const distributionsPrevYear = trailing12Distributions
+  const cumulativePrevYear = ((latest.issuePrice + trailing12Distributions - startPoint.issuePrice) / startPoint.issuePrice) * 100
 
   return {
     latestRedemption: latest.redemptionPrice,
@@ -168,6 +174,11 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
           )
         })}
       </div>
+      {data.annotation && (
+        <p className="mt-2 pt-2 border-t border-white/15 type-caption text-white/80 max-w-[220px]" style={{ borderColor: `${data.annotation.color}40` }}>
+          {data.annotation.text}
+        </p>
+      )}
     </div>
   )
 }
@@ -176,41 +187,15 @@ interface ChartIndicatorProps {
   cx?: number
   cy?: number
   color: string
-  onHover?: (position: { x: number; y: number } | null) => void
 }
 
-function ChartIndicator({ cx, cy, color, onHover }: ChartIndicatorProps) {
+function ChartIndicator({ cx, cy, color }: ChartIndicatorProps) {
   if (cx === undefined || cy === undefined) return null
 
   return (
-    <g
-      className="cursor-pointer"
-      onMouseEnter={(e) => {
-        const svg = (e.target as SVGElement).ownerSVGElement
-        if (svg && onHover) {
-          const rect = svg.getBoundingClientRect()
-          onHover({ x: rect.left + cx, y: rect.top + cy })
-        }
-      }}
-      onMouseLeave={() => onHover?.(null)}
-    >
-      {/* Outer ring */}
-      <circle
-        cx={cx}
-        cy={cy}
-        r={7}
-        fill={color}
-        stroke="white"
-        strokeWidth={2}
-      />
-      {/* Inner dot */}
-      <circle
-        cx={cx}
-        cy={cy}
-        r={2.5}
-        fill="white"
-        className="pointer-events-none"
-      />
+    <g>
+      <circle cx={cx} cy={cy} r={7} fill={color} stroke="white" strokeWidth={2} />
+      <circle cx={cx} cy={cy} r={2.5} fill="white" />
     </g>
   )
 }
@@ -248,25 +233,28 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
     return { yDomain: [domainMin, domainMax] as [number, number], yTicks: ticks }
   }, [chartData])
 
-  // Find first data point with redemption price (start of the redemption line)
-  const firstRedemptionPoint = useMemo(() => {
-    return chartData.find(d => d.redemptionPrice !== undefined)
+  // Annotate special data points with descriptions shown in the chart tooltip
+  const annotatedData = useMemo(() => {
+    const firstRedemptionMonth = chartData.find(d => d.redemptionPrice !== undefined)?.month
+
+    return chartData.map(d => {
+      if (d.month === firstRedemptionMonth) {
+        return { ...d, annotation: { text: 'No property was acquired until the minimum subscription was achieved. Accordingly, there was no redemption price prior to December 2023.', color: 'hsl(41, 90%, 61%)' } }
+      }
+      if (d.month === 'May-24') {
+        return { ...d, annotation: { text: 'First quarterly distribution began here', color: 'hsl(160, 84%, 39%)' } }
+      }
+      if (d.month === 'Dec-24') {
+        return { ...d, annotation: { text: 'Aggressive property acquisition began', color: 'hsl(189, 100%, 65%)' } }
+      }
+      return d
+    })
   }, [chartData])
 
-  // Find May 2024 - first quarterly distribution
-  const firstDistributionPoint = useMemo(() => {
-    return chartData.find(d => d.month === 'May-24')
-  }, [chartData])
-
-  // Find Dec 2024 - aggressive property acquisition
-  const acquisitionPoint = useMemo(() => {
-    return chartData.find(d => d.month === 'Dec-24')
-  }, [chartData])
-
-  // State for indicator tooltips
-  const [redemptionTooltip, setRedemptionTooltip] = useState<{ x: number; y: number } | null>(null)
-  const [distributionTooltip, setDistributionTooltip] = useState<{ x: number; y: number } | null>(null)
-  const [acquisitionTooltip, setAcquisitionTooltip] = useState<{ x: number; y: number } | null>(null)
+  // Special points for indicator dots
+  const firstRedemptionPoint = annotatedData.find(d => d.redemptionPrice !== undefined)
+  const firstDistributionPoint = annotatedData.find(d => d.month === 'May-24')
+  const acquisitionPoint = annotatedData.find(d => d.month === 'Dec-24')
 
   // Don't render if no data
   if (!performanceData.length) {
@@ -283,7 +271,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               dark
               align="left"
               eyebrow="Performance"
-              title="Price & Distribution History"
+              title="Price & Distributions"
             />
           </div>
           <AppLink
@@ -299,9 +287,23 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
           {/* Chart — always first visually */}
           <div className="col-span-12 lg:col-span-9">
+            <div className="mb-3 flex items-center gap-4 type-caption text-white/70">
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-cyan-light" />
+                Issue Price
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-gold" />
+                Redemption
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-success" />
+                Cumulative
+              </span>
+            </div>
             <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] max-h-[50vh] w-full">
               <ResponsiveContainer>
-                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <AreaChart data={annotatedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
@@ -368,7 +370,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <ReferenceDot
                       x={firstRedemptionPoint.month}
                       y={firstRedemptionPoint.redemptionPrice}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" onHover={setRedemptionTooltip} />}
+                      shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" />}
                     />
                   )}
                   {/* Indicator dot at first distribution on cumulative return line */}
@@ -376,7 +378,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <ReferenceDot
                       x={firstDistributionPoint.month}
                       y={firstDistributionPoint.cumulativeReturn}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" onHover={setDistributionTooltip} />}
+                      shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" />}
                     />
                   )}
                   {/* Indicator dot at Dec 2024 - aggressive acquisition on issue price line */}
@@ -384,7 +386,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <ReferenceDot
                       x={acquisitionPoint.month}
                       y={acquisitionPoint.issuePrice}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(189, 100%, 65%)" onHover={setAcquisitionTooltip} />}
+                      shape={(props) => <ChartIndicator {...props} color="hsl(189, 100%, 65%)" />}
                     />
                   )}
                 </AreaChart>
@@ -393,66 +395,69 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </div>
 
           {/* Stats Sidebar — right on desktop, below chart on mobile */}
-          <div className="col-span-12 lg:col-span-3">
+          <div className="col-span-12 lg:col-span-3 border-y border-white/15 py-5 lg:border-y-0 lg:py-0">
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-x-8">
-              {/* Current Prices */}
-              <div className="pb-5">
+              {/* Current Prices — mobile row 1 left, desktop item 1 */}
+              <div className="pb-5 lg:pt-5 lg:py-5">
                 <p className="type-overline text-white/70 mb-2">Current Prices</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Issue</span>
-                    <span className="type-support font-semibold tabular-nums text-white">${stats.latestIssue.toFixed(4)}</span>
+                    <span className="type-caption text-white">Issue</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-cyan-light">${stats.latestIssue.toFixed(4)}</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Redemption</span>
-                    <span className="type-support font-semibold tabular-nums text-white">
+                    <span className="type-caption text-white">Redemption</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-gold">
                       {(stats.latestRedemption !== null && stats.latestRedemption !== 0) ? `$${stats.latestRedemption.toFixed(4)}` : 'N/A'}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Capital Growth */}
+              {/* Cumulative — mobile row 1 right, desktop item 2 */}
               <div className="pb-5 lg:border-t lg:border-white/15 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Capital Growth</p>
-                <div className="space-y-1">
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Inception</span>
-                    <span className="type-support font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(1)}%</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Prev. Year</span>
-                    <span className="type-support font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(1)}%</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Distributions */}
-              <div className="border-t border-white/15 pt-5 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Distributions</p>
-                <div className="space-y-1">
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Inception</span>
-                    <span className="type-support font-semibold tabular-nums text-white">{stats.distributionsInception.toFixed(1)}%</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Prev. Year</span>
-                    <span className="type-support font-semibold tabular-nums text-white">{stats.distributionsPrevYear.toFixed(1)}%</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Cumulative */}
-              <div className="border-t border-white/15 pt-5">
                 <p className="type-overline text-white/70 mb-2">Cumulative</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Inception</span>
-                    <span className="type-support font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(1)}%</span>
+                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(1)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white/80">Prev. Year</span>
-                    <span className="type-support font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(1)}%</span>
+                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(1)}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Full-width mobile divider between rows */}
+              <hr className="col-span-2 lg:hidden border-white/15" />
+
+              {/* Distributions — mobile row 2 left, desktop item 3 */}
+              <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
+                <p className="type-overline text-white/70 mb-2">Distributions</p>
+                <div className="space-y-1">
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Capital Growth — mobile row 2 right, desktop item 4 */}
+              <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
+                <p className="type-overline text-white/70 mb-2">Capital Growth</p>
+                <div className="space-y-1">
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(1)}%</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(1)}%</span>
                   </div>
                 </div>
               </div>
@@ -468,42 +473,6 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
         </DisclaimerText>
       </Container>
 
-      {/* Redemption start tooltip - rendered outside chart for proper z-index */}
-      {redemptionTooltip && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{ left: redemptionTooltip.x - 10, top: redemptionTooltip.y - 90 }}
-        >
-          <div className="border border-sogif-gold/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[220px]">
-            No property was acquired until the minimum subscription was achieved.
-            Accordingly, there was no redemption price prior to December 2023.
-          </div>
-        </div>
-      )}
-
-      {/* First distribution tooltip */}
-      {distributionTooltip && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{ left: distributionTooltip.x - 10, top: distributionTooltip.y - 55 }}
-        >
-          <div className="border border-sogif-success/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
-            First quarterly distribution began here
-          </div>
-        </div>
-      )}
-
-      {/* Aggressive acquisition tooltip */}
-      {acquisitionTooltip && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{ left: acquisitionTooltip.x - 10, top: acquisitionTooltip.y - 55 }}
-        >
-          <div className="border border-sogif-cyan-light/40 bg-sogif-navy-light rounded-lg px-3 py-2 type-caption text-white shadow-2xl max-w-[200px]">
-            Aggressive property acquisition began
-          </div>
-        </div>
-      )}
     </section>
   )
 }
