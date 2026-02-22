@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Montserrat } from 'next/font/google'
+import { Inter, Merriweather } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getConstants, ConstantsProvider } from '@/lib'
@@ -13,10 +13,11 @@ const inter = Inter({
   display: 'swap',
 })
 
-// Display/heading font: geometric, confident — strong at large scales
-const montserrat = Montserrat({
+// Display/heading font: refined slab serif — warm authority, strong at scale
+const merriweather = Merriweather({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800', '900'],
+  weight: ['300', '400', '700', '900'],
+  style: ['normal', 'italic'],
   variable: '--font-display',
   display: 'swap',
 })
@@ -48,7 +49,7 @@ export default async function RootLayout({
   const constants = await getConstants()
 
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <body>
         <ConstantsProvider constants={constants}>
           {children}

@@ -28,7 +28,7 @@ Two fonts, loaded via `next/font/google` as CSS variable pairs, self-hosted at b
 | Role | Font | Variable | Tailwind class | Weights |
 |------|------|----------|---------------|---------|
 | Body / UI / metrics | Inter | `--font-sans` | `font-sans` | 300–700 |
-| Display / headings | Montserrat | `--font-display` | `font-display` | 500–900 |
+| Display / headings | Merriweather | `--font-display` | `font-display` | 300–900 (+ italic) |
 
 Both variables are applied once on `<html>` in `app/layout.tsx`. `font-sans` is set globally on `body`. `font-display` is composed into `type-display` and `type-heading` in `globals.css`.
 
