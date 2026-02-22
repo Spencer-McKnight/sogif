@@ -16,7 +16,7 @@ const footerLinks = {
   legal: [
     { label: 'Disclosures', href: '/disclosures' },
     { label: 'Privacy Policy', href: '/disclosures#privacy' },
-    { label: 'Target Market Determination', href: '/disclosures#tmd' },
+    { label: 'Terms and Conditions', href: '/disclosures#tmd' },
   ],
 }
 
@@ -64,7 +64,9 @@ export function Footer() {
                     variant="nav"
                     className="type-support focus-visible:underline underline-offset-4"
                   >
-                    {link.label}
+                    <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                      {link.label}
+                    </span>
                   </AppLink>
                 </li>
               ))}
@@ -83,7 +85,9 @@ export function Footer() {
                   external
                   variant="nav"
                 >
-                  {constants.contactEmail}
+                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                    {constants.contactEmail}
+                  </span>
                 </AppLink>
               </li>
               <li>
@@ -92,7 +96,9 @@ export function Footer() {
                   external
                   variant="nav"
                 >
-                  {constants.contactPhone}
+                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                    {constants.contactPhone}
+                  </span>
                 </AppLink>
               </li>
               <li className="text-white/80">
@@ -117,7 +123,7 @@ export function Footer() {
           </DisclaimerText>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 type-support text-white/75">
             <p>© {new Date().getFullYear()} {constants.responsibleEntity}. All rights reserved.</p>
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               {footerLinks.legal.map((link) => (
                 <AppLink
                   key={link.href}
@@ -125,7 +131,9 @@ export function Footer() {
                   variant="nav"
                   className="focus-visible:underline underline-offset-4"
                 >
-                  {link.label}
+                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                    {link.label}
+                  </span>
                 </AppLink>
               ))}
             </div>

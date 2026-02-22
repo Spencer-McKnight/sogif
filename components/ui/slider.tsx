@@ -33,7 +33,7 @@ const Slider = React.forwardRef<
           className="relative block h-4 w-4 rounded-full border-2 border-sogif-gold bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-900/20 disabled:pointer-events-none disabled:opacity-50"
         >
           {labels?.[i] && (
-            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-sogif-gold text-gray-900 font-semibold text-xs tabular-nums px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap pointer-events-none">
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-sogif-gold text-gray-900 text-sm tabular-nums px-2 py-1 rounded-full shadow-sm whitespace-nowrap pointer-events-none">
               {labels[i]}
             </span>
           )}

@@ -56,7 +56,9 @@ export function Header() {
                 variant="nav-expanded"
                 className="type-body focus-visible:underline underline-offset-4"
               >
-                {item.label}
+                <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                  {item.label}
+                </span>
               </AppLink>
             ))}
           </nav>

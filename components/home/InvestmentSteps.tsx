@@ -16,7 +16,7 @@ const steps: Step[] = [
     {
         number: '2',
         title: 'Register',
-        description: 'Complete the online application form and identification check.',
+        description: 'Apply online with an identification check.',
     },
     {
         number: '3',
