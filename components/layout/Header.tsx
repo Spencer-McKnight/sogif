@@ -23,8 +23,8 @@ export function Header() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <filter id="logo-outline" x="-10%" y="-10%" width="120%" height="120%">
-            <feMorphology in="SourceAlpha" operator="dilate" radius="0.2" result="expanded" />
-            <feFlood floodColor="white" floodOpacity="0.5" result="color" />
+            <feMorphology in="SourceAlpha" operator="dilate" radius="0.3" result="expanded" />
+            <feFlood floodColor="white" floodOpacity="0.6" result="color" />
             <feComposite in="color" in2="expanded" operator="in" result="outline" />
             <feComposite in="SourceGraphic" in2="outline" operator="over" />
           </filter>

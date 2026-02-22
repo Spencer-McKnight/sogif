@@ -51,7 +51,7 @@ export function InvestmentSteps() {
                 <div className="relative">
                     <div className="grid gap-8 lg:grid-cols-3 max-w-sm mx-auto lg:max-w-none lg:mx-0 justify-items-center lg:justify-items-start">
                         {steps.map((step) => (
-                            <div key={step.number} className="relative flex flex-col items-center lg:items-start">
+                            <div key={step.number} className="relative flex flex-col items-center lg:items-start w-full">
                                 <div className="group flex items-start gap-3 sm:gap-4 w-full">
                                     <span
                                         className="shrink-0 font-black leading-[0.85] text-sogif-navy-light/25 group-hover:text-sogif-navy-light/90 text-[6rem] sm:text-[8rem] lg:text-[9rem] select-none tracking-tighter transition-colors duration-300 ease-standard"
