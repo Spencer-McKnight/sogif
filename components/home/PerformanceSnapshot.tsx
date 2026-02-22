@@ -432,23 +432,8 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
               {/* Full-width mobile divider between rows */}
               <hr className="col-span-2 lg:hidden border-white/15" />
 
-              {/* Distributions — mobile row 2 left, desktop item 3 */}
-              <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Distributions</p>
-                <div className="space-y-1">
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Prev. Year</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Capital Growth — mobile row 2 right, desktop item 4 */}
-              <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
+              <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
                 <p className="type-overline text-white/70 mb-2">Capital Growth</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
@@ -458,6 +443,21 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Prev. Year</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(1)}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Distributions — mobile row 2 left, desktop item 3 */}
+              <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
+                <p className="type-overline text-white/70 mb-2">Distributions</p>
+                <div className="space-y-1">
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
                   </div>
                 </div>
               </div>
