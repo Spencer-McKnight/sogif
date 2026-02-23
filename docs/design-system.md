@@ -39,8 +39,8 @@ To use the display font ad-hoc: add `font-display` to any element. Italic varian
 Typography sizing is now centralized through eight role-based utility classes in `app/globals.css`.
 Use these classes instead of repeating inline responsive `text-*` chains in each component.
 
-- `type-display`: hero headlines and primary numeric moments (`text-4xl sm:text-5xl` → 38px / 44px)
-- `type-heading`: section-level headings and strong stat headings (`text-3xl sm:text-4xl lg:text-5xl` → 32 / 38 / 44px)
+- `type-display`: hero headlines and primary numeric moments (`text-4xl lg:text-5xl xl:text-6xl` → 38 / 44 / 52px)
+- `type-heading`: section-level headings and strong stat headings (`text-3xl sm:text-4xl xl:text-5xl` → 32 / 38 / 44px)
 - `type-title`: card titles, logo wordmarks, and compact emphasis (`text-xl sm:text-2xl` → 22px / 26px)
 - `type-metric`: KPI values and data-heavy highlights (`text-2xl sm:text-3xl lg:text-4xl`, tabular → 26 / 32 / 38px)
 - `type-body`: primary paragraph copy and larger CTA support text (`text-lg sm:text-xl` → 18px / 22px)
@@ -85,7 +85,7 @@ Every section shares a single spatial framework so that content edges align vert
 All page content flows through `Container` (`components/ui/container.tsx`), which applies the `.section-container` utility:
 
 ```
-max-w-7xl (1280 px)  ·  px-4 sm:px-6 lg:px-8
+max-w-8xl (1472 px)  ·  px-4 sm:px-8 lg:px-12 xl:px-20
 ```
 
 This gives a consistent left and right content edge at every breakpoint. Never override these padding values inside a section — let the container own horizontal rhythm.
@@ -95,10 +95,14 @@ This gives a consistent left and right content edge at every breakpoint. Never o
 Vertical spacing between section backgrounds uses `.section-padding`:
 
 ```
-py-24 (96 px)  ·  md:py-28 (112 px)  ·  lg:py-32 (128 px)
+py-16 (64 px)  ·  sm:py-24 (96 px)  ·  lg:py-28 (112 px)  ·  xl:py-32 (128 px)
 ```
 
 Apply `section-padding` to the outer `<section>` element. For areas that intentionally break rhythm (footer, hero), use bespoke vertical padding but keep it proportional.
+
+### Section Eyebrow
+
+`.section-eyebrow` overrides the `type-overline` base size to `text-lg sm:text-xl` for section-level prominence. Use it on eyebrow labels within `SectionHeader` or standalone section intros — not on inline/compact overlines where `type-overline` is appropriate.
 
 Section headers sit between the section top and the content grid. Use a consistent bottom margin of **`mb-12`** for compact sections (where the header sits alongside other elements, e.g. PropertyShowcase) or **`mb-16`** for standard sections where the header stands alone above the grid.
 
@@ -161,7 +165,7 @@ Use only these gap values to keep spacing predictable:
 | `gap-12` | 48 px | Wide gap for two-column content splits on mobile/tablet                 |
 | `gap-16` | 64 px | Wide gap for two-column content splits on desktop (`lg:gap-16`)         |
 
-Avoid orphan values like `gap-9`, `gap-10`, `gap-24`, or `gap-32`. If a layout feels too tight at `gap-8`, step up to `gap-12` — do not invent intermediate values.
+Avoid orphan values like `gap-9`, `gap-10`, `gap-24`, or `gap-32`. If a layout feels too tight at `gap-8`, step up to `gap-12` — do not invent intermediate values. Smaller values (`gap-2`, `gap-3`) are acceptable for tight inline groups (icon+text, badge rows) where `gap-4` is too generous.
 
 #### Responsive Gap Pattern
 
@@ -231,7 +235,7 @@ Allowed animation contexts:
 - Keep hover transitions subtle and consistent (`duration-base`, `ease-standard`).
 - Respect reduced motion: `media-zoom-hover` and lift helpers are disabled in reduced-motion mode.
 
-Do **not** use `initial`, `animate`, `whileInView`, `variants`, or `useInView` from framer-motion for entrance animations. Use plain HTML elements instead of `motion.*` for static content.
+Do **not** use `initial`, `animate`, `whileInView`, `variants`, or `useInView` from framer-motion for entrance animations. `initial`/`animate`/`exit` are acceptable for interaction-driven state changes (menu open/close, modals) via `AnimatePresence`. Use plain HTML elements instead of `motion.*` for static content.
 
 ## Reusable UI Primitives
 
@@ -262,7 +266,7 @@ All primitives are exported from `components/ui/index.ts`.
 
 Common replacements used in homepage refactor:
 
-- `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` -> `Container`
+- `max-w-8xl mx-auto px-4 sm:px-8 lg:px-12 xl:px-20` -> `Container`
 - repeated gold CTA class strings -> `ButtonLink variant="primary" glow="gold"`
 - inline legal text classes -> `DisclaimerText`
 - repeated section intro markup -> `SectionHeader`

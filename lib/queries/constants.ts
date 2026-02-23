@@ -26,6 +26,7 @@ const CONSTANTS_QUERY = `
       onlineApplicationUrl
       portalUrl
       contactEmail
+      formSubmissionEmail
       arsn
       afsl
       responsibleEntity
@@ -46,6 +47,7 @@ const DEFAULT_CONSTANTS: SiteConstants = {
   pdsUrl: '',
   portalUrl: '',
   contactEmail: '',
+  formSubmissionEmail: '',
   arsn: '',
   afsl: '',
   responsibleEntity: '',
@@ -147,6 +149,7 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
       pdsUrl: constant.productDisclosureStatement?.url || '',
       portalUrl: constant.portalUrl || '',
       contactEmail: constant.contactEmail || '',
+      formSubmissionEmail: constant.formSubmissionEmail || 'spencer.mcknight.g@gmail.com',
       arsn: constant.arsn || '',
       afsl: constant.afsl || '',
       responsibleEntity: constant.responsibleEntity || '',

@@ -1,7 +1,7 @@
 ## Case
 
 Create an exceptional, modern digital website sales funnel and investor experience.
-See /README.md and /SOGIF_CONTEXT.md for further details.
+See /README.md for strategy and business context.
 
 ## Technology
 
@@ -58,6 +58,8 @@ Moving beyond the bounds of assumed scope is allowed when doing identifies with 
 | Recharts                          | Data visualisation (performance charts)           |
 | Swiper                            | Carousel / slider UI                              |
 | next-sitemap                      | Automatic sitemap generation                      |
+| papaparse                         | CSV parsing (performance data ingestion)          |
+| Vitest                            | Unit testing framework                            |
 | Vercel Analytics / Speed Insights | Performance monitoring and Core Web Vitals        |
 
 # Website Structure

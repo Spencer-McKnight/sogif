@@ -1,16 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { StructuredText } from 'react-datocms'
 import { AppCard, Button, ButtonLink, Container, Input, Label, SectionHeader, Slider } from '@/components/ui'
 import type { HomePageData } from '@/lib'
+import type { ApiResponse } from '@/lib/api/register-interest'
 
 interface RegisterInterestCTAProps {
   cms: HomePageData
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-// Matches +61 followed by 9 digits (with optional spaces/dashes), e.g. +61 4xx xxx xxx
 const PHONE_PATTERN = /^\+61[\s\-]?\d[\d\s\-]{7,11}\d$/
 const PHONE_PREFIX = '+61 '
 
@@ -27,17 +27,13 @@ interface FormData {
   email: string
   phone: string
   investmentRange: [number, number]
+  website: string // honeypot field
 }
 
 interface FormErrors {
   email?: string
   phone?: string
-}
-
-// TODO: Replace with actual submission endpoint
-async function submitInterest(data: FormData) {
-  console.log('Submitting interest:', data)
-  await new Promise(resolve => setTimeout(resolve, 1000))
+  submit?: string
 }
 
 export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
@@ -52,10 +48,12 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
     email: '',
     phone: PHONE_PREFIX,
     investmentRange: SLIDER_DEFAULT,
+    website: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
 
   function validate(): FormErrors {
     const next: FormErrors = {}
@@ -79,9 +77,40 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
     if (Object.keys(validationErrors).length > 0) return
 
     setIsSubmitting(true)
-    await submitInterest(formData)
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    setErrors({})
+
+    try {
+      const response = await fetch('/api/register-interest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          investmentRange: formData.investmentRange,
+          website: formData.website,
+        }),
+      })
+
+      const data: ApiResponse = await response.json()
+
+      if (data.code === 'ok') {
+        setIsSubmitted(true)
+      } else if (data.code === 'validation_error' && data.errors) {
+        const newErrors: FormErrors = {}
+        if (data.errors.email) newErrors.email = data.errors.email[0]
+        if (data.errors.phone) newErrors.phone = data.errors.phone[0]
+        if (Object.keys(newErrors).length === 0) {
+          newErrors.submit = data.message
+        }
+        setErrors(newErrors)
+      } else {
+        setErrors({ submit: data.message || 'Something went wrong. Please try again.' })
+      }
+    } catch {
+      setErrors({ submit: 'Unable to submit. Please check your connection and try again.' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -107,7 +136,21 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
               </h3>
 
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot field - hidden from users, bots will fill it */}
+                  <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                    />
+                  </div>
+
                   <div className="space-y-1.5">
                     <Label htmlFor="cta-email" className="type-support text-gray-900">
                       Email address <span className="text-gray-600">*</span>
@@ -186,6 +229,12 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
                       <span>$500k+</span>
                     </div>
                   </div>
+
+                  {errors.submit && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg" role="alert">
+                      <p className="type-support text-red-700">{errors.submit}</p>
+                    </div>
+                  )}
 
                   <Button
                     type="submit"

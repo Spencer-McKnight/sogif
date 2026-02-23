@@ -200,6 +200,7 @@ export interface ConstantsQueryData {
   onlineApplicationUrl: string
   portalUrl: string
   contactEmail: string
+  formSubmissionEmail: string
   arsn: string
   afsl: string
   responsibleEntity: string
@@ -214,6 +215,7 @@ export interface SiteConstants {
   pdsUrl: string
   portalUrl: string
   contactEmail: string
+  formSubmissionEmail: string
   arsn: string
   afsl: string
   responsibleEntity: string

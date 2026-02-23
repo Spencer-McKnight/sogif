@@ -78,12 +78,12 @@ export function TeamSection({ cms }: TeamSectionProps) {
               align="left"
               eyebrow={eyebrow}
               title={title}
-              description={description}
+              description={description ?? undefined}
             />
           </div>
           {linkLabel && (
             <AppLink
-              href="/about"
+              href="/strategy"
               showArrow
               variant="text"
               className="hidden md:inline-flex shrink-0"

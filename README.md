@@ -39,7 +39,7 @@ There are three areas of concern for an existing investor:
 
 The investor portal is being provided by a SaaS product called Titanium portal.sogif.au, so only the frontend shall be curated here.
 
-see /SOGIF_CONTEXT.md for business context
+**Fund identity:** Strategic Opportunities (Growth & Income) Fund ARSN 668 357 837. Responsible Entity: Plantation Capital Limited (AFSL 339481).
 
 ## Responsive Breakpoints
 
