@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { DatoImage } from '@/components/ui'
 import type { Property } from './types'
 import { splitAddress, formatShortDate } from './utils'
 
@@ -28,11 +28,12 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
     >
       {/* Image */}
       <div className="relative h-48 sm:h-56 rounded-t-2xl overflow-hidden [backface-visibility:hidden] isolate">
-        <Image
-          src={property.images[0]}
-          alt={property.address}
-          fill
-          className="object-cover overflow-hidden rounded-t-2xl"
+        <DatoImage
+          data={property.images[0]}
+          className="h-full w-full overflow-hidden rounded-t-2xl"
+          layout="fill"
+          objectFit="cover"
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
 
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent" />

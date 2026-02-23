@@ -1,5 +1,6 @@
-import { SRCImage } from 'react-datocms'
+import { Image as DatoReactImage } from 'react-datocms'
 import type { ResponsiveImage, FileField } from '@/lib/types/datocms'
+import type { CmsImageField } from '@/lib/types/homepage'
 
 /**
  * Thin wrapper around react-datocms SRCImage.
@@ -9,12 +10,19 @@ import type { ResponsiveImage, FileField } from '@/lib/types/datocms'
  * handled by the library.
  */
 
-type DatoImageData = ResponsiveImage | FileField | null | undefined
+type DatoImageData = ResponsiveImage | FileField | CmsImageField | null | undefined
 
 interface DatoImageProps {
   data: DatoImageData
+  containerClassName?: string
+  containerStyle?: React.CSSProperties
+  pictureClassName?: string
+  pictureStyle?: React.CSSProperties
   className?: string
   style?: React.CSSProperties
+  layout?: 'intrinsic' | 'fixed' | 'responsive' | 'fill'
+  objectFit?: React.CSSProperties['objectFit']
+  objectPosition?: React.CSSProperties['objectPosition']
   priority?: boolean
   sizes?: string
 }
@@ -41,15 +49,35 @@ function extractResponsiveImage(data: DatoImageData): ResponsiveImage | null {
   return data as ResponsiveImage
 }
 
-export function DatoImage({ data, className, style, priority, sizes }: DatoImageProps) {
+export function DatoImage({
+  data,
+  containerClassName,
+  containerStyle,
+  pictureClassName,
+  pictureStyle,
+  className,
+  style,
+  layout,
+  objectFit,
+  objectPosition,
+  priority,
+  sizes,
+}: DatoImageProps) {
   const imageData = extractResponsiveImage(data)
   if (!imageData?.src) return null
 
   return (
-    <SRCImage
+    <DatoReactImage
       data={imageData}
+      className={containerClassName}
+      style={containerStyle}
+      pictureClassName={pictureClassName}
+      pictureStyle={pictureStyle}
       imgClassName={className}
       imgStyle={style}
+      layout={layout}
+      objectFit={objectFit}
+      objectPosition={objectPosition}
       priority={priority}
       sizes={sizes}
     />

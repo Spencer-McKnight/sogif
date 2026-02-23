@@ -1,32 +1,29 @@
+import type { ReactNode } from 'react'
+import { StructuredText } from 'react-datocms'
 import { ButtonLink, Container, SectionHeader } from '@/components/ui'
+import type { HomePageData } from '@/lib'
 
-type Step = {
-    number: string
-    title: string
-    description: string
+interface InvestmentStepsProps {
+    cms: HomePageData
 }
 
-// TODO: Replace with CMS-managed content
-const steps: Step[] = [
-    {
-        number: '1',
-        title: 'Read',
-        description: 'Read the offer documents to make an informed decision.',
-    },
-    {
-        number: '2',
-        title: 'Register',
-        description: 'Apply online with an identification check.',
-    },
-    {
-        number: '3',
-        title: 'Remit',
-        description: 'Transfer funds to complete your application.',
-    },
-]
+export function InvestmentSteps({ cms }: InvestmentStepsProps) {
+    const {
+        stepsEyebrow: eyebrow,
+        stepsTitle: title,
+        stepsCtaLabel: ctaLabel,
+        stepsCtaHref: ctaHref,
+        steps: cmsSteps,
+    } = cms
 
+    const steps = cmsSteps.map((step, index) => ({
+            number: String(index + 1),
+            title: step.title,
+            description: (step.description?.value
+                ? <StructuredText data={step.description} />
+                : null) as ReactNode,
+        }))
 
-export function InvestmentSteps() {
     return (
         <section className="section-padding bg-sogif-silver relative overflow-hidden">
             {/* Faint gold radial glow anchoring the destination corner */}
@@ -42,8 +39,8 @@ export function InvestmentSteps() {
             <Container className="relative">
                 <div className="mb-12">
                     <SectionHeader
-                        eyebrow="How it works"
-                        title="Three Easy Steps to Investing"
+                        eyebrow={eyebrow}
+                        title={title}
                         align="center-to-left"
                     />
                 </div>
@@ -63,9 +60,9 @@ export function InvestmentSteps() {
                                         <h3 className="relative w-fit type-title font-bold text-sogif-navy after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
                                             {step.title}
                                         </h3>
-                                        <p className="mt-4 type-support text-gray-600 max-w-prose">
+                                        <div className="mt-4 type-support text-gray-600 max-w-prose [&_p]:m-0">
                                             {step.description}
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -76,14 +73,14 @@ export function InvestmentSteps() {
                 {/* Button right-aligned on desktop — sits at the ascending peak */}
                 <div className="mt-14 lg:mt-8 flex justify-center lg:justify-end">
                     <ButtonLink
-                        href="/apply"
+                        href={ctaHref}
                         variant="primary"
                         size="lg"
                         glow="gold"
                         fullWidth="sm"
                         className="group focus-ring"
                     >
-                        Start Your Application Here
+                        {ctaLabel}
                         <svg
                             className="w-4 h-4 transition-transform duration-base ease-standard group-hover:translate-x-0.5"
                             fill="none"

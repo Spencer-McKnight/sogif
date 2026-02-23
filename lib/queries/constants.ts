@@ -1,7 +1,13 @@
 import { cache } from 'react'
+import Papa from 'papaparse'
 import { performQuery, REVALIDATION_TIMES } from '../datocms'
 import { computePerformanceMetrics } from '../calculations/performance'
-import type { SiteConstants, ConstantsQueryResponse, PerformanceDataRow } from '../types/datocms'
+import {
+  buildKpiMaster,
+  toPerformanceDataRows,
+  createEmptyKpiMaster,
+} from '../calculations/performance-normalization'
+import type { SiteConstants, ConstantsQueryResponse, RawKpiCsvRow } from '../types/datocms'
 
 /**
  * GraphQL query for global site constants
@@ -48,48 +54,39 @@ const DEFAULT_CONSTANTS: SiteConstants = {
   postalAddress: '',
   performanceData: [],
   computedPerformance: computePerformanceMetrics([]),
+  performanceKpiData: createEmptyKpiMaster(),
 }
 
 /**
- * Parses a currency string to a number
- * Handles formats like "$1.0562" or "1.0562"
+ * Fetches and parses the performance KPI CSV file using papaparse
+ * Handles embedded JSON fields with commas safely
+ *
+ * @param url - URL to the CSV file
+ * @returns Parsed raw CSV rows
  */
-function parseCurrencyValue(value: string): number {
-  const cleaned = value.replace(/[$,\s]/g, '').trim()
-  const num = parseFloat(cleaned)
-  return isNaN(num) ? 0 : num
-}
-
-/**
- * Fetches and parses the performance CSV file
- * Expected CSV columns: Month, Issue Price, Redemption Price, NTA Per Unit, Distribution
- */
-async function fetchPerformanceData(url: string): Promise<PerformanceDataRow[]> {
+async function fetchKpiCsvData(url: string): Promise<RawKpiCsvRow[]> {
   try {
     const response = await fetch(url, { next: { revalidate: REVALIDATION_TIMES.PERFORMANCE } })
     if (!response.ok) {
       console.error('Failed to fetch performance CSV:', response.status)
       return []
     }
-    
+
     const csvText = await response.text()
-    const lines = csvText.trim().split('\n')
-    
-    if (lines.length < 2) return []
-    
-    // Skip header row, parse data rows
-    return lines.slice(1).map(line => {
-      const cols = line.split(',').map(c => c.trim())
-      return {
-        month: cols[0] || '',
-        issuePrice: parseCurrencyValue(cols[1] || '0'),
-        redemptionPrice: parseCurrencyValue(cols[2] || '0'),
-        ntaPerUnit: parseCurrencyValue(cols[3] || '0'),
-        distribution: parseCurrencyValue(cols[4] || '0'),
-      }
-    }).filter(row => row.month)
+
+    const result = Papa.parse<RawKpiCsvRow>(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transformHeader: (header) => header.trim(),
+    })
+
+    if (result.errors.length > 0 && process.env.NODE_ENV === 'development') {
+      console.warn('[KPI CSV] Parse warnings:', result.errors)
+    }
+
+    return result.data
   } catch (error) {
-    console.error('Error parsing performance CSV:', error)
+    console.error('Error fetching/parsing performance CSV:', error)
     return []
   }
 }
@@ -125,11 +122,19 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
     }
     
     const { constant } = data
-    
-    // Fetch and parse performance CSV if URL exists
-    const performanceData = constant.performanceDataAllTime?.url
-      ? await fetchPerformanceData(constant.performanceDataAllTime.url)
+
+    // Fetch and parse performance KPI CSV if URL exists
+    const rawKpiRows = constant.performanceDataAllTime?.url
+      ? await fetchKpiCsvData(constant.performanceDataAllTime.url)
       : []
+
+    // Build the master KPI data structure with all normalized breakdowns
+    const performanceKpiData = rawKpiRows.length > 0
+      ? buildKpiMaster(rawKpiRows)
+      : createEmptyKpiMaster()
+
+    // Convert to legacy PerformanceDataRow format for backward compatibility
+    const performanceData = toPerformanceDataRows(performanceKpiData.monthlySeries)
 
     // Pre-compute performance metrics server-side
     const computedPerformance = performanceData.length > 0
@@ -150,6 +155,7 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
       postalAddress: constant.postalAddress || '',
       performanceData,
       computedPerformance,
+      performanceKpiData,
     }
   } catch (error) {
     console.error('Failed to fetch site constants:', error)

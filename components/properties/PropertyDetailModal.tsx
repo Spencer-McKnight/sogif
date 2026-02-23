@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { A11y, Keyboard } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,6 +10,7 @@ import {
   DialogClose,
   DialogHeader,
   DialogTitle,
+  DatoImage,
   SwiperControls,
 } from '@/components/ui'
 import type { Property } from './types'
@@ -80,15 +80,16 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
               onSlideChange={(s) => setImgIdx(s.realIndex)}
               className="h-full"
             >
-              {property.images.map((src, i) => (
+              {property.images.map((image, i) => (
                 <SwiperSlide key={i}>
                   <div className="relative h-full">
-                    <Image
-                      src={src}
-                      alt={`${property.address} — image ${i + 1}`}
-                      fill
-                      className="object-cover"
+                    <DatoImage
+                      data={image}
+                      className="h-full w-full"
+                      layout="fill"
+                      objectFit="cover"
                       priority={i === 0}
+                      sizes="(min-width: 640px) 768px, 100vw"
                     />
                   </div>
                 </SwiperSlide>
@@ -186,31 +187,41 @@ export function PropertyDetailModal({ property, open, onOpenChange }: PropertyDe
               <LargeCell label="Land Size" value={property.landSize} />
               <LargeCell label="Building Size" value={property.buildingSize} />
               <div className="bg-white p-3.5 flex items-center">
-                <a
-                  href={property.mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="type-caption font-medium text-sogif-cyan-dark hover:text-sogif-navy transition-colors inline-flex items-center gap-1"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  View on Maps
-                </a>
+                {property.mapLink ? (
+                  <a
+                    href={property.mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="type-caption font-medium text-sogif-cyan-dark hover:text-sogif-navy transition-colors inline-flex items-center gap-1"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    View on Maps
+                  </a>
+                ) : (
+                  <span className="type-caption text-text-muted">Map link unavailable</span>
+                )}
               </div>
             </div>
             <div className="rounded-xl overflow-hidden border border-border-soft h-40 sm:h-48">
-              <iframe
-                src={property.mapEmbed}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={`Map of ${property.address}`}
-              />
+              {property.mapEmbed ? (
+                <iframe
+                  src={property.mapEmbed}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Map of ${property.address}`}
+                />
+              ) : (
+                <div className="h-full w-full grid place-items-center type-caption text-text-muted bg-white">
+                  Map embed unavailable
+                </div>
+              )}
             </div>
           </section>
         </div>

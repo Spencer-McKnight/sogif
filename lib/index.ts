@@ -11,6 +11,7 @@ export { performQuery, isPreviewMode, REVALIDATION_TIMES } from './datocms'
 
 // Query Functions
 export { getConstants } from './queries/constants'
+export { getHomePage, getProperties } from './queries/homepage'
 
 // Types
 export type {
@@ -22,7 +23,30 @@ export type {
   DatoCMSRecord,
   DatoCMSUpload,
   PerformanceDataRow,
+  // KPI Performance Types
+  MonthlyKpiRow,
+  LatestKpiSnapshot,
+  KpiTimeSeries,
+  PerformanceKpiMaster,
+  AssetAllocation,
+  EfficientAssetsAllocation,
+  EfficientAssetsByType,
+  InefficientByState,
+  InefficientByIndustry,
+  InefficientByLocation,
+  NormalizedBreakdown,
 } from './types/datocms'
+
+export type {
+  HomePageData,
+  HomePageQueryResponse,
+  HeroStatBlock,
+  TeamMemberBlock,
+  InvestmentStepBlock,
+  CmsProperty,
+  CmsImageField,
+  StructuredTextField,
+} from './types/homepage'
 
 // Media Library
 export { getAllUploads, getImageUploads, searchUploads, formatAsset, getMediaContext } from './media'
@@ -42,6 +66,15 @@ export type {
   ChartAnnotation,
   SpecialPoints,
 } from './calculations/performance'
+
+// KPI Performance Normalization
+export {
+  buildKpiMaster,
+  toPerformanceDataRows,
+  createEmptyKpiMaster,
+  parseMonthLabel,
+  parseMoneyLike,
+} from './calculations/performance-normalization'
 
 // GraphQL Fragments
 export {

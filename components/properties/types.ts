@@ -1,3 +1,5 @@
+import type { CmsImageField } from '@/lib'
+
 export interface Property {
   id: number
   address: string
@@ -20,7 +22,7 @@ export interface Property {
   waleLeaseExpiry: string
   waleIncome: string
   waleLettableArea: string
-  mapEmbed: string
-  mapLink: string
-  images: string[]
+  mapEmbed: string | null
+  mapLink: string | null
+  images: CmsImageField[]
 }

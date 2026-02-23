@@ -1,14 +1,16 @@
 'use client'
 
 import { useMemo } from 'react'
-import { AppCard, AppLink, ChartContainer, ChartTooltip, Container, DisclaimerText, SectionHeader } from '@/components/ui'
+import { AppLink, ChartContainer, ChartTooltip, Container, SectionHeader } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
+import { StructuredText } from 'react-datocms'
 import { usePerformanceSafe, computePerformanceMetrics } from '@/lib'
-import type { PerformanceDataRow, ComputedPerformanceData, ChartDataPoint, ChartAnnotation, PerformanceStats } from '@/lib'
+import type { PerformanceDataRow, ComputedPerformanceData, ChartDataPoint, HomePageData } from '@/lib'
 
 interface PerformanceSnapshotProps {
   performanceData: PerformanceDataRow[]
+  cms: HomePageData
 }
 
 const chartConfig = {
@@ -89,8 +91,15 @@ function ChartIndicator({ cx, cy, color }: ChartIndicatorProps) {
   )
 }
 
-export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
-  // Try to use context data if available, fall back to computing locally
+export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapshotProps) {
+  const {
+    performanceEyebrow,
+    performanceTitle,
+    performanceLinkLabel,
+    performanceDisclaimers,
+  } = cms
+
+  // Use context data when available; compute locally otherwise.
   const contextData = usePerformanceSafe()
 
   const computed = useMemo((): ComputedPerformanceData => {
@@ -121,18 +130,20 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
             <SectionHeader
               dark
               align="left"
-              eyebrow="Performance"
-              title="Price & Distributions"
+              eyebrow={performanceEyebrow}
+              title={performanceTitle}
             />
           </div>
-          <AppLink
-            href="/performance"
-            showArrow
-            variant="light"
-            className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"
-          >
-            More Charts
-          </AppLink>
+          {performanceLinkLabel && (
+            <AppLink
+              href="/performance"
+              showArrow
+              variant="light"
+              className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"
+            >
+              {performanceLinkLabel}
+            </AppLink>
+          )}
         </div>
         {/* Desktop: chart left, stats sidebar right | Mobile: chart then stats */}
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
@@ -316,12 +327,11 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
           </div>
         </div>
 
-        <DisclaimerText tone="hero" className="mt-8">
-          Cumulative return calculated as capital growth plus distributions for that period.
-        </DisclaimerText>
-        <DisclaimerText tone="hero">
-          Past performance is not a reliable indicator of future performance.
-        </DisclaimerText>
+        {performanceDisclaimers?.value ? (
+          <div className="mt-8 space-y-1 [&_p]:type-caption [&_p]:text-white/70">
+            <StructuredText data={performanceDisclaimers} />
+          </div>
+        ) : null}
       </Container>
 
     </section>

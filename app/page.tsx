@@ -9,6 +9,7 @@ import {
   RegisterInterestCTA,
 } from '@/components/home'
 import { getConstants } from '@/lib/queries/constants'
+import { getHomePage, getProperties } from '@/lib/queries/homepage'
 
 export const metadata: Metadata = {
   title: 'SOGIF | Strategic Opportunities Growth & Income Fund',
@@ -23,23 +24,37 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const constants = await getConstants()
+  const [constants, homePage, properties] = await Promise.all([
+    getConstants(),
+    getHomePage(),
+    getProperties(),
+  ])
+
+  if (!homePage) {
+    return (
+      <>
+        <Header />
+        <main />
+        <Footer />
+      </>
+    )
+  }
 
   return (
     <>
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection cms={homePage} />
 
-        <PerformanceSnapshot performanceData={constants.performanceData} />
+        <PerformanceSnapshot performanceData={constants.performanceData} cms={homePage} />
 
-        <PropertyShowcase />
+        <PropertyShowcase cms={homePage} properties={properties} />
 
-        <TeamSection />
+        <TeamSection cms={homePage} />
 
-        <InvestmentSteps />
+        <InvestmentSteps cms={homePage} />
 
-        <RegisterInterestCTA />
+        <RegisterInterestCTA cms={homePage} />
       </main>
       <Footer />
     </>

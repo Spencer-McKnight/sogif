@@ -1,13 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { AppCard, Button, ButtonLink, Container, DisclaimerText, Input, Label, SectionHeader, Slider } from '@/components/ui'
+import { StructuredText } from 'react-datocms'
+import { AppCard, Button, ButtonLink, Container, Input, Label, SectionHeader, Slider } from '@/components/ui'
+import type { HomePageData } from '@/lib'
 
-// TODO: Replace with CMS-managed content
-const ctaContent = {
-  headline: 'Got questions about investing in SOGIF?',
-  minInvestment: '$10,000',
-  additionalInvestment: '$1,000',
+interface RegisterInterestCTAProps {
+  cms: HomePageData
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -41,7 +40,14 @@ async function submitInterest(data: FormData) {
   await new Promise(resolve => setTimeout(resolve, 1000))
 }
 
-export function RegisterInterestCTA() {
+export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
+  const {
+    ctaEyebrow,
+    ctaHeadline,
+    ctaFormTitle,
+    ctaDisclaimer,
+  } = cms
+
   const [formData, setFormData] = useState<FormData>({
     email: '',
     phone: PHONE_PREFIX,
@@ -85,8 +91,8 @@ export function RegisterInterestCTA() {
           {/* Left Column - Content */}
           <div className="lg:col-span-5">
             <SectionHeader
-              eyebrow="Connect"
-              title={ctaContent.headline}
+              eyebrow={ctaEyebrow}
+              title={ctaHeadline}
               align="left"
               dark={true}
               className="mb-4"
@@ -97,7 +103,7 @@ export function RegisterInterestCTA() {
           <div className="lg:col-span-7">
             <AppCard variant="plain" className="p-8 shadow-2xl shadow-black/15 border-white/80">
               <h3 className="type-title font-semibold text-gray-900 mb-2">
-                {isSubmitted ? 'Thank You!' : 'Find Out More'}
+                {isSubmitted ? 'Thank You!' : ctaFormTitle}
               </h3>
 
               {!isSubmitted ? (
@@ -191,9 +197,11 @@ export function RegisterInterestCTA() {
                     {isSubmitting ? 'Sending...' : 'Submit'}
                   </Button>
 
-                  <DisclaimerText tone="dark" className="mt-2">
-                    By submitting, you agree to receive information via email. Providing a phone number will prompt a SOGIF team member to contact you via phone.
-                  </DisclaimerText>
+                  {ctaDisclaimer?.value ? (
+                    <div className="mt-2 [&_p]:type-caption [&_p]:text-gray-500">
+                      <StructuredText data={ctaDisclaimer} />
+                    </div>
+                  ) : null}
                 </form>
               ) : (
                 <div className="space-y-6">
