@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { after, NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { getConstants } from '@/lib/queries/constants'
 import { createServerSupabaseClient, type FormSubmissionInsert } from '@/lib/supabase/server'
@@ -11,6 +11,62 @@ import {
 import { RegisterInterestEmail, LeadConfirmationEmail } from '@/emails/RegisterInterestEmail'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+async function sendRegisterInterestEmails(params: {
+  email: string
+  phone?: string
+  investmentRange: [number, number]
+}) {
+  try {
+    const constants = await getConstants()
+    const adminEmail = constants.formSubmissionEmail || 'spencer.mcknight.g@gmail.com'
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@sogif.au'
+    const investmentLabel = `$${params.investmentRange[0]}k - $${params.investmentRange[1] >= 500 ? '500k+' : params.investmentRange[1] + 'k'}`
+    const pdsUrl = constants.pdsUrl
+    const applicationUrl = constants.onlineApplicationUrl || 'https://sogif.au/apply'
+
+    const pdsAttachments: { filename: string; content: Buffer }[] = []
+    if (pdsUrl) {
+      try {
+        const pdfResponse = await fetch(pdsUrl)
+        if (pdfResponse.ok) {
+          pdsAttachments.push({
+            filename: 'SOGIF-Product-Disclosure-Statement.pdf',
+            content: Buffer.from(await pdfResponse.arrayBuffer()),
+          })
+        }
+      } catch (pdfError) {
+        console.warn('Failed to fetch PDS for attachment:', pdfError)
+      }
+    }
+
+    await Promise.allSettled([
+      resend.emails.send({
+        from: fromEmail,
+        to: adminEmail,
+        subject: `New Register Interest: ${params.email}`,
+        react: RegisterInterestEmail({
+          email: params.email,
+          phone: params.phone,
+          investmentRange: investmentLabel,
+          submittedAt: new Date().toISOString(),
+        }),
+      }),
+      resend.emails.send({
+        from: fromEmail,
+        to: params.email,
+        subject: 'Thank you for your interest in SOGIF',
+        react: LeadConfirmationEmail({
+          applicationUrl,
+          pdsUrl: pdsUrl || '',
+        }),
+        attachments: pdsAttachments.length > 0 ? pdsAttachments : undefined,
+      }),
+    ])
+  } catch (error) {
+    console.error('Register interest follow-up error:', error)
+  }
+}
 
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse>> {
   try {
@@ -92,63 +148,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       )
     }
 
-    // 6. Get constants from CMS
-    const constants = await getConstants()
-    const adminEmail = constants.formSubmissionEmail || 'spencer.mcknight.g@gmail.com'
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@sogif.au'
-    const investmentLabel = `$${investmentRange[0]}k - $${investmentRange[1] >= 500 ? '500k+' : investmentRange[1] + 'k'}`
-
-    // 7. Fetch PDS for attachment
-    const pdsAttachments: { filename: string; content: Buffer }[] = []
-    const pdsUrl = constants.pdsUrl
-    if (pdsUrl) {
-      try {
-        const pdfResponse = await fetch(pdsUrl)
-        if (pdfResponse.ok) {
-          const pdfBuffer = Buffer.from(await pdfResponse.arrayBuffer())
-          pdsAttachments.push({
-            filename: 'SOGIF-Product-Disclosure-Statement.pdf',
-            content: pdfBuffer,
-          })
-        }
-      } catch (pdfError) {
-        console.warn('Failed to fetch PDS for attachment:', pdfError)
-      }
-    }
-
-    // 8. Send admin notification
-    try {
-      await resend.emails.send({
-        from: fromEmail,
-        to: adminEmail,
-        subject: `New Register Interest: ${email}`,
-        react: RegisterInterestEmail({
-          email,
-          phone: phone && phone.trim() !== '+61' ? phone.trim() : undefined,
-          investmentRange: investmentLabel,
-          submittedAt: new Date().toISOString(),
-        }),
-      })
-    } catch (emailError) {
-      console.error('Admin email send error:', emailError)
-    }
-
-    // 9. Send lead confirmation with PDS attachment
-    const applicationUrl = constants.onlineApplicationUrl || 'https://sogif.au/apply'
-    try {
-      await resend.emails.send({
-        from: fromEmail,
-        to: email.toLowerCase().trim(),
-        subject: 'Thank you for your interest in SOGIF',
-        react: LeadConfirmationEmail({
-          applicationUrl,
-          pdsUrl: pdsUrl || '',
-        }),
-        attachments: pdsAttachments.length > 0 ? pdsAttachments : undefined,
-      })
-    } catch (emailError) {
-      console.error('Lead confirmation email error:', emailError)
-    }
+    // 6. Return quickly and run non-critical side effects after the response
+    const sanitizedEmail = email.toLowerCase().trim()
+    const sanitizedPhone = phone && phone.trim() !== '+61' ? phone.trim() : undefined
+    after(() => sendRegisterInterestEmails({
+      email: sanitizedEmail,
+      phone: sanitizedPhone,
+      investmentRange,
+    }))
 
     return NextResponse.json(
       { code: 'ok', message: 'Thank you for your interest. We will be in touch soon.' },

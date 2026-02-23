@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { StructuredText } from 'react-datocms'
 import { AppCard, Button, ButtonLink, Container, Input, Label, SectionHeader, Slider } from '@/components/ui'
 import type { HomePageData } from '@/lib'
@@ -51,9 +52,7 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
     website: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const formRef = useRef<HTMLFormElement>(null)
 
   function validate(): FormErrors {
     const next: FormErrors = {}
@@ -76,8 +75,8 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
     setErrors(validationErrors)
     if (Object.keys(validationErrors).length > 0) return
 
-    setIsSubmitting(true)
     setErrors({})
+    setIsSubmitted(true)
 
     try {
       const response = await fetch('/api/register-interest', {
@@ -94,8 +93,9 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
       const data: ApiResponse = await response.json()
 
       if (data.code === 'ok') {
-        setIsSubmitted(true)
+        return
       } else if (data.code === 'validation_error' && data.errors) {
+        setIsSubmitted(false)
         const newErrors: FormErrors = {}
         if (data.errors.email) newErrors.email = data.errors.email[0]
         if (data.errors.phone) newErrors.phone = data.errors.phone[0]
@@ -104,12 +104,12 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
         }
         setErrors(newErrors)
       } else {
+        setIsSubmitted(false)
         setErrors({ submit: data.message || 'Something went wrong. Please try again.' })
       }
     } catch {
+      setIsSubmitted(false)
       setErrors({ submit: 'Unable to submit. Please check your connection and try again.' })
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -131,12 +131,27 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
           {/* Right Column - Form Card */}
           <div className="lg:col-span-7">
             <AppCard variant="plain" className="p-8 shadow-2xl shadow-black/15 border-white/80">
-              <h3 className="type-title font-semibold text-gray-900 mb-2">
+              <motion.h3
+                key={isSubmitted ? 'submitted-title' : 'form-title'}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
+                className="type-title font-semibold text-gray-900 mb-2"
+              >
                 {isSubmitted ? 'Thank You!' : ctaFormTitle}
-              </h3>
+              </motion.h3>
 
-              {!isSubmitted ? (
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+              <AnimatePresence mode="wait" initial={false}>
+                {!isSubmitted ? (
+                  <motion.form
+                    key="register-form"
+                    onSubmit={handleSubmit}
+                    className="space-y-5"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.24, ease: 'easeOut' }}
+                  >
                   {/* Honeypot field - hidden from users, bots will fill it */}
                   <div className="absolute -left-[9999px] opacity-0" aria-hidden="true">
                     <label htmlFor="website">Website</label>
@@ -238,12 +253,11 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
 
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
                     variant="primary"
                     size="lg"
                     fullWidth="sm"
                   >
-                    {isSubmitting ? 'Sending...' : 'Submit'}
+                    Submit
                   </Button>
 
                   {ctaDisclaimer?.value ? (
@@ -251,9 +265,16 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
                       <StructuredText data={ctaDisclaimer} />
                     </div>
                   ) : null}
-                </form>
-              ) : (
-                <div className="space-y-6">
+                  </motion.form>
+                ) : (
+                  <motion.div
+                    key="thank-you"
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                  >
                   <div className="flex items-center gap-3 p-4 bg-sogif-success/10 rounded-xl">
                     <svg className="w-6 h-6 text-sogif-success shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -272,8 +293,9 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
                       Join the Fund
                     </ButtonLink>
                   </div>
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </AppCard>
           </div>
         </div>
