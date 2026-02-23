@@ -1,10 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AppCard, Button, ButtonLink, Container, DisclaimerText, SectionHeader } from '@/components/ui'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Slider } from '@/components/ui/slider'
+import { AppCard, Button, ButtonLink, Container, DisclaimerText, Input, Label, SectionHeader, Slider } from '@/components/ui'
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {

@@ -14,20 +14,20 @@ Update the document if relevant changes are made
 
 ## Grid System
 
-Always use a 12-column grid (`grid-cols-12`) for section-level layouts. Never use simplified shorthand grids like `grid-cols-2`, `grid-cols-3`, or `grid-cols-4`.
+Use a 12-column grid (`grid-cols-12`) for section-level layouts. Avoid simplified shorthand grids like `grid-cols-2` or `grid-cols-4` at the section level because they couple column count to item count and break cross-section alignment.
 
-**Why:** Fixed small-N grids couple column count to item count, preventing mixed-width slots and breaking cross-section column alignment when multiple blocks share the same container width. The 12-column system (divisible by 1, 2, 3, 4, 6) handles all standard layouts without restructuring the container.
+**Exception:** Equal three-column layouts may use `grid-cols-3` directly when all items are identical width and no mixed-width slots are needed (e.g. step cards, team cards).
 
 **How:** Declare `grid-cols-12` on the wrapper; assign `col-span-*` on each child.
 - 2-up → `col-span-6`
-- 3-up → `col-span-4`
+- 3-up → `col-span-4` (or `grid-cols-3` for pure equal layouts)
 - 4-up → `col-span-3`
 - Mixed → e.g. `col-span-8` + `col-span-4`
 
 Apply responsive breakpoints on `col-span` (not on the grid container) to handle mobile stacking:
 ```
 <div className="grid grid-cols-12 gap-8">
-  <div className="col-span-12 sm:col-span-6 lg:col-span-4">...</div>
+ <div className="col-span-12 sm:col-span-6 lg:col-span-4">...</div>
 </div>
 ```
 
@@ -47,23 +47,18 @@ Moving beyond the bounds of assumed scope is allowed when doing identifies with 
 
 ## Sogif Project Technologies
 
-| Technology            | Version | Use Case                                                 |
-| --------------------- | ------- | -------------------------------------------------------- |
-| Next.js               | 15.1.0  | Full-stack React framework, App Router, SSR/SSG, routing |
-| React                 | 19.0.0  | UI component library and rendering                       |
-| TypeScript            | 5.7.2   | Type safety and developer experience                     |
-| Tailwind CSS          | 3.4.17  | Utility-first CSS styling framework                      |
-| DatoCMS               | 7.2.4   | Headless CMS for content management                      |
-| GraphQL               | 16.9.0  | API query language for DatoCMS integration               |
-| graphql-request       | 7.1.2   | Minimal GraphQL client for data fetching                 |
-| Framer Motion         | 11.15.0 | Animation and motion library for UI                      |
-| Imgix                 | 3.8.0   | Image optimization and transformation                    |
-| next-seo              | 6.6.0   | SEO metadata management                                  |
-| next-sitemap          | 4.2.3   | Automatic sitemap generation                             |
-| Vercel Analytics      | 1.4.1   | Website analytics and user insights                      |
-| Vercel Speed Insights | 1.1.0   | Performance monitoring and Core Web Vitals               |
-| ESLint                | 9.18.0  | Code linting and quality enforcement                     |
-| PostCSS               | 8.4.49  | CSS processing and transformation                        |
+| Technology                        | Use Case                                          |
+| --------------------------------- | ------------------------------------------------- |
+| Next.js (App Router)              | Full-stack React framework, SSR/SSG, routing      |
+| React 19                          | UI component library and rendering                |
+| TypeScript                        | Type safety and developer experience              |
+| Tailwind CSS                      | Utility-first CSS styling framework               |
+| GraphQL + graphql-request         | DatoCMS API query language and client             |
+| Framer Motion                     | Interaction animations (parallax, menu)           |
+| Recharts                          | Data visualisation (performance charts)           |
+| Swiper                            | Carousel / slider UI                              |
+| next-sitemap                      | Automatic sitemap generation                      |
+| Vercel Analytics / Speed Insights | Performance monitoring and Core Web Vitals        |
 
 # Website Structure
 

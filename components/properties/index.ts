@@ -1,4 +1,5 @@
 export { PropertyCard } from './PropertyCard'
 export { PropertyGrid } from './PropertyGrid'
 export { PropertyDetailModal } from './PropertyDetailModal'
+export { splitAddress, formatShortDate } from './utils'
 export type { Property } from './types'

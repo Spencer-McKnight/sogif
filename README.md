@@ -43,6 +43,10 @@ see /SOGIF_CONTEXT.md for business context
 
 ## Responsive Breakpoints
 
-- **Desktop**: > 968px (full layout)
-- **Tablet**: 640px - 968px (adapted grid)
-- **Mobile**: < 640px (single column, optimized)
+Matches Tailwind defaults — see `docs/design-system.md` for breakpoint behavior.
+
+- **Mobile**: < 640px (single column, stacked)
+- **sm**: ≥ 640px (minor layout tweaks)
+- **md**: ≥ 768px (2–3 column card grids)
+- **lg**: ≥ 1024px (full grid, two/three-column layouts)
+- **xl**: ≥ 1280px (content reaches max-width)

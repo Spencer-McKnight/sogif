@@ -2,6 +2,8 @@
  * DatoCMS Type Definitions
  */
 
+import type { ComputedPerformanceData } from '../calculations/performance'
+
 export interface PerformanceDataRow {
   month: string
   issuePrice: number
@@ -42,8 +44,7 @@ export interface SiteConstants {
   address: string
   postalAddress: string
   performanceData: PerformanceDataRow[]
-  // Pre-computed performance metrics (added by getConstants)
-  computedPerformance: any // Imported from calculations to avoid circular dependency
+  computedPerformance: ComputedPerformanceData
 }
 
 export interface ConstantsQueryResponse {

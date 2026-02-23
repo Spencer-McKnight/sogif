@@ -209,6 +209,12 @@ When adding a new section to any page:
 - Use `AppCard` with `variant="plain"` and add `card-gradient-hover` for the homepage value-card hover behavior.
 - This keeps the hover language reusable while preserving a consistent white card base.
 
+### Link Underline
+
+- Apply `hover-underline` to text inside a `.group` parent for an animated bottom underline on hover.
+- Default color is `sogif-cyan-light`. Override with `[--underline-color:...]` for gold or other variants.
+- Header nav uses `after:h-[3px]` modifier for a thicker underline.
+
 ### Image Zoom
 
 - Apply `media-zoom-hover` to card images inside a `.group` parent.

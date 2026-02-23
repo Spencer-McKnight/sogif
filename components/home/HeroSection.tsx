@@ -66,7 +66,7 @@ export function HeroSection() {
                         <h1 className="type-display text-white mb-5 md:mb-6">
                             <span className="relative inline-block">
                                 {staticHeroContent.headlineTop}
-                                <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/20 rounded-full" />
+                                <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/35 rounded-full" />
                             </span>
                             <br />
                             <span className="text-sogif-cyan-light">{staticHeroContent.headlineBottom}</span>

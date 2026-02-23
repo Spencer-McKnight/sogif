@@ -2,13 +2,7 @@
 
 import Image from 'next/image'
 import type { Property } from './types'
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-AU', {
-    month: 'short',
-    year: 'numeric',
-  })
-}
+import { splitAddress, formatShortDate } from './utils'
 
 function formatValuationDate(dateStr: string) {
   const parts = dateStr.split(' ')
@@ -16,15 +10,6 @@ function formatValuationDate(dateStr: string) {
     return `${parts[1].substring(0, 3)} ${parts[2]}`
   }
   return dateStr
-}
-
-function splitAddress(address: string) {
-  const firstComma = address.indexOf(',')
-  if (firstComma === -1) return { street: address, locality: '' }
-  return {
-    street: address.substring(0, firstComma),
-    locality: address.substring(firstComma + 1).trim(),
-  }
 }
 
 interface PropertyCardProps {
@@ -107,7 +92,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           </div>
           <div>
             <p className="type-caption text-text-muted w-fit mb-0.5">Acquired</p>
-            <span className="text-sm font-semibold text-sogif-navy">{formatDate(property.acquiredDate)}</span>
+            <span className="text-sm font-semibold text-sogif-navy">{formatShortDate(property.acquiredDate)}</span>
           </div>
         </div>
       </div>

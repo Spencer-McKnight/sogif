@@ -85,9 +85,7 @@ export function Footer() {
                       variant="nav"
                       className="type-support focus-visible:underline underline-offset-4"
                     >
-                      <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                        {link.label}
-                      </span>
+                      <span className="hover-underline">{link.label}</span>
                     </AppLink>
                   </li>
                 ))}
@@ -112,9 +110,7 @@ export function Footer() {
                     external
                     variant="nav"
                   >
-                    <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                      {constants.contactEmail}
-                    </span>
+                    <span className="hover-underline">{constants.contactEmail}</span>
                   </AppLink>
                 </li>
                 <li>
@@ -123,9 +119,7 @@ export function Footer() {
                     external
                     variant="nav"
                   >
-                    <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                      {constants.contactPhone}
-                    </span>
+                    <span className="hover-underline">{constants.contactPhone}</span>
                   </AppLink>
                 </li>
                 <li className="text-white/80">
@@ -159,9 +153,7 @@ export function Footer() {
                   variant="nav"
                   className="focus-visible:underline underline-offset-4"
                 >
-                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                    {link.label}
-                  </span>
+                  <span className="hover-underline">{link.label}</span>
                 </AppLink>
               ))}
             </div>

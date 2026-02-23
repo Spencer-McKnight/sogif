@@ -1,20 +1,16 @@
 /**
  * Library Exports
- * 
- * Central export point for all library modules.
- * Provides clean imports throughout the application.
+ *
+ * Public API surface for the application. Internal helpers (e.g. individual
+ * calculation sub-functions, raw client constructors) stay in their modules
+ * and are imported directly where needed.
  */
 
 // DatoCMS Client & Utilities
-export {
-  createDatoCMSClient,
-  performQuery,
-  isPreviewMode,
-  REVALIDATION_TIMES,
-} from './datocms'
+export { performQuery, isPreviewMode, REVALIDATION_TIMES } from './datocms'
 
 // Query Functions
-export { getConstants, constantsRevalidate } from './queries/constants'
+export { getConstants } from './queries/constants'
 
 // Types
 export type {
@@ -36,14 +32,8 @@ export type { MediaAsset } from './media'
 export { ConstantsProvider, useConstants, useConstantsSafe } from './contexts/ConstantsContext'
 export { PerformanceProvider, usePerformance, usePerformanceSafe } from './contexts/PerformanceContext'
 
-// Performance Calculations
-export {
-  calculateChartData,
-  calculateStats,
-  calculateYAxisConfig,
-  annotateChartData,
-  computePerformanceMetrics,
-} from './calculations/performance'
+// Performance — only the orchestrator; sub-functions are internal
+export { computePerformanceMetrics } from './calculations/performance'
 export type {
   ChartDataPoint,
   PerformanceStats,

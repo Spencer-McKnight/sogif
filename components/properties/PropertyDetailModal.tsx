@@ -14,24 +14,9 @@ import {
   SwiperControls,
 } from '@/components/ui'
 import type { Property } from './types'
+import { splitAddress, formatShortDate } from './utils'
 
 import 'swiper/css'
-
-function formatShortDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-AU', {
-    month: 'short',
-    year: 'numeric',
-  })
-}
-
-function splitAddress(address: string) {
-  const firstComma = address.indexOf(',')
-  if (firstComma === -1) return { street: address, locality: '' }
-  return {
-    street: address.substring(0, firstComma),
-    locality: address.substring(firstComma + 1).trim(),
-  }
-}
 
 function LargeCell({ label, value, sub, valueClass }: { label: string; value: string; sub?: string; valueClass?: string }) {
   return (
