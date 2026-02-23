@@ -25,6 +25,16 @@ export function Footer() {
 
   return (
     <footer className="bg-sogif-navy text-white">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <filter id="logo-outline" x="-10%" y="-10%" width="120%" height="120%">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="0.3" result="expanded" />
+            <feFlood floodColor="white" floodOpacity="0.6" result="color" />
+            <feComposite in="color" in2="expanded" operator="in" result="outline" />
+            <feComposite in="SourceGraphic" in2="outline" operator="over" />
+          </filter>
+        </defs>
+      </svg>
       {/* Main Footer */}
       <Container className="py-8 md:py-16">
         {/*
@@ -49,6 +59,7 @@ export function Footer() {
                     alt="SOGIF"
                     fill
                     className="object-contain"
+                    style={{ filter: 'url(#logo-outline)' }}
                   />
                 </div>
                 <span className="font-semibold type-title">SOGIF</span>
