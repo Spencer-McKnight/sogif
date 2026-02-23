@@ -25,6 +25,7 @@ export type {
   SeoField,
   DatoCMSRecord,
   DatoCMSUpload,
+  PerformanceDataRow,
 } from './types/datocms'
 
 // Media Library
@@ -33,6 +34,24 @@ export type { MediaAsset } from './media'
 
 // Contexts
 export { ConstantsProvider, useConstants, useConstantsSafe } from './contexts/ConstantsContext'
+export { PerformanceProvider, usePerformance, usePerformanceSafe } from './contexts/PerformanceContext'
+
+// Performance Calculations
+export {
+  calculateChartData,
+  calculateStats,
+  calculateYAxisConfig,
+  annotateChartData,
+  computePerformanceMetrics,
+} from './calculations/performance'
+export type {
+  ChartDataPoint,
+  PerformanceStats,
+  YAxisConfig,
+  ComputedPerformanceData,
+  ChartAnnotation,
+  SpecialPoints,
+} from './calculations/performance'
 
 // GraphQL Fragments
 export {

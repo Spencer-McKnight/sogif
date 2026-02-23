@@ -1,5 +1,6 @@
 import { cache } from 'react'
 import { performQuery, REVALIDATION_TIMES } from '../datocms'
+import { computePerformanceMetrics } from '../calculations/performance'
 import type { SiteConstants, ConstantsQueryResponse, PerformanceDataRow } from '../types/datocms'
 
 /**
@@ -46,6 +47,7 @@ const DEFAULT_CONSTANTS: SiteConstants = {
   address: '',
   postalAddress: '',
   performanceData: [],
+  computedPerformance: computePerformanceMetrics([]),
 }
 
 /**
@@ -128,7 +130,12 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
     const performanceData = constant.performanceDataAllTime?.url
       ? await fetchPerformanceData(constant.performanceDataAllTime.url)
       : []
-    
+
+    // Pre-compute performance metrics server-side
+    const computedPerformance = performanceData.length > 0
+      ? computePerformanceMetrics(performanceData)
+      : computePerformanceMetrics([])
+
     return {
       offlineApplicationUrl: constant.offlineApplicationUrl || '',
       onlineApplicationUrl: constant.onlineApplicationUrl || '',
@@ -142,6 +149,7 @@ export const getConstants = cache(async (preview = false): Promise<SiteConstants
       address: constant.address || '',
       postalAddress: constant.postalAddress || '',
       performanceData,
+      computedPerformance,
     }
   } catch (error) {
     console.error('Failed to fetch site constants:', error)

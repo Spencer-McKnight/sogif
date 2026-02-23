@@ -42,6 +42,8 @@ export interface SiteConstants {
   address: string
   postalAddress: string
   performanceData: PerformanceDataRow[]
+  // Pre-computed performance metrics (added by getConstants)
+  computedPerformance: any // Imported from calculations to avoid circular dependency
 }
 
 export interface ConstantsQueryResponse {

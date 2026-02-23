@@ -14,7 +14,7 @@ const config: Config = {
         // Update these values to bump the entire type system uniformly.
         // lineHeight matches Tailwind's own fixed-rem values for that scale position.
         'xl':  ['1.275rem', { lineHeight: '1.75rem' }],  // 22px  (default 20px)
-        '2xl': ['1.625rem', { lineHeight: '2rem'    }],  // 26px  (default 24px)
+        '2xl': ['1.675rem', { lineHeight: '2rem'    }],  // 26px  (default 24px)
         '3xl': ['2rem',     { lineHeight: '2.25rem' }],  // 32px  (default 30px)
         '4xl': ['2.375rem', { lineHeight: '2.5rem'  }],  // 38px  (default 36px)
         '5xl': ['2.95rem',  { lineHeight: '1'       }],  // 44px  (default 48px)

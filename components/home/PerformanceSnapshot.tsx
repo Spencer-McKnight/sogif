@@ -1,132 +1,14 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { AppCard, AppLink, ChartContainer, ChartTooltip, Container, DisclaimerText, SectionHeader } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
-import type { PerformanceDataRow } from '@/lib/types/datocms'
+import { usePerformanceSafe, computePerformanceMetrics } from '@/lib'
+import type { PerformanceDataRow, ComputedPerformanceData, ChartDataPoint, ChartAnnotation, PerformanceStats } from '@/lib'
 
 interface PerformanceSnapshotProps {
   performanceData: PerformanceDataRow[]
-}
-
-interface ChartAnnotation {
-  text: string
-  color: string
-}
-
-interface ChartDataPoint {
-  month: string
-  issuePrice: number
-  redemptionPrice: number | undefined  // undefined before first property acquisition (Recharts skips undefined)
-  cumulativeReturn: number
-  distribution: number
-  cumulativeDistribution: number
-  annotation?: ChartAnnotation
-}
-
-interface PerformanceStats {
-  latestRedemption: number | null
-  latestIssue: number
-  // Capital Growth (price-only, no distributions)
-  capitalGrowthInception: number
-  capitalGrowthPrevYear: number
-  // Distributions (income yield)
-  distributionsInception: number
-  distributionsPrevYear: number
-  // Cumulative (total return = growth + distributions)
-  cumulativeInception: number
-  cumulativePrevYear: number
-}
-
-/**
- * Transforms raw DatoCMS data to include cumulative return calculation
- * Cumulative Return = Issue Price + All distributions to date
- */
-function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[] {
-  if (!data.length) return []
-
-  // Data comes newest first, reverse to chronological order (oldest first)
-  const chronological = [...data].reverse()
-
-  let cumulativeDistribution = 0
-
-  return chronological.map((item) => {
-    cumulativeDistribution += item.distribution
-    // Convert 0 or null to undefined - CMS stores 0 for missing prices, Recharts needs undefined to skip
-    const redemptionValue = (item.redemptionPrice === 0 || item.redemptionPrice === null) ? undefined : item.redemptionPrice
-
-    return {
-      month: item.month,
-      issuePrice: item.issuePrice,
-      // Convert null to undefined - Recharts skips undefined values entirely
-      redemptionPrice: redemptionValue,
-      cumulativeReturn: Number((item.issuePrice + cumulativeDistribution).toFixed(4)),
-      distribution: item.distribution,
-      cumulativeDistribution: Number(cumulativeDistribution.toFixed(4)),
-    }
-  })
-}
-
-/**
- * Calculate summary statistics from the performance data
- *
- * Capital Growth = price-only return (no distributions)
- * Distributions  = raw dollar totals
- * Cumulative     = total return (growth + distributions)
- */
-function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
-  if (!data.length) {
-    return {
-      latestRedemption: null,
-      latestIssue: 0,
-      capitalGrowthInception: 0,
-      capitalGrowthPrevYear: 0,
-      distributionsInception: 0,
-      distributionsPrevYear: 0,
-      cumulativeInception: 0,
-      cumulativePrevYear: 0,
-    }
-  }
-
-  const latest = data[0] // Most recent (data is newest first)
-  const chronological = [...data].reverse()
-  const inception = chronological[0]
-
-  // Total distributions (all time)
-  const totalDistributions = data.reduce((sum, item) => sum + item.distribution, 0)
-
-  // Since Inception - cumulative return uses issuePrice + ALL distributions
-  const capitalGrowthInception = ((latest.issuePrice - inception.issuePrice) / inception.issuePrice) * 100
-  const distributionsInception = totalDistributions
-  const cumulativeInception = ((latest.issuePrice + totalDistributions - inception.issuePrice) / inception.issuePrice) * 100
-
-  // True trailing 12-month (T12M): startPoint = same month 12 months prior (e.g. Jan 2025 → Jan 2026)
-  // Using data[12] gives 12 intervals; data[11] would only give 11 months
-  const startPoint = data[Math.min(12, data.length - 1)]
-  const trailing12Distributions = data.slice(0, Math.min(12, data.length - 1)).reduce((sum, item) => sum + item.distribution, 0)
-
-  // Calculate cumulative distributions at each point (data is newest first, so sum from end backwards)
-  // For startPoint: sum all distributions from startPoint to end of array (older months)
-  const startPointIndex = data.findIndex(d => d.month === startPoint.month)
-  const distributionsToStartPoint = data.slice(startPointIndex).reduce((sum, item) => sum + item.distribution, 0)
-  const startCumulative = startPoint.issuePrice + distributionsToStartPoint
-  const latestCumulative = latest.issuePrice + totalDistributions
-
-  const capitalGrowthPrevYear = ((latest.issuePrice - startPoint.issuePrice) / startPoint.issuePrice) * 100
-  const distributionsPrevYear = trailing12Distributions
-  const cumulativePrevYear = ((latestCumulative - startCumulative) / startCumulative) * 100
-
-  return {
-    latestRedemption: latest.redemptionPrice,
-    latestIssue: latest.issuePrice,
-    capitalGrowthInception,
-    capitalGrowthPrevYear,
-    distributionsInception,
-    distributionsPrevYear,
-    cumulativeInception,
-    cumulativePrevYear,
-  }
 }
 
 const chartConfig = {
@@ -208,60 +90,22 @@ function ChartIndicator({ cx, cy, color }: ChartIndicatorProps) {
 }
 
 export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProps) {
-  const chartData = useMemo(() => calculateChartData(performanceData), [performanceData])
-  const stats = useMemo(() => calculateStats(performanceData), [performanceData])
+  // Try to use context data if available, fall back to computing locally
+  const contextData = usePerformanceSafe()
 
-  // Y-axis domain and ticks at every $0.05
-  const { yDomain, yTicks } = useMemo(() => {
-    if (!chartData.length) return { yDomain: [0.9, 1.2] as [number, number], yTicks: [0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2] }
-
-    let min = Infinity
-    let max = -Infinity
-
-    for (const d of chartData) {
-      min = Math.min(min, d.issuePrice, d.cumulativeReturn)
-      max = Math.max(max, d.issuePrice, d.cumulativeReturn)
-      if (d.redemptionPrice !== undefined) {
-        min = Math.min(min, d.redemptionPrice)
-        max = Math.max(max, d.redemptionPrice)
-      }
+  const computed = useMemo((): ComputedPerformanceData => {
+    if (contextData) {
+      return contextData.computed
     }
+    // Fallback: compute locally (e.g., when not wrapped in PerformanceProvider)
+    return computePerformanceMetrics(performanceData)
+  }, [contextData, performanceData])
 
-    // Snap to 0.05 boundaries with padding
-    const domainMin = Math.floor((min - 0.02) / 0.05) * 0.05
-    const domainMax = Math.ceil((max + 0.02) / 0.05) * 0.05
-
-    // Generate ticks at every 0.05 step
-    const ticks: number[] = []
-    for (let v = domainMin; v <= domainMax + 0.001; v += 0.05) {
-      ticks.push(Math.round(v * 100) / 100)
-    }
-
-    return { yDomain: [domainMin, domainMax] as [number, number], yTicks: ticks }
-  }, [chartData])
-
-  // Annotate special data points with descriptions shown in the chart tooltip
-  const annotatedData = useMemo(() => {
-    const firstRedemptionMonth = chartData.find(d => d.redemptionPrice !== undefined)?.month
-
-    return chartData.map(d => {
-      if (d.month === firstRedemptionMonth) {
-        return { ...d, annotation: { text: 'No property was acquired until the minimum subscription was achieved. Accordingly, there was no redemption price prior to December 2023.', color: 'hsl(41, 90%, 61%)' } }
-      }
-      if (d.month === 'May-24') {
-        return { ...d, annotation: { text: 'First quarterly distribution began here', color: 'hsl(160, 84%, 39%)' } }
-      }
-      if (d.month === 'Dec-24') {
-        return { ...d, annotation: { text: 'Aggressive property acquisition began', color: 'hsl(189, 100%, 65%)' } }
-      }
-      return d
-    })
-  }, [chartData])
-
-  // Special points for indicator dots
-  const firstRedemptionPoint = annotatedData.find(d => d.redemptionPrice !== undefined)
-  const firstDistributionPoint = annotatedData.find(d => d.month === 'May-24')
-  const acquisitionPoint = annotatedData.find(d => d.month === 'Dec-24')
+  const chartData = computed.chartData
+  const stats = computed.stats
+  const { domain: yDomain, ticks: yTicks } = computed.yAxisConfig
+  const annotatedData = computed.annotatedChartData
+  const { firstRedemption: firstRedemptionPoint, firstDistribution: firstDistributionPoint, acquisitionPoint } = computed.specialPoints
 
   // Don't render if no data
   if (!performanceData.length) {

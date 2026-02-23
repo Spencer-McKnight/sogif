@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { getConstants, ConstantsProvider } from '@/lib'
+import { getConstants, ConstantsProvider, PerformanceProvider } from '@/lib'
 import './globals.css'
 
 // Body + UI font: neutral, highly legible, excellent screen rendering
@@ -51,7 +51,9 @@ export default async function RootLayout({
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body>
         <ConstantsProvider constants={constants}>
-          {children}
+          <PerformanceProvider computed={constants.computedPerformance}>
+            {children}
+          </PerformanceProvider>
         </ConstantsProvider>
         <Analytics />
         <SpeedInsights />
