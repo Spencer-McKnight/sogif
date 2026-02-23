@@ -122,14 +122,21 @@ Use these named patterns. They keep the vertical split-point consistent across s
 
 **4. Footer Grid**
 
-Brand-heavy left column with two narrow right columns.
+Brand-heavy left column with two narrow right columns. Apply `items-start` so all columns pin to top — prevents taller columns from visually misaligning shorter ones.
 
 ```
-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8
-├── lg:col-span-2   (brand + legal entity)
-├── col              (page links)
-└── col              (contact)
+grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start
+├── md:col-span-2 lg:col-span-2   (brand + legal entity — full-width at md, half at lg)
+├── col                            (page links)
+└── col                            (contact)
 ```
+
+Breakpoint behavior:
+- **Base**: all columns stack single-column
+- **md**: brand spans full row (col-span-2), pages and contact sit side-by-side in the row below
+- **lg**: all four columns in one row — brand(2) | pages(1) | contact(1)
+
+The brand must carry `md:col-span-2 lg:col-span-2`. Without both spans, at md the brand shares a row with pages and contact is orphaned alone on a third row.
 
 #### Gap Scale
 

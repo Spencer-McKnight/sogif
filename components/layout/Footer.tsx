@@ -27,9 +27,9 @@ export function Footer() {
     <footer className="bg-sogif-navy text-white">
       {/* Main Footer */}
       <Container className="py-8 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-3 mb-3 md:mb-6">
               <div className="relative w-10 h-10">
                 <Image
@@ -42,7 +42,7 @@ export function Footer() {
               <span className="font-semibold type-title">SOGIF</span>
             </Link>
             <p className="text-white/90 type-support max-w-sm mb-3 md:mb-6">
-              The Strategic Opportunities (Growth &amp; Income) Fund
+              The Strategic Opportunities<br />(Growth &amp; Income) Fund
             </p>
             <div className="flex flex-wrap gap-x-2 gap-y-0.5 md:flex-col md:space-y-2 md:gap-0 type-support text-white/80">
               <p>{constants.responsibleEntity}</p>

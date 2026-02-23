@@ -8,13 +8,14 @@ import { Slider } from '@/components/ui/slider'
 
 // TODO: Replace with CMS-managed content
 const ctaContent = {
-  headline: 'Want to talk about your investment?',
+  headline: 'Got questions about investing in SOGIF?',
   minInvestment: '$10,000',
   additionalInvestment: '$1,000',
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE_PATTERN = /^[+]?\d[\d\s\-()]{7,14}$/
+// Matches +61 followed by 9 digits (with optional spaces/dashes), e.g. +61 4xx xxx xxx
+const PHONE_PATTERN = /^\+61[\s\-]?\d[\d\s\-]{7,11}\d$/
 const PHONE_PREFIX = '+61 '
 
 const SLIDER_MIN = 10
@@ -63,7 +64,7 @@ export function RegisterInterestCTA() {
     const phoneTrimmed = formData.phone.trim()
     const isJustPrefix = phoneTrimmed === PHONE_PREFIX.trim() || phoneTrimmed === ''
     if (!isJustPrefix && !PHONE_PATTERN.test(phoneTrimmed)) {
-      next.phone = 'Enter a valid phone number'
+      next.phone = 'Enter a valid Australian phone number (+61)'
     }
     return next
   }
@@ -93,16 +94,6 @@ export function RegisterInterestCTA() {
               dark={true}
               className="mb-4"
             />
-            <div className="grid grid-cols-2 gap-4 mt-8 mb-8">
-              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 type-support mb-1">Min. Investment</p>
-                <p className="type-title font-semibold text-white tabular-nums">{ctaContent.minInvestment}</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/90 type-support mb-1">Min. Reinvestment</p>
-                <p className="type-title font-semibold text-white tabular-nums">{ctaContent.additionalInvestment}</p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column - Form Card */}
@@ -153,7 +144,9 @@ export function RegisterInterestCTA() {
                       name="phone"
                       value={formData.phone}
                       onChange={(e) => {
-                        setFormData(prev => ({ ...prev, phone: e.target.value }))
+                        const value = e.target.value
+                        if (!value.startsWith(PHONE_PREFIX)) return
+                        setFormData(prev => ({ ...prev, phone: value }))
                         if (errors.phone) setErrors(prev => ({ ...prev, phone: undefined }))
                       }}
                       placeholder="+61"

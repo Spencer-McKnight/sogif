@@ -96,7 +96,7 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   // Total distributions (all time)
   const totalDistributions = data.reduce((sum, item) => sum + item.distribution, 0)
 
-  // Since Inception
+  // Since Inception - cumulative return uses issuePrice + ALL distributions
   const capitalGrowthInception = ((latest.issuePrice - inception.issuePrice) / inception.issuePrice) * 100
   const distributionsInception = totalDistributions
   const cumulativeInception = ((latest.issuePrice + totalDistributions - inception.issuePrice) / inception.issuePrice) * 100
@@ -106,9 +106,16 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   const startPoint = trailing12[trailing12.length - 1]
   const trailing12Distributions = trailing12.reduce((sum, item) => sum + item.distribution, 0)
 
+  // Calculate cumulative distributions at each point (data is newest first, so sum from end backwards)
+  // For startPoint: sum all distributions from startPoint to end of array (older months)
+  const startPointIndex = data.findIndex(d => d.month === startPoint.month)
+  const distributionsToStartPoint = data.slice(startPointIndex).reduce((sum, item) => sum + item.distribution, 0)
+  const startCumulative = startPoint.issuePrice + distributionsToStartPoint
+  const latestCumulative = latest.issuePrice + totalDistributions
+
   const capitalGrowthPrevYear = ((latest.issuePrice - startPoint.issuePrice) / startPoint.issuePrice) * 100
   const distributionsPrevYear = trailing12Distributions
-  const cumulativePrevYear = ((latest.issuePrice + trailing12Distributions - startPoint.issuePrice) / startPoint.issuePrice) * 100
+  const cumulativePrevYear = ((latestCumulative - startCumulative) / startCumulative) * 100
 
   return {
     latestRedemption: latest.redemptionPrice,
@@ -420,11 +427,11 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(1)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Prev. Year</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(1)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
@@ -438,11 +445,11 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(1)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Prev. Year</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(1)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
