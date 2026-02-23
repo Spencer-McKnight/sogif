@@ -8,6 +8,7 @@ import {
   hashIp,
   type ApiResponse,
 } from '@/lib/api/register-interest'
+import { isRateLimited, isSuspiciousSubmissionTiming } from '@/lib/api/register-interest-security'
 import { RegisterInterestEmail, LeadConfirmationEmail } from '@/emails/RegisterInterestEmail'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       )
     }
 
-    const { email, phone, investmentRange, turnstileToken, website } = parseResult.data
+    const { email, phone, investmentRange, formStartedAt, turnstileToken, website } = parseResult.data
 
     // 2. Honeypot check
     if (website && website.length > 0) {
@@ -101,7 +102,15 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       )
     }
 
-    // 3. Turnstile verification (if token provided and secret configured)
+    // 3. Time-to-submit signal (bots often submit forms immediately)
+    if (isSuspiciousSubmissionTiming(formStartedAt)) {
+      return NextResponse.json(
+        { code: 'spam_rejected', message: 'Submission rejected.' },
+        { status: 400 }
+      )
+    }
+
+    // 4. Turnstile verification (if token provided and secret configured)
     let turnstileSuccess = false
     if (turnstileToken && process.env.TURNSTILE_SECRET_KEY) {
       turnstileSuccess = await verifyTurnstileToken(turnstileToken)
@@ -118,15 +127,25 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       )
     }
 
-    // 4. Extract metadata
+    // 5. Extract metadata
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
     const ipHash = await hashIp(ip)
     const userAgent = request.headers.get('user-agent') || null
 
-    // 5. Insert into Supabase
+    // 6. Rate limit by IP and email over a short rolling window
     const supabase = createServerSupabaseClient()
+    const normalizedEmail = email.toLowerCase().trim()
+
+    if (await isRateLimited({ supabase, ipHash, email: normalizedEmail })) {
+      return NextResponse.json(
+        { code: 'spam_rejected', message: 'Too many submissions. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
+    // 7. Insert into Supabase
     const submission: FormSubmissionInsert = {
-      email: email.toLowerCase().trim(),
+      email: normalizedEmail,
       phone: phone && phone.trim() !== '+61' ? phone.trim() : null,
       investment_min_k: investmentRange[0],
       investment_max_k: investmentRange[1],
@@ -148,8 +167,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       )
     }
 
-    // 6. Return quickly and run non-critical side effects after the response
-    const sanitizedEmail = email.toLowerCase().trim()
+    // 8. Return quickly and run non-critical side effects after the response
+    const sanitizedEmail = normalizedEmail
     const sanitizedPhone = phone && phone.trim() !== '+61' ? phone.trim() : undefined
     after(() => sendRegisterInterestEmails({
       email: sanitizedEmail,

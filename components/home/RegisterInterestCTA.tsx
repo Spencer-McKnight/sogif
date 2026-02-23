@@ -28,6 +28,7 @@ interface FormData {
   email: string
   phone: string
   investmentRange: [number, number]
+  formStartedAt: number
   website: string // honeypot field
 }
 
@@ -49,6 +50,7 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
     email: '',
     phone: PHONE_PREFIX,
     investmentRange: SLIDER_DEFAULT,
+    formStartedAt: Date.now(),
     website: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
@@ -86,6 +88,7 @@ export function RegisterInterestCTA({ cms }: RegisterInterestCTAProps) {
           email: formData.email.trim(),
           phone: formData.phone.trim(),
           investmentRange: formData.investmentRange,
+          formStartedAt: formData.formStartedAt,
           website: formData.website,
         }),
       })

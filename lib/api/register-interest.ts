@@ -28,6 +28,7 @@ export const registerInterestSchema = z.object({
     .refine(([min, max]) => min <= max, {
       message: 'Investment range minimum must be less than or equal to maximum',
     }),
+  formStartedAt: z.number().int().positive().optional(),
   turnstileToken: z.string().optional(),
   website: z.string().max(0, 'Spam detected').optional(),
 })
