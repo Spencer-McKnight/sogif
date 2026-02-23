@@ -122,21 +122,32 @@ Use these named patterns. They keep the vertical split-point consistent across s
 
 **4. Footer Grid**
 
-Brand-heavy left column with two narrow right columns. Apply `items-start` so all columns pin to top — prevents taller columns from visually misaligning shorter ones.
+Brand-heavy left column with two narrow right columns. Uses **CSS subgrid on rows** so the logo, section headings, and body content align horizontally across all three columns at desktop.
 
 ```
-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start
-├── md:col-span-2 lg:col-span-2   (brand + legal entity — full-width at md, half at lg)
-├── col                            (page links)
-└── col                            (contact)
+grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[auto_1fr] gap-x-8 gap-y-6 lg:gap-y-8
+├── md:col-span-2 lg:col-span-2  lg:row-span-2  lg:[grid-template-rows:subgrid]
+│   ├── [row 1] logo + wordmark
+│   └── [row 2] description + legal entity
+├── lg:row-span-2  lg:[grid-template-rows:subgrid]
+│   ├── [row 1] "Pages" heading
+│   └── [row 2] page links
+└── lg:row-span-2  lg:[grid-template-rows:subgrid]
+    ├── [row 1] "Contact" heading
+    └── [row 2] contact links
 ```
 
-Breakpoint behavior:
-- **Base**: all columns stack single-column
-- **md**: brand spans full row (col-span-2), pages and contact sit side-by-side in the row below
-- **lg**: all four columns in one row — brand(2) | pages(1) | contact(1)
+**Row alignment at `lg`:**
+- Row 1 height = max(logo, heading, heading) → logo sets the track height
+- Row 2 height = max(brand body, page links, contact links)
+- `lg:gap-y-8` on the parent is the shared row gap inherited by all subgrids — ensures description and first links always start at the same Y
 
-The brand must carry `md:col-span-2 lg:col-span-2`. Without both spans, at md the brand shares a row with pages and contact is orphaned alone on a third row.
+**Breakpoint behavior:**
+- **Base**: all six children stack as a single column
+- **md**: brand spans full row (col-span-2); pages and contact sit side-by-side below, each with their heading above links (gap-y within each column div)
+- **lg**: subgrid activates — parent row tracks are shared, logo aligns with headings, description aligns with link lists
+
+Each column div must carry `lg:row-span-2 lg:[grid-template-rows:subgrid]` and be split into exactly **two children**: header and body. Do not merge them — merged children break row alignment.
 
 #### Gap Scale
 

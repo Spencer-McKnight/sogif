@@ -27,87 +27,115 @@ export function Footer() {
     <footer className="bg-sogif-navy text-white">
       {/* Main Footer */}
       <Container className="py-8 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
+        {/*
+          3-column footer grid with CSS subgrid rows.
+          Each column is split into 2 children: [header, body].
+          lg:grid-rows-[auto_1fr] defines 2 shared row tracks.
+          Each column spans both rows (lg:row-span-2) and uses
+          grid-template-rows:subgrid so all three columns share
+          the same row heights — logo aligns with headings (row 1),
+          description aligns with links (row 2).
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[auto_1fr] gap-x-8 gap-y-4 lg:gap-y-6">
+
           {/* Brand Column */}
-          <div className="md:col-span-2 lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 mb-3 md:mb-6">
-              <div className="relative w-10 h-10">
-                <Image
-                  src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=80&fit=max&auto=format"
-                  alt="SOGIF"
-                  fill
-                  className="object-contain"
-                />
+          <div className="md:col-span-2 lg:col-span-2 grid gap-y-4 lg:row-span-2 lg:[grid-template-rows:subgrid]">
+            {/* Row 1: logo — aligns with PAGES / CONTACT headings */}
+            <div>
+              <Link href="/" className="inline-flex items-center gap-3">
+                <div className="relative w-10 h-10">
+                  <Image
+                    src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=80&fit=max&auto=format"
+                    alt="SOGIF"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="font-semibold type-title">SOGIF</span>
+              </Link>
+            </div>
+            {/* Row 2: description + legal — aligns with link lists */}
+            <div>
+              <p className="text-white/90 type-support max-w-sm mb-3">
+                The Strategic Opportunities<br />(Growth &amp; Income) Fund
+              </p>
+              <div className="flex flex-wrap gap-x-2 gap-y-0.5 md:flex-col md:space-y-2 md:gap-0 type-support text-white/80">
+                <p>{constants.responsibleEntity}</p>
+                <p className="before:content-['·'] before:mr-2 md:before:content-none">ARSN {constants.arsn}</p>
+                <p className="before:content-['·'] before:mr-2 md:before:content-none">AFSL No {constants.afsl}</p>
               </div>
-              <span className="font-semibold type-title">SOGIF</span>
-            </Link>
-            <p className="text-white/90 type-support max-w-sm mb-3 md:mb-6">
-              The Strategic Opportunities<br />(Growth &amp; Income) Fund
-            </p>
-            <div className="flex flex-wrap gap-x-2 gap-y-0.5 md:flex-col md:space-y-2 md:gap-0 type-support text-white/80">
-              <p>{constants.responsibleEntity}</p>
-              <p className="before:content-['·'] before:mr-2 md:before:content-none">ARSN {constants.arsn}</p>
-              <p className="before:content-['·'] before:mr-2 md:before:content-none">AFSL No {constants.afsl}</p>
             </div>
           </div>
 
-          {/* Pages */}
-          <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-2 md:mb-4 type-overline">
-              Pages
-            </h4>
-            <ul className="flex flex-wrap gap-x-5 gap-y-1.5 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-3">
-              {footerLinks.pages.map((link) => (
-                <li key={link.href}>
+          {/* Pages Column */}
+          <div className="grid gap-y-3 md:gap-y-4 lg:row-span-2 lg:[grid-template-rows:subgrid]">
+            {/* Row 1: heading — self-end pins it to the bottom of the logo-height track */}
+            <div className="lg:self-end">
+              <h4 className="text-sogif-cyan-light font-semibold type-overline">
+                Pages
+              </h4>
+            </div>
+            {/* Row 2: links */}
+            <div>
+              <ul className="flex flex-wrap gap-x-5 gap-y-1.5 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-3">
+                {footerLinks.pages.map((link) => (
+                  <li key={link.href}>
+                    <AppLink
+                      href={link.href}
+                      variant="nav"
+                      className="type-support focus-visible:underline underline-offset-4"
+                    >
+                      <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                        {link.label}
+                      </span>
+                    </AppLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Contact Column */}
+          <div className="grid gap-y-3 md:gap-y-4 lg:row-span-2 lg:[grid-template-rows:subgrid]">
+            {/* Row 1: heading — self-end pins it to the bottom of the logo-height track */}
+            <div className="lg:self-end">
+              <h4 className="text-sogif-cyan-light font-semibold type-overline">
+                Contact
+              </h4>
+            </div>
+            {/* Row 2: links */}
+            <div>
+              <ul className="flex flex-col gap-y-1.5 md:gap-y-3 type-support">
+                <li>
                   <AppLink
-                    href={link.href}
+                    href={`mailto:${constants.contactEmail}`}
+                    external
                     variant="nav"
-                    className="type-support focus-visible:underline underline-offset-4"
                   >
                     <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                      {link.label}
+                      {constants.contactEmail}
                     </span>
                   </AppLink>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-sogif-cyan-light font-semibold mb-2 md:mb-4 type-overline">
-              Contact
-            </h4>
-            <ul className="flex flex-col gap-y-1.5 md:gap-y-3 type-support">
-              <li>
-                <AppLink
-                  href={`mailto:${constants.contactEmail}`}
-                  external
-                  variant="nav"
-                >
-                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                    {constants.contactEmail}
-                  </span>
-                </AppLink>
-              </li>
-              <li>
-                <AppLink
-                  href={`tel:${constants.contactPhone.replace(/\s/g, '')}`}
-                  external
-                  variant="nav"
-                >
-                  <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
-                    {constants.contactPhone}
-                  </span>
-                </AppLink>
-              </li>
-              <li className="text-white/80">
-                {constants.address}
-              </li>
-              <li className="text-white/80">
-                Phone hours: 10am–4pm Melbourne time, business days
-              </li>
-            </ul>
+                <li>
+                  <AppLink
+                    href={`tel:${constants.contactPhone.replace(/\s/g, '')}`}
+                    external
+                    variant="nav"
+                  >
+                    <span className='relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sogif-cyan-light/80 after:transition-all after:duration-300 group-hover:after:w-full'>
+                      {constants.contactPhone}
+                    </span>
+                  </AppLink>
+                </li>
+                <li className="text-white/80">
+                  {constants.address}
+                </li>
+                <li className="text-white/80">
+                  Phone hours: 10am–4pm Melbourne time, business days
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </Container>
