@@ -47,7 +47,7 @@ function DirectorCard({ director }: { director: Director }) {
     <div className="flex w-full flex-col">
       <div className="flex items-start gap-4 sm:flex-col sm:items-stretch sm:gap-0">
         <div className="relative w-40 shrink-0 sm:mb-6 sm:w-full">
-          <div className="relative aspect-square overflow-hidden rounded-lg sm:rounded-xl">
+          <div className="relative aspect-square md:max-w-72 overflow-hidden rounded-lg sm:rounded-xl">
             <Image
               src={director.image}
               alt={director.name}
