@@ -101,10 +101,10 @@ function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
   const distributionsInception = totalDistributions
   const cumulativeInception = ((latest.issuePrice + totalDistributions - inception.issuePrice) / inception.issuePrice) * 100
 
-  // Trailing 12-month (data is newest first)
-  const trailing12 = data.slice(0, Math.min(12, data.length))
-  const startPoint = trailing12[trailing12.length - 1]
-  const trailing12Distributions = trailing12.reduce((sum, item) => sum + item.distribution, 0)
+  // True trailing 12-month (T12M): startPoint = same month 12 months prior (e.g. Jan 2025 → Jan 2026)
+  // Using data[12] gives 12 intervals; data[11] would only give 11 months
+  const startPoint = data[Math.min(12, data.length - 1)]
+  const trailing12Distributions = data.slice(0, Math.min(12, data.length - 1)).reduce((sum, item) => sum + item.distribution, 0)
 
   // Calculate cumulative distributions at each point (data is newest first, so sum from end backwards)
   // For startPoint: sum all distributions from startPoint to end of array (older months)
@@ -430,7 +430,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-caption text-white">12 Month</span>
                     <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
@@ -448,7 +448,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-caption text-white">12 Month</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
@@ -463,7 +463,7 @@ export function PerformanceSnapshot({ performanceData }: PerformanceSnapshotProp
                     <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Prev. Year</span>
+                    <span className="type-caption text-white">12 Month</span>
                     <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
                   </div>
                 </div>
