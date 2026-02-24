@@ -20,6 +20,7 @@ export { DisclaimerText } from './disclaimer-text'
 export { Badge } from './badge'
 export { AppCard } from './app-card'
 export { SectionHeader } from './section-header'
+export { SubpageHero } from './subpage-hero'
 export { SwiperControls } from './swiper-controls'
 
 // Shadcn — Card
