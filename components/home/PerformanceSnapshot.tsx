@@ -248,7 +248,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-x-8">
               {/* Current Prices — mobile row 1 left, desktop item 1 */}
               <div className="pb-5 lg:pt-5 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Current Prices</p>
+                <p className="type-overline text-white/70 mb-2">Dec '25 Prices</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Issue</span>
