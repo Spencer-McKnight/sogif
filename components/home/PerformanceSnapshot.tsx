@@ -265,7 +265,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
 
               {/* Distributions — mobile row 2 left, desktop item 3 */}
               <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Distributions</p>
+                <p className="type-overline text-white/70 mb-2">Distributions Paid</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Since Inception</span>
@@ -316,7 +316,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
 
         <div className="mt-8 space-y-1 type-caption text-white/70">
           <p>Capital Growth = Change In Issue Price</p>
-          <p>Total Return = Capital Growth + Cumulative Distributions</p>
+          <p>Total Return = Capital Growth + Distributions Paid</p>
           <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>
         </div>
       </Container>
