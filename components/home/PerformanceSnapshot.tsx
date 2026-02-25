@@ -268,12 +268,12 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Distributions Paid</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}¢</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}¢</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}¢</span>
                   </div>
                 </div>
               </div>
@@ -286,12 +286,12 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Capital Growth</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
@@ -301,12 +301,12 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Total Return</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
-                  </div>
-                  <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
