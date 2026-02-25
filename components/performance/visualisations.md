@@ -33,7 +33,7 @@ Footer
 
 ## Style rules:
 
-- Cyan, green, gold and navy are the allowed colours for visualisations. Use one or multiple depending on what is best practice.
+- Cyan light, success, gold and navy are the allowed colours for visualisations. Use one or multiple depending on what is best practice.
 - Chart keys on top left.
 - All chart containers have the same spacings on all sides, to retain consistent alignment and ensure value labels are visible. Be generous.
 - Light text contrast on bg-navy-light
@@ -42,6 +42,8 @@ Footer
 ## Usability:
 
 - Hover state brightness increase and consistent tooltip component and simple style.
+- High opacity on coloured elements so they read cleanly
+- High contrast text
 
 ## Charts:
 

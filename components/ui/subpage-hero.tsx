@@ -32,10 +32,10 @@ export function SubpageHero({ title, description }: SubpageHeroProps) {
       />
 
       {/* Decorative angled rule marks — top-right corner */}
-      <div aria-hidden className="pointer-events-none absolute right-0 inset-y-0 w-72 overflow-hidden opacity-30">
-        <div className="absolute right-16 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan" />
-        <div className="absolute right-28 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan" />
-        <div className="absolute right-40 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan" />
+      <div aria-hidden className="pointer-events-none absolute right-0 inset-y-0 w-72 overflow-hidden opacity-20">
+        <div className="absolute right-16 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan-light" />
+        <div className="absolute right-28 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan-light" />
+        <div className="absolute right-40 top-0 h-[120%] w-px rotate-[18deg] origin-top bg-sogif-cyan-light" />
       </div>
 
       {/* Left-edge cyan glow */}
