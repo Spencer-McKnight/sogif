@@ -302,11 +302,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}c</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}¢</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}c</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}¢</span>
                   </div>
                 </div>
               </div>
