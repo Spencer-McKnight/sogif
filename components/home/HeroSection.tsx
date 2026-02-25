@@ -116,6 +116,16 @@ export function HeroSection({ cms }: HeroSectionProps) {
                     {disclaimer}
                 </p>
             )}
+
+            {/* Bottom edge separator */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
+                style={{
+                    background:
+                        'linear-gradient(to right, transparent, hsl(189 100% 65% / 0.25) 30%, hsl(189 100% 65% / 0.25) 70%, transparent)',
+                }}
+            />
         </section>
     )
 }

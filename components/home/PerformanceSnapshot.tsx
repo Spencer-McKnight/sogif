@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 import { AppLink, ChartContainer, ChartTooltip, Container, SectionHeader } from '@/components/ui'
 import { Area, AreaChart, XAxis, YAxis, ResponsiveContainer, ReferenceDot } from 'recharts'
 import type { TooltipProps } from 'recharts'
-import { StructuredText } from 'react-datocms'
 import { usePerformanceSafe, computePerformanceMetrics } from '@/lib'
 import type { PerformanceDataRow, ComputedPerformanceData, ChartDataPoint, HomePageData } from '@/lib'
 
@@ -23,15 +22,15 @@ const chartConfig = {
     color: 'hsl(var(--sogif-gold))',
   },
   cumulativeReturn: {
-    label: 'Cumulative Return',
+    label: 'Total Return',
     color: 'hsl(var(--sogif-success))',
   },
 }
 
 const TOOLTIP_METRICS = [
-  { key: 'cumulativeReturn', label: 'Cumulative', color: 'hsl(160, 84%, 39%)' },
+  { key: 'cumulativeReturn', label: 'Total Return', color: 'hsl(160, 84%, 39%)' },
   { key: 'issuePrice', label: 'Issue Price', color: 'hsl(189, 100%, 65%)' },
-  { key: 'redemptionPrice', label: 'Redemption', color: 'hsl(41, 90%, 61%)' },
+  { key: 'redemptionPrice', label: 'Redemption Price', color: 'hsl(41, 90%, 61%)' },
 ] as const
 
 function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
@@ -41,7 +40,7 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
   if (!data) return null
 
   return (
-    <div className="rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
+    <div className="w-[280px] rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
       <p className="mb-2 type-support font-medium text-white">{(() => { const [month, year] = data.month.split('-'); return `${month} '${year}` })()}</p>
       <div className="space-y-1.5">
         {TOOLTIP_METRICS.map(({ key, label, color }) => {
@@ -66,7 +65,7 @@ function CustomTooltip({ active, payload }: TooltipProps<number, string>) {
         })}
       </div>
       {data.annotation && (
-        <p className="mt-2 pt-2 border-t border-white/15 type-caption text-white/80 max-w-[220px]" style={{ borderColor: `${data.annotation.color}40` }}>
+        <p className="mt-2 pt-2 border-t border-white/15 type-caption text-white/80" style={{ borderColor: `${data.annotation.color}40` }}>
           {data.annotation.text}
         </p>
       )}
@@ -96,7 +95,6 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
     performanceEyebrow,
     performanceTitle,
     performanceLinkLabel,
-    performanceDisclaimers,
   } = cms
 
   // Use context data when available; compute locally otherwise.
@@ -156,11 +154,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-gold" />
-                Redemption
+                Redemption Price
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-success" />
-                Cumulative
+                Total Return
               </span>
             </div>
             <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] max-h-[50vh] w-full">
@@ -185,7 +183,19 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                     axisLine={false}
                     tickLine={false}
                     tick={{ style: { fill: 'rgba(255,255,255,0.8)', fontSize: 12, fontFamily: 'inherit' } }}
-                    interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
+                    ticks={(() => {
+                      const first = chartData[0]?.month
+                      const reporting = chartData
+                        .map(d => d.month)
+                        .filter(m => {
+                          const month = m.split('-')[0]
+                          return month === 'Jun' || month === 'Dec'
+                        })
+                      if (first && !reporting.includes(first)) {
+                        return [first, ...reporting]
+                      }
+                      return reporting
+                    })()}
                     tickFormatter={(value) => {
                       const [month, year] = value.split('-')
                       return `${month.substring(0, 3)} '${year}`
@@ -259,9 +269,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
           {/* Stats Sidebar — right on desktop, below chart on mobile */}
           <div className="col-span-12 lg:col-span-3 border-y border-white/15 py-5 lg:border-y-0 lg:py-0">
             <div className="grid grid-cols-2 lg:grid-cols-1 gap-x-8">
-              {/* Current Prices — mobile row 1 left, desktop item 1 */}
+              {/* Prices — mobile row 1 left, desktop item 1 */}
               <div className="pb-5 lg:pt-5 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Current Prices</p>
+                <p className="type-overline text-white/70 mb-2">
+                  {(() => { const [month, year] = (chartData[chartData.length - 1]?.month ?? '').split('-'); return `${month} '${year} Prices` })()}
+                </p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Issue</span>
@@ -276,17 +288,17 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 </div>
               </div>
 
-              {/* Cumulative — mobile row 1 right, desktop item 2 */}
+              {/* Distributions Paid — mobile row 1 right, desktop item 2 */}
               <div className="pb-5 lg:border-t lg:border-white/15 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Cumulative</p>
+                <p className="type-overline text-white/70 mb-2">Distributions Paid</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(1)}¢</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(1)}¢</span>
                   </div>
                 </div>
               </div>
@@ -294,32 +306,32 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
               {/* Full-width mobile divider between rows */}
               <hr className="col-span-2 lg:hidden border-white/15" />
 
-              {/* Capital Growth — mobile row 2 right, desktop item 4 */}
+              {/* Capital Growth — mobile row 2 left, desktop item 3 */}
               <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
                 <p className="type-overline text-white/70 mb-2">Capital Growth</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-caption text-white">Since Inception</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
 
-              {/* Distributions — mobile row 2 left, desktop item 3 */}
+              {/* Total Return — mobile row 2 right, desktop item 4 */}
               <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
-                <p className="type-overline text-white/70 mb-2">Distributions</p>
+                <p className="type-overline text-white/70 mb-2">Total Return</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
@@ -327,11 +339,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
           </div>
         </div>
 
-        {performanceDisclaimers?.value ? (
-          <div className="mt-8 space-y-1 [&_p]:type-caption [&_p]:text-white/70">
-            <StructuredText data={performanceDisclaimers} />
-          </div>
-        ) : null}
+        <div className="mt-8 space-y-1 type-caption text-white/70">
+          <p>Capital Growth = Change In Issue Price</p>
+          <p>Total Return = Capital Growth + Distributions Paid</p>
+          <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>
+        </div>
       </Container>
 
     </section>
