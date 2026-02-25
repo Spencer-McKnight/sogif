@@ -263,17 +263,17 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 </div>
               </div>
 
-              {/* Cumulative — mobile row 1 right, desktop item 2 */}
-              <div className="pb-5 lg:border-t lg:border-white/15 lg:py-5">
-                <p className="type-overline text-white/70 mb-2">Cumulative</p>
+              {/* Distributions — mobile row 2 left, desktop item 3 */}
+              <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
+                <p className="type-overline text-white/70 mb-2">Distributions</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}¢</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
-                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}¢</span>
                   </div>
                 </div>
               </div>
@@ -296,17 +296,17 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 </div>
               </div>
 
-              {/* Distributions — mobile row 2 left, desktop item 3 */}
-              <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
-                <p className="type-overline text-white/70 mb-2">Distributions</p>
+              {/* Cumulative — mobile row 1 right, desktop item 2 */}
+              <div className="pb-5 lg:border-t lg:border-white/15 lg:py-5">
+                <p className="type-overline text-white/70 mb-2">Total Return</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Since Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}¢</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <span className="type-caption text-white">Last 12 Months</span>
-                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}¢</span>
+                    <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
 
         <div className="mt-8 space-y-1 type-caption text-white/70">
           <p>Capital Growth = Change In Issue Price</p>
-          <p>Cumulative Return = Capital Growth + Cumulative Distributions</p>
+          <p>Total Return = Capital Growth + Cumulative Distributions</p>
           <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>
         </div>
       </Container>
