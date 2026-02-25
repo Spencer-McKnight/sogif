@@ -99,22 +99,42 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
     performanceDisclaimers,
   } = cms
 
-  // Use context data when available; compute locally otherwise.
-  const contextData = usePerformanceSafe()
+  // Trim data to Dec 2025 for presentation
+  const trimmedData = useMemo(() => {
+    return performanceData.filter(d => {
+      const parts = d.month.split('-')
+      const yearStr = parts[parts.length - 1]
+      const yr = yearStr.length === 4 ? parseInt(yearStr) : 2000 + parseInt(yearStr)
+      return yr <= 2025
+    })
+  }, [performanceData])
 
+  // Compute metrics from trimmed data so stats also reflect the cutoff
   const computed = useMemo((): ComputedPerformanceData => {
-    if (contextData) {
-      return contextData.computed
-    }
-    // Fallback: compute locally (e.g., when not wrapped in PerformanceProvider)
-    return computePerformanceMetrics(performanceData)
-  }, [contextData, performanceData])
+    return computePerformanceMetrics(trimmedData)
+  }, [trimmedData])
 
   const chartData = computed.chartData
   const stats = computed.stats
   const { domain: yDomain, ticks: yTicks } = computed.yAxisConfig
   const annotatedData = computed.annotatedChartData
-  const { firstRedemption: firstRedemptionPoint, firstDistribution: firstDistributionPoint, acquisitionPoint } = computed.specialPoints
+
+  // Custom X-axis ticks: Sep '23 first, then Dec and Jun only
+  const xTicks = useMemo(() => {
+    const ticks: string[] = []
+    let firstAdded = false
+    for (const d of annotatedData) {
+      const [month] = d.month.split('-')
+      const m = month.substring(0, 3).toLowerCase()
+      if (!firstAdded && m === 'sep') {
+        ticks.push(d.month)
+        firstAdded = true
+      } else if (m === 'dec' || m === 'jun') {
+        ticks.push(d.month)
+      }
+    }
+    return ticks
+  }, [annotatedData])
 
   // Don't render if no data
   if (!performanceData.length) {
@@ -134,16 +154,6 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
               title={performanceTitle}
             />
           </div>
-          {performanceLinkLabel && (
-            <AppLink
-              href="/performance"
-              showArrow
-              variant="light"
-              className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"
-            >
-              {performanceLinkLabel}
-            </AppLink>
-          )}
         </div>
         {/* Desktop: chart left, stats sidebar right | Mobile: chart then stats */}
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
@@ -165,7 +175,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
             </div>
             <ChartContainer config={chartConfig} className="h-[300px] md:h-[400px] lg:h-[500px] max-h-[50vh] w-full">
               <ResponsiveContainer>
-                <AreaChart data={annotatedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <AreaChart data={annotatedData} margin={{ top: 10, right: 40, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="redemptionGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(41, 90%, 61%)" stopOpacity={0.2} />
@@ -185,7 +195,8 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                     axisLine={false}
                     tickLine={false}
                     tick={{ style: { fill: 'rgba(255,255,255,0.8)', fontSize: 12, fontFamily: 'inherit' } }}
-                    interval={Math.max(0, Math.ceil(chartData.length / 6) - 1)}
+                    ticks={xTicks}
+                    interval={0}
                     tickFormatter={(value) => {
                       const [month, year] = value.split('-')
                       return `${month.substring(0, 3)} '${year}`
@@ -227,30 +238,6 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                     strokeWidth={2}
                     fill="url(#cumulativeGradient)"
                   />
-                  {/* Indicator dot at start of redemption price line */}
-                  {firstRedemptionPoint && (
-                    <ReferenceDot
-                      x={firstRedemptionPoint.month}
-                      y={firstRedemptionPoint.redemptionPrice}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(41, 90%, 61%)" />}
-                    />
-                  )}
-                  {/* Indicator dot at first distribution on cumulative return line */}
-                  {firstDistributionPoint && (
-                    <ReferenceDot
-                      x={firstDistributionPoint.month}
-                      y={firstDistributionPoint.cumulativeReturn}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(160, 84%, 39%)" />}
-                    />
-                  )}
-                  {/* Indicator dot at Dec 2024 - aggressive acquisition on issue price line */}
-                  {acquisitionPoint && (
-                    <ReferenceDot
-                      x={acquisitionPoint.month}
-                      y={acquisitionPoint.issuePrice}
-                      shape={(props) => <ChartIndicator {...props} color="hsl(189, 100%, 65%)" />}
-                    />
-                  )}
                 </AreaChart>
               </ResponsiveContainer>
             </ChartContainer>
@@ -281,11 +268,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Cumulative</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-caption text-white">Since Inception</span>
                     <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
@@ -299,11 +286,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Capital Growth</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
+                    <span className="type-caption text-white">Since Inception</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
                     <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
                   </div>
                 </div>
@@ -314,12 +301,12 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
                 <p className="type-overline text-white/70 mb-2">Distributions</p>
                 <div className="space-y-1">
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">Inception</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsInception.toFixed(4)}</span>
+                    <span className="type-caption text-white">Since Inception</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(2)}c</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="type-caption text-white">12 Month</span>
-                    <span className="type-body font-semibold tabular-nums text-white">${stats.distributionsPrevYear.toFixed(4)}</span>
+                    <span className="type-caption text-white">Last 12 Months</span>
+                    <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(2)}c</span>
                   </div>
                 </div>
               </div>
@@ -327,11 +314,11 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
           </div>
         </div>
 
-        {performanceDisclaimers?.value ? (
-          <div className="mt-8 space-y-1 [&_p]:type-caption [&_p]:text-white/70">
-            <StructuredText data={performanceDisclaimers} />
-          </div>
-        ) : null}
+        <div className="mt-8 space-y-1 type-caption text-white/70">
+          <p>Capital Growth = Change In Issue Price</p>
+          <p>Cumulative Return = Capital Growth + Cumulative Distributions</p>
+          <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>
+        </div>
       </Container>
 
     </section>
