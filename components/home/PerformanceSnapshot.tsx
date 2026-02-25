@@ -147,7 +147,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
           {/* Chart — always first visually */}
           <div className="col-span-12 lg:col-span-9">
-            <div className="mb-3 flex items-center gap-4 type-caption text-white/70">
+            <div className="py-1.5 mb-3 flex items-center gap-4 type-caption text-white/70">
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-cyan-light" />
                 Issue Price

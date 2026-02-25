@@ -38,6 +38,7 @@ Footer
 - All chart containers have the same spacings on all sides, to retain consistent alignment and ensure value labels are visible. Be generous.
 - Light text contrast on bg-navy-light
 - Very dark text contrast on bg-sogif-silver-light
+- Don't use cards or containers, place the visualisations on plain backgrounds and let them be the fidelity of the page.
 
 ## Usability:
 
