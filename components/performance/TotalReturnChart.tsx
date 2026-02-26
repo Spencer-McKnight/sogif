@@ -94,7 +94,7 @@ function ChartIndicator({ cx, cy, color }: { cx?: number; cy?: number; color: st
 
 function ChartLegend() {
   return (
-    <div className="py-1.5 flex items-center gap-4 type-caption text-white/70">
+    <div className="py-1.5 flex items-center gap-4 type-caption text-white/90">
       <span className="flex items-center gap-1.5">
         <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-success" />
         Total Return
@@ -126,7 +126,7 @@ function StatsSidebar() {
       <div className="grid grid-cols-2 lg:grid-cols-1 gap-x-8">
         {/* Prices */}
         <div className="pb-5">
-          <p className="type-overline text-white/70 mb-2">{priceLabel}</p>
+          <p className="type-overline text-white/80 mb-2">{priceLabel}</p>
           <div className="space-y-1">
             <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Issue</span>
@@ -143,7 +143,7 @@ function StatsSidebar() {
 
         {/* Distributions Paid */}
         <div className="pb-5 lg:border-t lg:border-white/15 lg:py-5">
-          <p className="type-overline text-white/70 mb-2">Distributions Paid</p>
+          <p className="type-overline text-white/80 mb-2">Distributions Paid</p>
           <div className="space-y-1">
             <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Since Inception</span>
@@ -160,7 +160,7 @@ function StatsSidebar() {
 
         {/* Capital Growth */}
         <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
-          <p className="type-overline text-white/70 mb-2">Change in Issue Price</p>
+          <p className="type-overline text-white/80 mb-2">Change in Issue Price</p>
           <div className="space-y-1">
             <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Since Inception</span>
@@ -175,7 +175,7 @@ function StatsSidebar() {
 
         {/* Total Return */}
         <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
-          <p className="type-overline text-white/70 mb-2">Total Return</p>
+          <p className="type-overline text-white/80 mb-2">Total Return</p>
           <div className="space-y-1">
             <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Since Inception</span>
@@ -314,7 +314,7 @@ export function TotalReturnChart({ showStats = true, showTitle = true, showTimeF
         {showStats && <StatsSidebar />}
       </div>
 
-      <div className="mt-6 space-y-1 type-caption text-white/70">
+      <div className="mt-6 space-y-1 type-caption text-white/80">
         <p>Total Return = Change in Issue Price + Cumulative Distributions Paid</p>
         <p>Cumulative return assumes investors were issued units at the start of the fund at an issue price of $1.00.</p>
         <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>

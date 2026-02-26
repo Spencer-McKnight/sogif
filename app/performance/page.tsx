@@ -1,5 +1,6 @@
 import { Header, Footer } from '@/components/layout'
 import { SubpageHero } from '@/components/ui'
+import { CsvDownloadButton } from '@/components/performance'
 import { PerformancePageContent } from './PerformancePageContent'
 
 export default function PerformancePage() {
@@ -9,6 +10,7 @@ export default function PerformancePage() {
       <SubpageHero
         title="Data Visualisations"
         description="Transparent monthly reporting on our pricing, capital allocation and capital return distributions."
+        action={<CsvDownloadButton />}
       />
       <main>
         <PerformancePageContent />

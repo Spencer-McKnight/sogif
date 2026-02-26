@@ -83,7 +83,7 @@ export function PerformancePageContent() {
       {/* ------------------------------------------------------------------ */}
       {/* Section 2 — FUM & Distributions (silver background)          */}
       {/* ------------------------------------------------------------------ */}
-      <section className="section-padding-short bg-sogif-silver">
+      <section id="distributions" className="section-padding-short bg-sogif-silver">
         <Container className="flex flex-col gap-8 md:gap-24">
           <DistributionsChart />
         </Container>

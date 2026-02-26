@@ -36,7 +36,7 @@ export function ChartTooltipContent({ month, metrics, dark = true }: ChartToolti
                 className="h-2.5 w-2.5 shrink-0 rounded-full"
                 style={{ backgroundColor: color }}
               />
-              <span className={`type-caption ${dark ? 'text-white/90' : 'text-gray-600'}`}>
+              <span className={`type-caption ${dark ? 'text-white/90' : 'text-gray-800'}`}>
                 {label}
               </span>
             </div>

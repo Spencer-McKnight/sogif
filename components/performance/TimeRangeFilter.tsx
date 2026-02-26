@@ -19,7 +19,7 @@ export function TimeRangeFilter({ value, onChange, dateRangeLabel, dark = false,
     <div className="flex items-center gap-3 flex-wrap">
       {dateRangeLabel && (
         <>
-          <span className={`type-caption tabular-nums ${dark ? 'text-white/50' : 'text-gray-500'}`}>
+          <span className={`type-caption tabular-nums ${dark ? 'text-white/80' : 'text-gray-800'}`}>
             {dateRangeLabel}
           </span>
           <span className={`h-4 w-px ${dark ? 'bg-white/15' : 'bg-gray-200'}`} />
@@ -39,8 +39,8 @@ export function TimeRangeFilter({ value, onChange, dateRangeLabel, dark = false,
                     ? 'bg-white/15 text-white'
                     : 'bg-white/60 text-gray-900'
                   : dark
-                    ? 'text-white/60 hover:text-white/90 hover:bg-white/5'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-white/30'
+                    ? 'text-white/80 hover:text-white hover:bg-white/5'
+                    : 'text-gray-800 hover:text-gray-900 hover:bg-white/30'
                 }
               `}
               aria-pressed={isActive}

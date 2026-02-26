@@ -32,7 +32,7 @@ interface ChartStatsProps {
 
 export function ChartStats({ items, dark = false }: ChartStatsProps) {
   const border = dark ? 'border-white/15' : 'border-gray-200'
-  const headingColor = dark ? 'text-white/70' : 'text-gray-400'
+  const headingColor = dark ? 'text-white/70' : 'text-gray-500'
   const valueColor = dark ? 'text-white' : 'text-sogif-navy'
 
   return (

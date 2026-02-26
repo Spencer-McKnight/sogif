@@ -47,13 +47,13 @@ export const CHART_COLOR_CLASSES = {
 // ---------------------------------------------------------------------------
 
 export const AXIS_STYLE_DARK = {
-  fill: 'rgba(255,255,255,0.7)',
+  fill: 'rgba(255,255,255,0.85)',
   fontSize: 12,
   fontFamily: 'inherit',
 } as const
 
 export const AXIS_STYLE_LIGHT = {
-  fill: 'rgba(15,23,42,0.7)',
+  fill: 'rgb(30,41,59)',
   fontSize: 12,
   fontFamily: 'inherit',
 } as const

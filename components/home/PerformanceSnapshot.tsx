@@ -49,7 +49,7 @@ export function PerformanceSnapshot({ performanceData, cms }: PerformanceSnapsho
           </div>
           {performanceLinkLabel && (
             <AppLink
-              href="/performance"
+              href="/performance#distributions"
               showArrow
               variant="light"
               className="hidden md:inline-flex shrink-0 text-sogif-cyan-light hover:text-white"

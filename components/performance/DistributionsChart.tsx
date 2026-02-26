@@ -141,7 +141,7 @@ export function DistributionsChart() {
           <h3 className="type-title font-display font-semibold text-sogif-navy">Distributions Paid</h3>
         </div>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="py-1.5 flex items-center gap-1.5 type-caption text-gray-500">
+          <div className="py-1.5 flex items-center gap-1.5 type-caption text-gray-800">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-success" />
             Distribution (¢) per Unit
           </div>

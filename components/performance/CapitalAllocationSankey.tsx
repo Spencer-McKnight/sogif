@@ -238,7 +238,7 @@ function NodeLabel({ node }: { node: PositionedNode }) {
         x={labelX} y={cy - 7}
         textAnchor="start"
         dominantBaseline="central"
-        className="fill-gray-700 font-semibold"
+        className="fill-gray-900 font-semibold"
         style={{ fontSize: 12 }}
       >
         {node.name}
@@ -247,7 +247,7 @@ function NodeLabel({ node }: { node: PositionedNode }) {
         x={labelX} y={cy + 9}
         textAnchor="start"
         dominantBaseline="central"
-        className="fill-gray-500"
+        className="fill-gray-800"
         style={{ fontSize: 12 }}
       >
         {dollar} ({pct})
@@ -307,7 +307,7 @@ function MiniDonut({ slices }: { slices: DonutSlice[] }) {
         {slices.map((s) => (
           <div key={s.label} className="flex items-center gap-1.5">
             <span className="inline-block h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: s.color }} />
-            <span className="type-caption text-gray-600">
+            <span className="type-caption text-gray-800">
               {s.label} <span className="font-semibold tabular-nums text-sogif-navy">{total > 0 ? `${((s.value / total) * 100).toFixed(0)}%` : '—'}</span>
             </span>
           </div>
@@ -369,7 +369,7 @@ export function CapitalAllocationSankey() {
         <h3 className="type-title font-display font-semibold text-sogif-navy mb-3">
           Asset Allocation for {monthLabel}
         </h3>
-        <div className="flex py-1.5 items-center gap-4 type-caption text-gray-500">
+        <div className="flex py-1.5 items-center gap-4 type-caption text-gray-800">
           {legendItems.map(({ label, color }) => (
             <span key={label} className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: color }} />
