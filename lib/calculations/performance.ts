@@ -259,15 +259,6 @@ export function annotateChartData(chartData: ChartDataPoint[]): ChartDataPoint[]
         },
       }
     }
-    if (d.month === 'Dec-24') {
-      return {
-        ...d,
-        annotation: {
-          text: 'Aggressive property acquisition began',
-          color: 'hsl(189, 100%, 65%)',
-        },
-      }
-    }
     return d
   })
 }
@@ -301,9 +292,6 @@ export function computePerformanceMetrics(rawData: PerformanceDataRow[]): Comput
     }
     if (d.month === 'May-24' && !firstDistribution) {
       firstDistribution = d
-    }
-    if (d.month === 'Dec-24' && !acquisitionPoint) {
-      acquisitionPoint = d
     }
   }
 

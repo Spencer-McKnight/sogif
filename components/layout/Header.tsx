@@ -19,7 +19,15 @@ export function Header() {
   const constants = useConstants()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-sogif-navy/95 backdrop-blur-md border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-sogif-navy/95 backdrop-blur-md">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, hsl(189 100% 65% / 0.25) 30%, hsl(189 100% 65% / 0.25) 70%, transparent)',
+        }}
+      />
       <svg width="0" height="0" className="absolute">
         <defs>
           <filter id="logo-outline" x="-10%" y="-10%" width="120%" height="120%">
@@ -116,7 +124,15 @@ export function Header() {
             className="fixed inset-0 z-[60] lg:hidden bg-sogif-navy backdrop-blur-sm"
           >
             {/* Mobile Menu Header */}
-            <div className="fixed top-0 left-0 right-0 bg-sogif-navy/95 backdrop-blur-md border-b border-white/10 z-[70]">
+            <div className="fixed top-0 left-0 right-0 bg-sogif-navy/95 backdrop-blur-md z-[70]">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute bottom-0 left-0 right-0 h-px"
+                style={{
+                  background:
+                    'linear-gradient(to right, transparent, hsl(189 100% 65% / 0.25) 30%, hsl(189 100% 65% / 0.25) 70%, transparent)',
+                }}
+              />
               <Container>
                 <div className="flex items-center justify-between h-20">
                   <Link href="/" className="flex items-center group shrink-0" onClick={() => setMobileMenuOpen(false)}>

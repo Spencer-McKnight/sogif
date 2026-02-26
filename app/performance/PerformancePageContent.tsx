@@ -9,6 +9,57 @@ import {
   CapitalAllocationTimeline,
   CsvDownloadButton,
 } from '@/components/performance'
+import { InvestmentSteps } from '@/components/home/InvestmentSteps'
+import type { HomePageData } from '@/lib'
+
+// TODO: replace with CMS query
+const STEPS_MOCK = {
+  stepsEyebrow: 'HOW IT WORKS',
+  stepsTitle: 'Three Easy Steps to Investing',
+  stepsCtaLabel: 'Start Your Application Here',
+  stepsCtaHref: '/apply',
+  steps: [
+    {
+      id: '1',
+      title: 'Read',
+      description: {
+        value: {
+          schema: 'dast',
+          document: {
+            type: 'root',
+            children: [{ type: 'paragraph', children: [{ type: 'span', value: 'Read the offer documents to make an informed decision.' }] }],
+          },
+        },
+      },
+    },
+    {
+      id: '2',
+      title: 'Register',
+      description: {
+        value: {
+          schema: 'dast',
+          document: {
+            type: 'root',
+            children: [{ type: 'paragraph', children: [{ type: 'span', value: 'Apply online with an identification check.' }] }],
+          },
+        },
+      },
+    },
+    {
+      id: '3',
+      title: 'Remit',
+      description: {
+        value: {
+          schema: 'dast',
+          document: {
+            type: 'root',
+            children: [{ type: 'paragraph', children: [{ type: 'span', value: 'Transfer funds to complete your application.' }] }],
+          },
+        },
+      },
+    },
+  ],
+} as unknown as HomePageData
 
 export function PerformancePageContent() {
   return (
@@ -16,64 +67,41 @@ export function PerformancePageContent() {
       {/* ------------------------------------------------------------------ */}
       {/* Section 1 — Pricing & Returns (navy background)              */}
       {/* ------------------------------------------------------------------ */}
-      <section className="section-padding bg-sogif-navy">
+      <section className="section-padding-short bg-sogif-navy">
         <Container>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <SectionHeader
-              dark
-              align="left"
-              eyebrow="Pricing & Returns"
-              title="Fund Performance"
-            />
-            <CsvDownloadButton />
-          </div>
+          <SectionHeader
+            dark
+            align="left"
+            eyebrow="Performance"
+            title="Prices with Distributions"
+            className="mb-12"
+          />
           <TotalReturnChart showStats />
         </Container>
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Section 2 — FUM & Distributions (silver-light background)          */}
+      {/* Section 2 — FUM & Distributions (silver background)          */}
       {/* ------------------------------------------------------------------ */}
-      <section className="section-padding bg-sogif-silver-light">
-        <Container>
-          <SectionHeader
-            align="left"
-            eyebrow="Fund Metrics"
-            title="Growth & Distributions"
-            className="mb-12"
-          />
-          <div className="grid grid-cols-12 gap-8 lg:gap-12">
-            <div className="col-span-12 lg:col-span-6">
-              <FUMChart />
-            </div>
-            <div className="col-span-12 lg:col-span-6">
-              <DistributionsChart />
-            </div>
-          </div>
+      <section className="section-padding-short bg-sogif-silver">
+        <Container className="flex flex-col gap-8 md:gap-24">
+          <DistributionsChart />
         </Container>
       </section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Section 3 — Capital Allocation (silver-light background)           */}
-      {/* ------------------------------------------------------------------ */}
-      <section className="section-padding bg-sogif-silver-light border-t border-gray-200/60">
-        <Container>
-          <SectionHeader
-            align="left"
-            eyebrow="Asset Breakdown"
-            title="Capital Allocation"
-            className="mb-12"
-          />
-          {/* Sankey — always full width */}
-          <div className="mb-12 lg:mb-16">
-            <CapitalAllocationSankey />
-          </div>
-          {/* Timeline — full width */}
-          <div>
-            <CapitalAllocationTimeline />
-          </div>
+      <section className="section-padding-short bg-sogif-silver-light">
+        <Container className="flex flex-col gap-8 md:gap-24">
+          <FUMChart />
+          <CapitalAllocationSankey />
+          <CapitalAllocationTimeline />
         </Container>
       </section>
+
+
+      {/* ------------------------------------------------------------------ */}
+      {/* Section 4 — Investment Steps                                        */}
+      {/* ------------------------------------------------------------------ */}
+      <InvestmentSteps cms={STEPS_MOCK} />
     </>
   )
 }

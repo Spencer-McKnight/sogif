@@ -8,21 +8,25 @@ interface TimeRangeFilterProps {
   dateRangeLabel: string
   /** Use light styling on dark backgrounds */
   dark?: boolean
+  /** Time range values to exclude from the filter */
+  exclude?: TimeRange[]
 }
 
-export function TimeRangeFilter({ value, onChange, dateRangeLabel, dark = false }: TimeRangeFilterProps) {
+export function TimeRangeFilter({ value, onChange, dateRangeLabel, dark = false, exclude }: TimeRangeFilterProps) {
+  const ranges = exclude ? TIME_RANGES.filter(r => !exclude.includes(r.value)) : TIME_RANGES
+
   return (
     <div className="flex items-center gap-3 flex-wrap">
       {dateRangeLabel && (
         <>
-          <span className={`type-caption tabular-nums ${dark ? 'text-white/50' : 'text-gray-400'}`}>
+          <span className={`type-caption tabular-nums ${dark ? 'text-white/50' : 'text-gray-500'}`}>
             {dateRangeLabel}
           </span>
           <span className={`h-4 w-px ${dark ? 'bg-white/15' : 'bg-gray-200'}`} />
         </>
       )}
-      <div className={`flex items-center rounded-lg overflow-hidden border ${dark ? 'border-white/15' : 'border-gray-200'}`} role="group" aria-label="Time range filter">
-        {TIME_RANGES.map(({ value: rangeValue, label }) => {
+      <div className={`flex items-center rounded-lg overflow-hidden border ${dark ? 'border-white/15' : 'border-gray-200 bg-white/15'}`} role="group" aria-label="Time range filter">
+        {ranges.map(({ value: rangeValue, label }) => {
           const isActive = value === rangeValue
           return (
             <button
@@ -33,10 +37,10 @@ export function TimeRangeFilter({ value, onChange, dateRangeLabel, dark = false 
                 ${isActive
                   ? dark
                     ? 'bg-white/15 text-white'
-                    : 'bg-sogif-navy text-white'
+                    : 'bg-white/60 text-gray-900'
                   : dark
                     ? 'text-white/60 hover:text-white/90 hover:bg-white/5'
-                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-white/30'
                 }
               `}
               aria-pressed={isActive}

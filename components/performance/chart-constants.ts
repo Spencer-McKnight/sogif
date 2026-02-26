@@ -25,9 +25,12 @@ export const CHART_HEIGHT_CLASS = {
 
 export const CHART_COLORS = {
   cyan: 'hsl(189, 100%, 65%)',
+  cyanDark: 'hsl(189, 100%, 22%)',
   gold: 'hsl(41, 90%, 61%)',
   success: 'hsl(160, 84%, 39%)',
   navy: 'hsl(211, 52%, 25%)',
+  navyLight: 'hsl(211, 52%, 25%)',
+  navyLightAlpha: 'hsla(211, 52%, 25%, 0.85)',
   navyDeep: 'hsl(210, 73%, 16%)',
 } as const
 
@@ -78,7 +81,7 @@ export const CHART_MARGIN = { top: 16, right: 16, left: 0, bottom: 8 } as const
 export type TimeRange = 'all' | '24m' | '12m' | '6m' | '1m'
 
 export const TIME_RANGES: { value: TimeRange; label: string; months: number | null }[] = [
-  { value: 'all', label: 'All Time', months: null },
+  { value: 'all', label: 'Inception', months: null },
   { value: '24m', label: '24M', months: 24 },
   { value: '12m', label: '12M', months: 12 },
   { value: '6m', label: '6M', months: 6 },

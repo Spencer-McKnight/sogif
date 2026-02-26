@@ -7,7 +7,7 @@ export default function PerformancePage() {
     <>
       <Header />
       <SubpageHero
-        title="Performance"
+        title="Data Visualisations"
         description="Transparent monthly reporting on our pricing, capital allocation and capital return distributions."
       />
       <main>
