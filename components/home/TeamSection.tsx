@@ -83,7 +83,7 @@ export function TeamSection({ cms }: TeamSectionProps) {
           </div>
           {linkLabel && (
             <AppLink
-              href="/strategy"
+              href="/benefits"
               showArrow
               variant="text"
               className="hidden md:inline-flex shrink-0"
@@ -111,7 +111,7 @@ export function TeamSection({ cms }: TeamSectionProps) {
         {/* Mobile page link */}
         {linkLabel && (
           <div className="mt-10 text-center md:hidden">
-            <AppLink href="/strategy" showArrow variant="text">
+            <AppLink href="/benefits" showArrow variant="text">
               {linkLabel}
             </AppLink>
           </div>

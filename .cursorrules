@@ -1,7 +1,7 @@
 ## Case
 
 Create an exceptional, modern digital website sales funnel and investor experience.
-See /README.md for strategy and business context.
+See /README.md for benefits and business context.
 
 ## Technology
 
@@ -37,7 +37,7 @@ Content Management System
 Home Page
 Performance Page
 Content Pages
-Onboarding Flow Strategy
+Onboarding Flow Benefits
 Blog & Announcements Page
 DNS Changeover & Live Launch
 Register Interest Form
@@ -73,7 +73,7 @@ Bespoke Content Managed Pages: Build bespoke componentry supplemented by blocks 
 
 Dynamically Pulled Content Matrix Pages: Utilise blocks to compose the page and mock CMS data. Can be statically linked.
 
-- Strategy /Strategy
+- Benefits /Benefits
 - Disclosures /disclosures
 - Apply /apply
 

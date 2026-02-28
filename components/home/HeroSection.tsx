@@ -47,13 +47,13 @@ export function HeroSection({ cms }: HeroSectionProps) {
             : '—'
 
         return [
-            { value: trailingReturn, label: 'Return in last 12 Months*', highlight: true },
+            { value: trailingReturn, label: 'Performance Since Inception', highlight: true },
             ...staticStats,
         ]
     }, [performanceData, staticStats])
 
     return (
-        <section className="relative sm:min-h-[90vh] md:min-h-[80vh] lg:min-h-[70vh] flex flex-col overflow-hidden bg-sogif-navy">
+        <section className="relative min-h-[90vh]sm:min-h-[80vh] md:min-h-[80vh] lg:min-h-[70vh] flex flex-col overflow-hidden bg-sogif-navy">
             {/* Background Image */}
             <motion.div className="absolute inset-0" style={{ y: backgroundY }}>
                 <DatoImage
@@ -71,21 +71,28 @@ export function HeroSection({ cms }: HeroSectionProps) {
             </motion.div>
 
             {/* Content - flex-1 to fill available space, centered vertically */}
-            <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-36 md:pb-12 lg:pb-20">
-                <div className="w-full grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <Container className="relative z-10 flex-1 flex items-center w-full pb-12 pt-40 md:pb-12 lg:pb-20">
+                <div className="w-full grid lg:grid-cols-12 gap-8 lg:gap-16">
                     {/* Left Column - Text Content (7/12) */}
                     <div className="lg:col-span-8 xl:col-span-7 text-center lg:text-left w-full max-w-2xl lg:max-w-none mx-auto lg:mx-0">
-                        <h1 className="type-display text-white mb-5 md:mb-6">
-                            <span className="relative inline-block">
+                        <h1 className="type-display text-white py-4 lg:py-6 mb-3">
+                            <span className="relative inline-block pb-1.5">
                                 {headlineTop}
-                                <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-sogif-gold/80 to-sogif-gold/35 rounded-full" />
+                                <span
+                                    aria-hidden
+                                    className="absolute -bottom-0.5 left-0 w-full h-1 rounded-full origin-left motion-safe:animate-hero-underline overflow-hidden"
+                                    style={{ filter: 'drop-shadow(0 0 6px hsl(41 98% 67% / 0.4))' }}
+                                >
+                                    <span className="block h-full bg-gradient-to-r from-sogif-gold to-sogif-gold/40 rounded-full" />
+                                    <span className="absolute inset-y-0 w-1/4 bg-gradient-to-r from-transparent via-white/25 to-transparent motion-safe:animate-hero-shimmer" />
+                                </span>
                             </span>
                             <br />
                             <span className="text-sogif-cyan-light">{headlineBottom}</span>
                         </h1>
 
                         {Boolean(heroSubheadline?.value) && (
-                            <div className="type-body text-white/90 mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 [&_p]:m-0">
+                            <div className="type-body text-white/90 mb-4 md:mb-6 max-w-xl mx-auto lg:mx-0 [&_p]:m-0">
                                 <StructuredText data={heroSubheadline} />
                             </div>
                         )}
@@ -101,6 +108,12 @@ export function HeroSection({ cms }: HeroSectionProps) {
                                 {ctaLabel}
                             </ButtonLink>
                         </div>
+                        {/* Past performance disclaimer */}
+                        {disclaimer && (
+                            <p className="type-caption text-white/60 pt-4 md:pt-16">
+                                {disclaimer}
+                            </p>
+                        )}
                     </div>
 
                     {/* Right Column - Stats Display (5/12) */}
@@ -109,13 +122,6 @@ export function HeroSection({ cms }: HeroSectionProps) {
                     </div>
                 </div>
             </Container>
-
-            {/* Past performance disclaimer */}
-            {disclaimer && (
-                <p className="relative type-caption text-white/70 text-center pb-4 px-4">
-                    {disclaimer}
-                </p>
-            )}
 
             {/* Bottom edge separator */}
             <div

@@ -33,7 +33,7 @@ export function HeroStats({ stats }: HeroStatsProps) {
   return (
     <div className="max-w-sm mx-auto lg:max-w-none lg:mx-0">
       {/* Stats container - vertical stack on mobile, horizontal row on tablet, vertical on desktop */}
-      <div className="grid grid-cols-1 gap-0 md:gap-3 lg:gap-2 rounded-2xl p-2 md:p-5 lg:p-3">
+      <div className="grid grid-cols-1 gap-0 md:gap-3 lg:gap-2 rounded-2xl">
         {stats.map((stat) => (
           <StatItem key={stat.label} stat={stat} />
         ))}

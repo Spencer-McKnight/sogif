@@ -15,6 +15,7 @@ This document establishes architectural patterns and best practices for data com
 - **Benefit:** Easier to debug and modify calculation logic
 
 **Example:**
+
 ```tsx
 // ✅ GOOD: Pure calculation function
 export function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
@@ -25,7 +26,7 @@ export function calculateStats(data: PerformanceDataRow[]): PerformanceStats {
 export function StatsComponent({ data }) {
   const stats = useMemo(() => {
     // Complex calculations inside component
-  }, [data])
+  }, [data]);
 }
 ```
 
@@ -34,30 +35,33 @@ export function StatsComponent({ data }) {
 **Rule:** All calculation functions must be pure (deterministic, no side effects).
 
 **Characteristics:**
+
 - Same input always produces same output
 - No external state mutations
 - No I/O operations (fetch, localStorage, etc.)
 - No React hooks
 
 **Why it matters:**
+
 - Calculations can run on both server and client
 - Easy to test with simple input/output assertions
 - Results are cacheable and predictable
 
 **Example:**
+
 ```tsx
 // ✅ GOOD: Pure function
 export function computeMetrics(data: RawData[]): ComputedMetrics {
   // Only transforms input data
   // No side effects
-  return { ...computed }
+  return { ...computed };
 }
 
 // ❌ BAD: Impure function
 export function computeMetrics(data: RawData[]): ComputedMetrics {
-  const metrics = { ...computed }
-  localStorage.setItem('metrics', JSON.stringify(metrics)) // Side effect!
-  return metrics
+  const metrics = { ...computed };
+  localStorage.setItem("metrics", JSON.stringify(metrics)); // Side effect!
+  return metrics;
 }
 ```
 
@@ -65,44 +69,48 @@ export function computeMetrics(data: RawData[]): ComputedMetrics {
 
 **Rule:** Pre-compute data on the server during initial fetch when possible.
 
-**Strategy:**
+**Benefits:**
+
 1. Fetch raw data from CMS (server-side in `getConstants()`)
 2. Compute derived metrics using pure functions (server-side)
 3. Pass pre-computed data to React Context
 4. Client components consume ready-made calculations
 
 **Benefits:**
+
 - Reduces client JavaScript execution
 - Computed data is serializable (works with RSC)
 - Same data available to all client components
 - Fallback available if context unavailable
 
 **When to compute client-side:**
+
 - Dynamic filtering by user (date ranges, categories)
 - Real-time calculations based on user input
 - Optional views with secondary computations
 
 **Implementation:**
+
 ```tsx
 // Server: lib/queries/constants.ts
 export const getConstants = cache(async () => {
-  const rawData = await fetchPerformanceData(url)
-  const computed = computePerformanceMetrics(rawData) // Pre-compute
+  const rawData = await fetchPerformanceData(url);
+  const computed = computePerformanceMetrics(rawData); // Pre-compute
 
   return {
     performanceData: rawData,
     computedPerformance: computed, // Pass to context
-  }
-})
+  };
+});
 
 // Client: components/PerformanceSnapshot.tsx
 export function PerformanceSnapshot({ performanceData }) {
-  const contextData = usePerformanceSafe()
+  const contextData = usePerformanceSafe();
 
   const computed = useMemo(() => {
-    if (contextData) return contextData.computed // Use pre-computed
-    return computePerformanceMetrics(performanceData) // Fallback
-  }, [contextData, performanceData])
+    if (contextData) return contextData.computed; // Use pre-computed
+    return computePerformanceMetrics(performanceData); // Fallback
+  }, [contextData, performanceData]);
 }
 ```
 
@@ -111,28 +119,30 @@ export function PerformanceSnapshot({ performanceData }) {
 **Rule:** All computed data structures must have explicit TypeScript interfaces.
 
 **Requirements:**
+
 - Define interfaces for all calculation outputs
 - Document the meaning and units of numeric fields
 - Use discriminated unions for conditional data
 - Import types from `lib/types/` or export from calculation modules
 
 **Example:**
+
 ```tsx
 // ✅ GOOD: Explicit types with documentation
 export interface PerformanceStats {
   /** Year-over-year capital growth as percentage */
-  capitalGrowthPrevYear: number
+  capitalGrowthPrevYear: number;
   /** Dollar value of distributions */
-  distributionsPrevYear: number
+  distributionsPrevYear: number;
   /** Total return: price growth + distributions */
-  cumulativePrevYear: number
+  cumulativePrevYear: number;
 }
 
 // ❌ BAD: Vague types
 export interface Stats {
-  value1: number
-  value2: number
-  value3: number
+  value1: number;
+  value2: number;
+  value3: number;
 }
 ```
 
@@ -141,6 +151,7 @@ export interface Stats {
 **Rule:** Complex computed data structures should be exposed via React Context, following the `ConstantsContext` pattern.
 
 **Pattern Structure:**
+
 ```tsx
 // 1. Define context value interface
 interface PerformanceContextValue {
@@ -167,6 +178,7 @@ export function usePerformanceSafe(): PerformanceContextValue | null { }
 ```
 
 **When to use Context:**
+
 - Data used by multiple deeply-nested components
 - Pre-computed at app initialization
 - Should be accessible throughout component tree
@@ -181,24 +193,24 @@ Minimize array traversals to reduce O(n) iterations:
 ```tsx
 // ✅ GOOD: Single pass
 export function calculateMetrics(data: DataRow[]): Metrics {
-  let totalDist = 0
-  let minPrice = Infinity
-  let maxPrice = -Infinity
+  let totalDist = 0;
+  let minPrice = Infinity;
+  let maxPrice = -Infinity;
 
   for (const item of data) {
-    totalDist += item.distribution
-    minPrice = Math.min(minPrice, item.price)
-    maxPrice = Math.max(maxPrice, item.price)
+    totalDist += item.distribution;
+    minPrice = Math.min(minPrice, item.price);
+    maxPrice = Math.max(maxPrice, item.price);
   }
 
-  return { totalDist, minPrice, maxPrice }
+  return { totalDist, minPrice, maxPrice };
 }
 
 // ❌ BAD: Multiple passes
 export function calculateMetrics(data: DataRow[]): Metrics {
-  const totalDist = data.reduce((s, d) => s + d.distribution, 0) // Pass 1
-  const minPrice = Math.min(...data.map(d => d.price)) // Pass 2
-  const maxPrice = Math.max(...data.map(d => d.price)) // Pass 3
+  const totalDist = data.reduce((s, d) => s + d.distribution, 0); // Pass 1
+  const minPrice = Math.min(...data.map((d) => d.price)); // Pass 2
+  const maxPrice = Math.max(...data.map((d) => d.price)); // Pass 3
 }
 ```
 
@@ -208,7 +220,9 @@ export function calculateMetrics(data: DataRow[]): Metrics {
 // ✅ GOOD: Early return
 export function calculateMetrics(data: DataRow[]): Metrics {
   if (!data.length) {
-    return { /* default values */ }
+    return {
+      /* default values */
+    };
   }
   // Expensive calculations follow
 }
@@ -220,10 +234,10 @@ Avoid floating-point precision issues:
 
 ```tsx
 // ✅ GOOD: Explicit rounding
-cumulativeReturn: Number((issuePrice + distributions).toFixed(4))
+cumulativeReturn: Number((issuePrice + distributions).toFixed(4));
 
 // ❌ BAD: Floating-point drift
-cumulativeReturn: issuePrice + distributions // May have precision issues
+cumulativeReturn: issuePrice + distributions; // May have precision issues
 ```
 
 ### 4. Memoization at Component Level
@@ -233,9 +247,9 @@ Use React.useMemo for client-side recalculations:
 ```tsx
 // ✅ GOOD: Memoized fallback calculation
 const computed = useMemo(() => {
-  if (contextData) return contextData.computed
-  return computePerformanceMetrics(performanceData)
-}, [contextData, performanceData])
+  if (contextData) return contextData.computed;
+  return computePerformanceMetrics(performanceData);
+}, [contextData, performanceData]);
 ```
 
 ## File Organization
@@ -274,33 +288,33 @@ lib/
 ```tsx
 // 1. Define types (lib/types/datocms.ts)
 export interface PortfolioBreakdown {
-  category: string
-  percentage: number
-  value: number
+  category: string;
+  percentage: number;
+  value: number;
 }
 
 // 2. Create pure calculation (lib/calculations/portfolio.ts)
 export function calculatePortfolioBreakdown(
-  holdings: Holding[]
+  holdings: Holding[],
 ): PortfolioBreakdown[] {
-  const total = holdings.reduce((sum, h) => sum + h.value, 0)
+  const total = holdings.reduce((sum, h) => sum + h.value, 0);
 
-  return holdings.map(holding => ({
+  return holdings.map((holding) => ({
     category: holding.category,
     percentage: (holding.value / total) * 100,
     value: holding.value,
-  }))
+  }));
 }
 
 // 3. Pre-compute server-side (lib/queries/constants.ts)
-const portfolioBreakdown = computePortfolioBreakdown(holdings)
+const portfolioBreakdown = computePortfolioBreakdown(holdings);
 
 // 4. Expose via context if needed
 // Or use directly in components if simple data
 
 // 5. Export from lib/index.ts
-export { calculatePortfolioBreakdown }
-export type { PortfolioBreakdown }
+export { calculatePortfolioBreakdown };
+export type { PortfolioBreakdown };
 ```
 
 ## Testing
@@ -309,39 +323,41 @@ All calculation functions should have unit tests:
 
 ```tsx
 // portfolio.test.ts
-describe('calculatePortfolioBreakdown', () => {
-  it('calculates percentages correctly', () => {
+describe("calculatePortfolioBreakdown", () => {
+  it("calculates percentages correctly", () => {
     const holdings = [
-      { category: 'Growth', value: 60 },
-      { category: 'Income', value: 40 },
-    ]
+      { category: "Growth", value: 60 },
+      { category: "Income", value: 40 },
+    ];
 
-    const result = calculatePortfolioBreakdown(holdings)
+    const result = calculatePortfolioBreakdown(holdings);
 
-    expect(result[0].percentage).toBe(60)
-    expect(result[1].percentage).toBe(40)
-  })
+    expect(result[0].percentage).toBe(60);
+    expect(result[1].percentage).toBe(40);
+  });
 
-  it('handles empty holdings', () => {
-    const result = calculatePortfolioBreakdown([])
-    expect(result).toEqual([])
-  })
-})
+  it("handles empty holdings", () => {
+    const result = calculatePortfolioBreakdown([]);
+    expect(result).toEqual([]);
+  });
+});
 ```
 
 ## Migration Guide: Component-Embedded → Extracted Calculations
 
 ### Before
+
 ```tsx
 function Component({ data }) {
   const stats = useMemo(() => {
     // Complex calculation logic
-    return computed
-  }, [data])
+    return computed;
+  }, [data]);
 }
 ```
 
 ### After
+
 ```tsx
 // lib/calculations/domain.ts
 export function calculateStats(data) {
@@ -350,11 +366,11 @@ export function calculateStats(data) {
 
 // component.tsx
 function Component({ data }) {
-  const contextData = usePerformanceSafe()
+  const contextData = usePerformanceSafe();
   const stats = useMemo(() => {
-    if (contextData?.stats) return contextData.stats
-    return calculateStats(data)
-  }, [contextData, data])
+    if (contextData?.stats) return contextData.stats;
+    return calculateStats(data);
+  }, [contextData, data]);
 }
 ```
 

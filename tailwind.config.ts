@@ -49,10 +49,20 @@ const config: Config = {
           from: { height: 'var(--radix-collapsible-content-height)', opacity: '1' },
           to: { height: '0', opacity: '0' },
         },
+        'hero-underline': {
+          from: { transform: 'scaleX(0)' },
+          to: { transform: 'scaleX(1)' },
+        },
+        'hero-shimmer': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(400%)' },
+        },
       },
       animation: {
         'collapsible-down': 'collapsible-down 300ms cubic-bezier(0.4, 0, 0.2, 1)',
         'collapsible-up': 'collapsible-up 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'hero-underline': 'hero-underline 1s cubic-bezier(0.16, 1, 0.3, 1) 400ms both',
+        'hero-shimmer': 'hero-shimmer 800ms cubic-bezier(0.16, 1, 0.3, 1) 1.3s both',
       },
       borderRadius: {
         lg: 'var(--radius)',

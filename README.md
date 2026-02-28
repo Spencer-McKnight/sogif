@@ -7,7 +7,7 @@ Build and implement the SOGIF website and sales funnel with modern visual design
 10,000 Minimum first investment
 1,000 Optional minimum additional investment
 
-# Strategy
+# Benefits
 
 The key intention is to convert traffic into prospective investors for a campaign that will run until the fund is closed to new investment in June 2026.
 Convey trust rationale through naturally viewable and multi-faceted signalling, such as property profiles, data visualisations, team introductions, portal showcases, and other strategised methods.

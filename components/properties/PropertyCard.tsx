@@ -66,9 +66,6 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
             <span className="relative w-fit type-title font-semibold text-sogif-navy tabular-nums tracking-tight after:content-[''] after:absolute after:-bottom-px after:left-0 after:h-[2px] after:w-0 after:bg-sogif-gold/80 after:transition-all after:duration-300 group-hover:after:w-full">
               {property.purchasePrice}
             </span>
-            <span className="type-caption">
-              valued {formatValuationDate(property.valuationDate)}
-            </span>
           </div>
 
           {/* Address + headline */}
@@ -82,18 +79,18 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         </div>
 
         {/* Stats — right column on mobile/tablet, horizontal row below on md+ */}
-        <div className="flex flex-col justify-between border-l border-border-soft pl-4 sm:flex-row sm:pt-3 sm:mt-1 sm:pl-0 sm:border-l-0 sm:border-t">
+        <div className="flex flex-col justify-between border-l border-border-soft pl-4 sm:grid sm:grid-cols-3 sm:pt-3 sm:mt-1 sm:pl-0 sm:border-l-0 sm:border-t">
+          <div>
+            <p className="type-caption text-text-muted w-fit mb-0.5">Acquired</p>
+            <span className="text-sm font-semibold text-sogif-navy">{formatShortDate(property.acquiredDate)}</span>
+          </div>
           <div>
             <p className="type-caption text-text-muted w-fit mb-0.5">Cap Rate</p>
             <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.capitalisationRate}</span>
           </div>
           <div>
-            <p className="type-caption text-text-muted w-fit mb-0.5">Land Size</p>
-            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.landSize}</span>
-          </div>
-          <div>
-            <p className="type-caption text-text-muted w-fit mb-0.5">Acquired</p>
-            <span className="text-sm font-semibold text-sogif-navy">{formatShortDate(property.acquiredDate)}</span>
+            <p className="type-caption text-text-muted w-fit mb-0.5">WALE</p>
+            <span className="text-sm font-semibold text-sogif-navy tabular-nums">{property.waleLeaseExpiry}</span>
           </div>
         </div>
       </div>

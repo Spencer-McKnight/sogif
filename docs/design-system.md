@@ -3,7 +3,7 @@
 Importantly, never let existing components stifle the creativity of current tasks.
 Use the system as a base to create new, beautiful componentry with a high level of design fidelity bespoke for each task.
 
-## Intent and Conversion Strategy
+## Intent and Conversion Benefits
 
 The current visual system is designed to build investor confidence while moving users toward action:
 

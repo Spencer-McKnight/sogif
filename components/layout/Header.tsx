@@ -10,7 +10,7 @@ import { AppLink, ButtonLink, Container } from '@/components/ui'
 const navItems = [
   { label: 'Performance', href: '/performance' },
   { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Strategy', href: '/strategy' },
+  { label: 'Benefits', href: '/benefits' },
   { label: 'News', href: '/news' },
 ]
 
