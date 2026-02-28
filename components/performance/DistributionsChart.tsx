@@ -22,7 +22,7 @@ import { ChartStats } from './ChartStats'
 // ---------------------------------------------------------------------------
 
 interface QuarterlyData {
-  quarter: string    // "Q1 '24"
+  quarter: string    // "Q1 2024"
   month: string      // keep for tooltip compat — last month of quarter
   distribution: number
   isLatest: boolean
@@ -53,7 +53,7 @@ function aggregateQuarterly(
     const [m, y] = d.month.split('-')
     const q = QUARTER_MAP[m]
     if (!q) continue
-    const key = `Q${q} '${y}`
+    const key = `Q${q} 20${y}`
     const dist = distMap.get(d.month) ?? d.distribution ?? 0
 
     if (!buckets.has(key)) {

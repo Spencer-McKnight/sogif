@@ -158,7 +158,7 @@ export function CapitalAllocationTimeline() {
                   tickLine={false}
                   tick={{ style: AXIS_STYLE_LIGHT }}
                   ticks={xTicks}
-                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m} '${y}` }}
+                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m} 20${y}` }}
                 />
                 <YAxis
                   domain={[0, yMax]}

@@ -92,10 +92,10 @@ export const TIME_RANGES: { value: TimeRange; label: string; months: number | nu
 // Formatting helpers
 // ---------------------------------------------------------------------------
 
-/** Format a month key like "Sep-23" → "Sep '23" */
+/** Format a month key like "Sep-23" → "Sep 2023" */
 export function formatMonthLabel(month: string): string {
   const [m, y] = month.split('-')
-  return `${m} '${y}`
+  return `${m} 20${y}`
 }
 
 /** Format a dollar value with appropriate precision */

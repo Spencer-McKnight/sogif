@@ -100,7 +100,7 @@ export function calculateChartData(data: PerformanceDataRow[]): ChartDataPoint[]
  *
  * Capital Growth = price-only return (no distributions)
  * Distributions  = raw dollar totals
- * Cumulative     = total return (growth + distributions)
+ * Cumulative     = cumulative value (growth + distributions)
  *
  * Optimizations:
  * - Single pass to sum all distributions

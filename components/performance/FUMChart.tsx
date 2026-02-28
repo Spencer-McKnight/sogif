@@ -107,7 +107,7 @@ export function FUMChart() {
                   tickLine={false}
                   tick={{ style: AXIS_STYLE_LIGHT }}
                   ticks={xTicks}
-                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m} '${y}` }}
+                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m} 20${y}` }}
                 />
                 <YAxis
                   domain={yDomain}

@@ -25,11 +25,11 @@ import {
 const chartConfig = {
   issuePrice: { label: 'Issue Price', color: CHART_COLORS.cyan },
   redemptionPrice: { label: 'Redemption Price', color: CHART_COLORS.gold },
-  cumulativeReturn: { label: 'Total Return', color: CHART_COLORS.success },
+  cumulativeReturn: { label: 'Cumulative Value', color: CHART_COLORS.success },
 }
 
 const TOOLTIP_METRICS = [
-  { key: 'cumulativeReturn' as const, label: 'Total Return', color: CHART_COLORS.success },
+  { key: 'cumulativeReturn' as const, label: 'Cumulative Value', color: CHART_COLORS.success },
   { key: 'issuePrice' as const, label: 'Issue Price', color: CHART_COLORS.cyan },
   { key: 'redemptionPrice' as const, label: 'Redemption Price', color: CHART_COLORS.gold },
 ]
@@ -44,7 +44,7 @@ function TotalReturnTooltip({ active, payload }: TooltipProps<number, string>) {
   if (!data) return null
 
   const [month, year] = data.month.split('-')
-  const label = `${month} '${year}`
+  const label = `${month} 20${year}`
 
   return (
     <div className="w-[280px] rounded-lg border border-white/20 bg-sogif-navy-light px-3 py-2.5 shadow-xl">
@@ -97,7 +97,7 @@ function ChartLegend() {
     <div className="py-1.5 flex items-center gap-4 type-caption text-white/90">
       <span className="flex items-center gap-1.5">
         <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-success" />
-        Total Return
+        Cumulative Value
       </span>
       <span className="flex items-center gap-1.5">
         <span className="inline-block h-2.5 w-2.5 rounded-full bg-sogif-cyan-light" />
@@ -119,7 +119,7 @@ function StatsSidebar() {
   const { chartData, stats } = usePerformance()
   const lastMonth = chartData[chartData.length - 1]?.month ?? ''
   const [m, y] = lastMonth.split('-')
-  const priceLabel = `${m} '${y} Prices`
+  const priceLabel = `${m} 20${y} Prices`
 
   return (
     <div className="col-span-12 lg:col-span-3 border-y border-white/15 py-5 lg:border-y-0 lg:py-0">
@@ -146,44 +146,29 @@ function StatsSidebar() {
           <p className="type-overline text-white/80 mb-2">Distributions Paid</p>
           <div className="space-y-1">
             <div className="flex items-baseline justify-between">
-              <span className="type-caption text-white">Since Inception</span>
-              <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(1)}&cent;</span>
-            </div>
-            <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Last 12 Months</span>
               <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsPrevYear * 100).toFixed(1)}&cent;</span>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="type-caption text-white">Since Inception</span>
+              <span className="type-body font-semibold tabular-nums text-white">{(stats.distributionsInception * 100).toFixed(1)}&cent;</span>
             </div>
           </div>
         </div>
 
         <hr className="col-span-2 lg:hidden border-white/15" />
 
-        {/* Capital Growth */}
-        <div className="pt-5 lg:border-t lg:border-white/15 lg:py-5">
-          <p className="type-overline text-white/80 mb-2">Change in Issue Price</p>
-          <div className="space-y-1">
-            <div className="flex items-baseline justify-between">
-              <span className="type-caption text-white">Since Inception</span>
-              <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthInception.toFixed(2)}%</span>
-            </div>
-            <div className="flex items-baseline justify-between">
-              <span className="type-caption text-white">Last 12 Months</span>
-              <span className="type-body font-semibold tabular-nums text-white">{stats.capitalGrowthPrevYear.toFixed(2)}%</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Total Return */}
+        {/* Cumulative Value */}
         <div className="pt-5 lg:border-t lg:border-white/15 lg:pt-5">
-          <p className="type-overline text-white/80 mb-2">Total Return</p>
+          <p className="type-overline text-white/80 mb-2">Cumulative Value</p>
           <div className="space-y-1">
-            <div className="flex items-baseline justify-between">
-              <span className="type-caption text-white">Since Inception</span>
-              <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
-            </div>
             <div className="flex items-baseline justify-between">
               <span className="type-caption text-white">Last 12 Months</span>
               <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativePrevYear.toFixed(2)}%</span>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="type-caption text-white">Since Inception</span>
+              <span className="type-body font-semibold tabular-nums text-sogif-success">{stats.cumulativeInception.toFixed(2)}%</span>
             </div>
           </div>
         </div>
@@ -279,7 +264,7 @@ export function TotalReturnChart({ showStats = true, showTitle = true, showTimeF
                   tickLine={false}
                   tick={{ style: AXIS_STYLE_DARK }}
                   ticks={xTicks}
-                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m.substring(0, 3)} '${y}` }}
+                  tickFormatter={(v) => { const [m, y] = v.split('-'); return `${m.substring(0, 3)} 20${y}` }}
                 />
                 <YAxis
                   domain={yAxis.domain}
@@ -315,9 +300,8 @@ export function TotalReturnChart({ showStats = true, showTitle = true, showTimeF
       </div>
 
       <div className="mt-6 space-y-1 type-caption text-white/80">
-        <p>Total Return = Change in Issue Price + Cumulative Distributions Paid</p>
-        <p>Cumulative return assumes investors were issued units at the start of the fund at an issue price of $1.00.</p>
-        <p>Past performance is not a reliable indicator of future performance. No earnings estimates are made.</p>
+        <p>Cumulative Value = Unit Issue Price + Cumulative Distributions Paid.</p>
+        <p>Past performance is not a reliable indicator of future performance.</p>
       </div>
     </div>
   )
