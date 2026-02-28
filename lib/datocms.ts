@@ -83,9 +83,9 @@ export const performQuery = cache(
 export const REVALIDATION_TIMES = {
   /** Global constants - rarely change, long cache */
   CONSTANTS: 3600, // 1 hour
-  /** Performance data - updates periodically */
+  /** Performance data - news periodically */
   PERFORMANCE: 300, // 5 minutes
-  /** Updates/blog content - moderate updates */
+  /** News/blog content - moderate news */
   NEWS: 600, // 10 minutes
   /** Property listings - may update frequently */
   PROPERTIES: 300, // 5 minutes

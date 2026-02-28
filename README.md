@@ -26,7 +26,7 @@ There are three areas of concern for an existing investor:
 - Performance statistics
 - Information about current property acquisitions
 - Property exit breakdowns and understanding rationale
-- Announcements and updates that are investor-only (may be different to public)
+- Announcements and news that are investor-only (may be different to public)
 - Frequently asked questions
 - Contact methods
 

@@ -89,8 +89,8 @@ const slides: ValueSlide[] = [
                 icon: TrendingUp,
             },
         ],
-        ctaHref: '/properties',
-        ctaLabel: 'Properties',
+        ctaHref: '/portfolio',
+        ctaLabel: 'Portfolio',
         accent: 'cyan-light',
     },
     {

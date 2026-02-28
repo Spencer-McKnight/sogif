@@ -82,7 +82,7 @@ export function PropertyShowcase({ cms, properties: cmsProperties }: PropertySho
           </div>
           {propertiesLinkLabel && (
             <AppLink
-              href="/properties"
+              href="/portfolio"
               showArrow
               variant="text"
               className="hidden md:inline-flex shrink-0"
@@ -92,7 +92,7 @@ export function PropertyShowcase({ cms, properties: cmsProperties }: PropertySho
           )}
         </div>
 
-        {/* Properties Grid */}
+        {/* Portfolio Grid */}
         <PropertyGrid
           properties={properties}
           onPropertyClick={setSelectedProperty}
@@ -101,7 +101,7 @@ export function PropertyShowcase({ cms, properties: cmsProperties }: PropertySho
         {/* Mobile page link */}
         {propertiesLinkLabel && (
           <div className="mt-10 text-center md:hidden">
-            <AppLink href="/properties" showArrow variant="text">
+            <AppLink href="/portfolio" showArrow variant="text">
               {propertiesLinkLabel}
             </AppLink>
           </div>

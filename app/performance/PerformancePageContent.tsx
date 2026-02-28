@@ -7,7 +7,6 @@ import {
   DistributionsChart,
   CapitalAllocationSankey,
   CapitalAllocationTimeline,
-  CsvDownloadButton,
 } from '@/components/performance'
 import { InvestmentSteps } from '@/components/home/InvestmentSteps'
 import type { HomePageData } from '@/lib'

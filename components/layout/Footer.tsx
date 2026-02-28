@@ -8,9 +8,9 @@ import { useConstants } from '@/lib/contexts/ConstantsContext'
 const footerLinks = {
   pages: [
     { label: 'Performance', href: '/performance' },
-    { label: 'Properties', href: '/properties' },
+    { label: 'Portfolio', href: '/portfolio' },
     { label: 'Strategy', href: '/strategy' },
-    { label: 'Updates', href: '/updates' },
+    { label: 'News', href: '/news' },
     { label: 'Apply', href: '/apply' },
   ],
   legal: [
@@ -55,7 +55,7 @@ export function Footer() {
               <Link href="/" className="inline-flex items-center gap-3">
                 <div className="relative w-10 h-10">
                   <Image
-                    src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=80&fit=max&auto=format"
+                    src="/images/logo-icon.svg"
                     alt="SOGIF"
                     fill
                     className="object-contain"

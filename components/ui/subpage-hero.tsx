@@ -1,13 +1,11 @@
-import type { ReactNode } from 'react'
 import { Container } from './container'
 
 interface SubpageHeroProps {
   title: string
   description?: string
-  action?: ReactNode
 }
 
-export function SubpageHero({ title, description, action }: SubpageHeroProps) {
+export function SubpageHero({ title, description }: SubpageHeroProps) {
   return (
     <section
       className="relative overflow-hidden bg-sogif-navy h-[300px] lg:h-[390px] flex flex-col items-start"
@@ -62,7 +60,7 @@ export function SubpageHero({ title, description, action }: SubpageHeroProps) {
 
       <Container className="relative mt-auto pb-14 lg:pb-20">
         <div className="grid grid-cols-12">
-          <div className="col-span-12 lg:col-span-8 flex flex-col items-start">
+          <div className="col-span-12 lg:col-span-6 flex flex-col items-start">
             <h1 className="type-heading font-display text-white">
               {title}
             </h1>
@@ -71,12 +69,6 @@ export function SubpageHero({ title, description, action }: SubpageHeroProps) {
               <p className="mt-4 type-body text-white/70">
                 {description}
               </p>
-            )}
-
-            {action && (
-              <div className="mt-6">
-                {action}
-              </div>
             )}
           </div>
         </div>

@@ -9,9 +9,9 @@ import { AppLink, ButtonLink, Container } from '@/components/ui'
 
 const navItems = [
   { label: 'Performance', href: '/performance' },
-  { label: 'Properties', href: '/properties' },
+  { label: 'Portfolio', href: '/portfolio' },
   { label: 'Strategy', href: '/strategy' },
-  { label: 'Updates', href: '/updates' },
+  { label: 'News', href: '/news' },
 ]
 
 export function Header() {
@@ -45,7 +45,7 @@ export function Header() {
           <Link href="/" className="lg:col-span-1">
             <div className="relative w-10 h-10 lg:w-14 lg:h-14">
               <Image
-                src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=96&fit=max&auto=format"
+                src="/images/logo-icon.svg"
                 alt="SOGIF"
                 fill
                 className="object-contain"
@@ -56,7 +56,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Nav — col 3–9 */}
-          <nav className="hidden lg:flex lg:col-span-7 items-center gap-4" aria-label="Primary navigation">
+          <nav className="hidden lg:flex lg:col-span-6 items-center gap-4" aria-label="Primary navigation">
             {navItems.map((item) => (
               <AppLink
                 key={item.href}
@@ -70,7 +70,7 @@ export function Header() {
           </nav>
 
           {/* Desktop CTAs + Mobile Menu Button — col 10–12 */}
-          <div className="flex items-center justify-end lg:col-span-4">
+          <div className="flex items-center justify-end lg:col-span-5">
             <div className="hidden lg:grid grid-cols-2 gap-6 w-full">
               <ButtonLink
                 href={constants.portalUrl}
@@ -80,7 +80,7 @@ export function Header() {
                 fullWidth
                 className="focus-ring-inverse"
               >
-                Investors
+                Investor Centre
               </ButtonLink>
               <ButtonLink
                 href="/apply"
@@ -89,7 +89,7 @@ export function Header() {
                 glow="gold"
                 fullWidth
               >
-                Apply
+                Join the Fund
               </ButtonLink>
             </div>
 
@@ -138,7 +138,7 @@ export function Header() {
                   <Link href="/" className="flex items-center group shrink-0" onClick={() => setMobileMenuOpen(false)}>
                     <div className="relative w-10 h-10">
                       <Image
-                        src="https://www.datocms-assets.com/192130/1768821769-logo.webp?w=96&fit=max&auto=format"
+                        src="/images/logo-icon.svg"
                         alt="SOGIF"
                         fill
                         className="object-contain"
